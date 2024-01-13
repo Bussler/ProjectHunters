@@ -107,4 +107,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   offset: {x: 0, y: 0, z: -10}
-  damping: 0.5
+  damping: 0.1
