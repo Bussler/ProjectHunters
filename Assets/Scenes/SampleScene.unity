@@ -643,6 +643,64 @@ Transform:
   m_Children: []
   m_Father: {fileID: 2063876242}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1887036969
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1887036971}
+  - component: {fileID: 1887036970}
+  - component: {fileID: 1887036972}
+  m_Layer: 0
+  m_Name: ObjectPoolManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1887036970
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887036969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d43e37917e858654280a5ecb7ee656c9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1887036971
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887036969}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.6232199, y: -0.58634925, z: 12.781998}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1887036972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887036969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 063bc1ac7ca75a9499a1a8073dd05506, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  something: {fileID: 4733470079832116271, guid: c54742facceb0b74a9346d4dbc21ec2a, type: 3}
 --- !u!1 &2063876241
 GameObject:
   m_ObjectHideFlags: 0
@@ -734,6 +792,10 @@ PrefabInstance:
       propertyPath: target
       value: 
       objectReference: {fileID: 7231160431862884317}
+    - target: {fileID: 9005992982910939004, guid: 4d8d6999479553b4096940a621531e07, type: 3}
+      propertyPath: _target
+      value: 
+      objectReference: {fileID: 7231160431862884317}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -808,3 +870,4 @@ SceneRoots:
   - {fileID: 3875160883500662617}
   - {fileID: 7231160431862884316}
   - {fileID: 2063876242}
+  - {fileID: 1887036971}
