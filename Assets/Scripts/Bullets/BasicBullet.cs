@@ -22,8 +22,12 @@ public class BasicBullet : MonoBehaviour
     void OnTriggerEnter2D(Collider2D other)
     {
         GameObject hitObject = other.gameObject;
-        Debug.Log("Hit " + hitObject.name);
-        if (hitObject.CompareTag("Player"))
+        
+        if (hitObject.CompareTag("Bullet")) // Ignore other bullets TODO: Do with collision layer
+        {
+            return;
+        }
+        else if (hitObject.CompareTag("Player"))
         {
             ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
         }

@@ -708,14 +708,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 4499511016548741359, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
-      propertyPath: m_Enabled
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4499511016548741359, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
-      propertyPath: _bulletSpeed
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 7997763545023082173, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
       propertyPath: m_LocalPosition.x
       value: -3.88
@@ -759,10 +751,6 @@ PrefabInstance:
     - target: {fileID: 9139702496994208216, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
       propertyPath: m_Name
       value: turret
-      objectReference: {fileID: 0}
-    - target: {fileID: 9139702496994208216, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
-      propertyPath: m_IsActive
-      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

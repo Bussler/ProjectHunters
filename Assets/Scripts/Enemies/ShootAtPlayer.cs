@@ -45,10 +45,12 @@ public class ShootAtPlayer : MonoBehaviour
     {
         if (_target != null)
         {
-            Vector3 direction = (_target.transform.position - transform.position).normalized;
-            Quaternion lookRotation = Quaternion.LookRotation(transform.up); // TODO something is not working with these quaternions
+            // calculate quaternion to look at player
+            Vector3 direction = this._target.position - this.transform.position;
+            float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
+            Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
-            GameObject bullet = ObjectPoolManager.Instance.SpawnObject(_bulletPrefab, _bulletSpawn.transform.position, lookRotation, ObjectPoolManager.PoolType.Bullet);
+            GameObject bullet = ObjectPoolManager.Instance.SpawnObject(_bulletPrefab, _bulletSpawn.transform.position, rotation, ObjectPoolManager.PoolType.Bullet);
 
             BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
             if (basicBullet != null)
