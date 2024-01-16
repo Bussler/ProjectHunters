@@ -4,6 +4,7 @@ using System.Linq;
 using Unity.VisualScripting;
 using UnityEngine;
 
+// Class to manage object pooling: Instead of instantiating and destroying objects, we can just disable and enable them from a list
 public class ObjectPoolManager : MonoBehaviour
 {
     public static ObjectPoolManager Instance;
