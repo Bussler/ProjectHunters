@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class LookAtPlayer : MonoBehaviour
 {
-    [SerializeField]
-    private GameObject _projectilePrefab;
     private Transform _target;
 
     void Start()
