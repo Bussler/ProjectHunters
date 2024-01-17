@@ -23,12 +23,17 @@ public class BasicBullet : MonoBehaviour
     {
         GameObject hitObject = other.gameObject;
         
-        if (hitObject.CompareTag("Bullet")) // Ignore other bullets TODO: Do with collision layer
+        if (hitObject.CompareTag("Bullet") || hitObject.CompareTag("EnemyBullet")) // Ignore other bullets TODO: Do with collision layer
         {
             return;
         }
         else if (hitObject.CompareTag("Player"))
         {
+            PlayerStatManager playerStats = hitObject.GetComponent<PlayerStatManager>();
+            if (playerStats != null)
+            {
+                playerStats.TakeDamage(damage);
+            }
             ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
         }
         else if (hitObject.CompareTag("Enemy"))

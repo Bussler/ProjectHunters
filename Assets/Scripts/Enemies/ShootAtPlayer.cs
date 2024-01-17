@@ -50,7 +50,7 @@ public class ShootAtPlayer : MonoBehaviour
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
-            GameObject bullet = ObjectPoolManager.Instance.SpawnObject(_bulletPrefab, _bulletSpawn.transform.position, rotation, ObjectPoolManager.PoolType.Bullet);
+            GameObject bullet = ObjectPoolManager.Instance.SpawnObject(_bulletPrefab, _bulletSpawn.transform.position, rotation, ObjectPoolManager.PoolType.EnemyBullet);
 
             BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
             if (basicBullet != null)

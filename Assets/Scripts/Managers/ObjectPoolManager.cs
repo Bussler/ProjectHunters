@@ -12,11 +12,13 @@ public class ObjectPoolManager : MonoBehaviour
 
     private GameObject _objectPoolHierarchyHolder;
     private GameObject _enemyPoolHolder;
+    private GameObject _enemyBulletPoolHolder;
     private GameObject _bulletPoolHolder;
 
     public enum PoolType
     {
         Enemy,
+        EnemyBullet,
         Bullet,
         None
     }
@@ -39,6 +41,9 @@ public class ObjectPoolManager : MonoBehaviour
 
         _enemyPoolHolder = new GameObject("Enemy Pool");
         _enemyPoolHolder.transform.SetParent(_objectPoolHierarchyHolder.transform);
+
+        _enemyBulletPoolHolder = new GameObject("Enemy Bullet Pool");
+        _enemyBulletPoolHolder.transform.SetParent(_objectPoolHierarchyHolder.transform);
 
         _bulletPoolHolder = new GameObject("Bullet Pool");
         _bulletPoolHolder.transform.SetParent(_objectPoolHierarchyHolder.transform);
@@ -129,6 +134,8 @@ public class ObjectPoolManager : MonoBehaviour
         {
             case PoolType.Enemy:
                 return _enemyPoolHolder;
+            case PoolType.EnemyBullet:
+                return _enemyBulletPoolHolder;
             case PoolType.Bullet:
                 return _bulletPoolHolder;
             default:
