@@ -64,10 +64,9 @@ public class PlayerMovement : MonoBehaviour
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.collider.CompareTag("Bullet"))
+        if (collision.collider.CompareTag("EnemyBullet"))
         {
-            forceToApply += new Vector2(-20, 0); // add initial vector from bullet
-            Destroy(collision.gameObject);
+            //forceToApply += new Vector2(-20, 0); // add initial vector from bullet
         }
     }
 }
