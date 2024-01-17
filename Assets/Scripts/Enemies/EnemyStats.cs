@@ -7,11 +7,10 @@ public class EnemyStats : MonoBehaviour
     public int damage = 10;
 
     [SerializeField]
-    private int movementSpeed = 5;
-
-    [SerializeField]
     private int _max_health = 100;
     private int _min_health = 1;
+
+    [SerializeField]
     private int _health;
 
     public int Health
