@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage basic bullet behaviour: move forward, deal damage to player or enemy
 public class BasicBullet : MonoBehaviour
 {
     public float speed = 20f;

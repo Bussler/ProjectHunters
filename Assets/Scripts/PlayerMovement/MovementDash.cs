@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to enable ability to dash
 public class MovementDash : MonoBehaviour
 {
     public bool canDash = true;

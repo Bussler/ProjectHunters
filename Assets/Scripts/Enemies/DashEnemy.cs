@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to make enemies dash towards the player
 public class DashEnemy : MonoBehaviour
 {
     private MovementDash dash_script;

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage Player stats: health, death
 public class PlayerStatManager : MonoBehaviour
 {
 

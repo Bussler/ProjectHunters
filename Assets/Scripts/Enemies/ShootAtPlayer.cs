@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to make enemies shoot at the player
 public class ShootAtPlayer : MonoBehaviour
 {
     [SerializeField]

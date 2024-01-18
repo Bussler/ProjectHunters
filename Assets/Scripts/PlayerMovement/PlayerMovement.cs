@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Class to manage Player movement: horizontal and vertical movement, dash
 public class PlayerMovement : MonoBehaviour
 {
 

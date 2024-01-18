@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to make enemies move towards the player
 public class MoveToPlayer : MonoBehaviour
 {
     [SerializeField]

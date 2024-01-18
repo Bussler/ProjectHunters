@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to create basic camera follow: stick to player, with offset
 public class CameraFollow : MonoBehaviour
 {
     [SerializeField]

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to make game objects look at the player
 public class LookAtPlayer : MonoBehaviour
 {
     private Transform _target;
