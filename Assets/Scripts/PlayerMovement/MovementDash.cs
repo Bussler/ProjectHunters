@@ -28,7 +28,7 @@ public class MovementDash : MonoBehaviour
         PlayerStatManager playerStatManager = GetComponent<PlayerStatManager>();
         if (playerStatManager != null)
         {
-            playerStatManager.isTargetable = !playerStatManager.isTargetable;
+            playerStatManager.IsTargetable = !playerStatManager.IsTargetable;
         }
     }
 
