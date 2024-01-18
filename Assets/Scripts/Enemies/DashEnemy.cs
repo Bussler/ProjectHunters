@@ -5,17 +5,28 @@ using UnityEngine;
 public class DashEnemy : MonoBehaviour
 {
     private MovementDash dash_script;
+    private MoveToPlayer enemyMovement;
 
     void Start()
     {
         dash_script = GetComponent<MovementDash>();
+        enemyMovement = GetComponent<MoveToPlayer>();
+
+        if (dash_script != null && enemyMovement != null)
+        {
+            dash_script.OnDashingChanged += enemyMovement.setCanMove;
+        }
+
     }
 
     private void OnTriggerStay2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            StartCoroutine(dash_script.Dash(collision.transform.position - transform.position));
+            if (dash_script != null && enemyMovement != null)
+            {
+                StartCoroutine(dash_script.Dash(collision.transform.position - transform.position));
+            }
         }
     }
 

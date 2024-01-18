@@ -10,7 +10,7 @@ public class MoveToPlayer : MonoBehaviour
     private Transform _target;
     private Rigidbody2D _rb;
 
-    public bool canMove = true;
+    private bool canMove = true;
 
     void Start()
     {
@@ -34,8 +34,6 @@ public class MoveToPlayer : MonoBehaviour
 
     private void Move()
     {
-        canMove = !GetComponent<MovementDash>().isDashing;
-
         if (_target != null && canMove)
         {
             //float step = Time.deltaTime * _speed;
@@ -45,9 +43,9 @@ public class MoveToPlayer : MonoBehaviour
             _rb.velocity = direction.normalized * _speed;
         }
     }
-    public void setCanMove(bool canMove)
+    public void setCanMove(bool value)
     {
-        this.canMove = canMove;
+        this.canMove = !canMove;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
@@ -63,8 +61,7 @@ public class MoveToPlayer : MonoBehaviour
                 if (enemyStats != null)
                     playerStats.TakeDamage(enemyStats.damage);
             }
-            Destroy(this.gameObject);
-            //ObjectPoolManager.Instance.DespawnObject(this.gameObject);
+            ObjectPoolManager.Instance.DespawnObject(this.gameObject);
         }
     }
 
