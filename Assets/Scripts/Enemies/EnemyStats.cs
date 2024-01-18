@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage enemy stats: health, damage, death
 public class EnemyStats : MonoBehaviour
 {
     public int damage = 10;

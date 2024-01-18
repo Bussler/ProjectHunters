@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to enable ability to dash
 public class MovementDash : MonoBehaviour
 {
     public bool canDash = true;
-    public bool isDashing;
     private Rigidbody2D _rb;
 
     [SerializeField]
@@ -16,6 +16,22 @@ public class MovementDash : MonoBehaviour
 
     [SerializeField]
     private float _dashingCooldown = 1f;
+
+    private bool _isDashing;
+    public delegate void IsDashingChangedHandler(bool _isDashing);
+    public event IsDashingChangedHandler OnDashingChanged;
+    public bool isDashing
+    {
+        get { return _isDashing; }
+        set
+        {
+            if (_isDashing != value)
+            {
+                _isDashing = value;
+                OnDashingChanged?.Invoke(_isDashing);
+            }
+        }
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -28,7 +44,7 @@ public class MovementDash : MonoBehaviour
         PlayerStatManager playerStatManager = GetComponent<PlayerStatManager>();
         if (playerStatManager != null)
         {
-            playerStatManager.isTargetable = !playerStatManager.isTargetable;
+            playerStatManager.IsTargetable = !playerStatManager.IsTargetable;
         }
     }
 

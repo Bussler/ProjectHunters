@@ -2,10 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage Player stats: health, death
 public class PlayerStatManager : MonoBehaviour
 {
 
-    public bool isTargetable = true;
+    private bool isTargetable = true;
 
     [SerializeField]
     private int _max_health = 100;
@@ -26,6 +27,8 @@ public class PlayerStatManager : MonoBehaviour
         }
     }
 
+    public bool IsTargetable { get => isTargetable; set => isTargetable = value; }
+
     private void Start()
     {
         Initilize();
@@ -38,7 +41,7 @@ public class PlayerStatManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
-        if (!isTargetable)
+        if (!IsTargetable)
             return;
 
         Health -= damage;

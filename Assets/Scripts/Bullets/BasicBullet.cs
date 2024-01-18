@@ -2,10 +2,12 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to manage basic bullet behaviour: move forward, deal damage to player or enemy
 public class BasicBullet : MonoBehaviour
 {
     public float speed = 20f;
     public int damage = 5;
+    public float impactForce = 4f;
     private Rigidbody2D _rb;
 
     void Start()
@@ -34,6 +36,13 @@ public class BasicBullet : MonoBehaviour
             {
                 playerStats.TakeDamage(damage);
             }
+
+            PlayerMovement playerMovement = hitObject.GetComponent<PlayerMovement>();
+            if (playerMovement != null)
+            {
+                playerMovement.forceToApply += _rb.velocity * impactForce;
+            }
+
             ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
         }
         else if (hitObject.CompareTag("Enemy"))

@@ -4,6 +4,7 @@ using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
+// Class to manage Player movement: horizontal and vertical movement, dash
 public class PlayerMovement : MonoBehaviour
 {
 
@@ -17,13 +18,19 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float forceDamping = 1.2f;
 
+    private bool canMove = true;
     private MovementDash dash_script;
+
 
     private void Awake()
     {
         input = new MainControls();
         rb = GetComponent<Rigidbody2D>();
         dash_script = GetComponent<MovementDash>();
+        if (dash_script != null)
+        {
+            dash_script.OnDashingChanged += setCanMove;
+        }
     }
 
     private void OnEnable()
@@ -49,7 +56,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void Move()
     {
-        if (dash_script != null && dash_script.isDashing)
+        if (!canMove)
         {
             return;
         }
@@ -62,6 +69,11 @@ public class PlayerMovement : MonoBehaviour
             forceToApply = Vector2.zero;
         }
         rb.velocity = moveForce;
+    }
+
+    public void setCanMove(bool value)
+    {
+        this.canMove = !canMove;
     }
 
     // Subscribe to events of input system
@@ -85,14 +97,6 @@ public class PlayerMovement : MonoBehaviour
             {
                 StartCoroutine(dash_script.Dash(movementVector));
             }
-        }
-    }
-
-    private void OnCollisionEnter2D(Collision2D collision)
-    {
-        if (collision.collider.CompareTag("EnemyBullet"))
-        {
-            //forceToApply += new Vector2(-20, 0); // add initial vector from bullet
         }
     }
 }
