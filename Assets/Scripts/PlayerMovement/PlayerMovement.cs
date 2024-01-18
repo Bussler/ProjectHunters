@@ -44,6 +44,11 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
+        Move();
+    }
+
+    private void Move()
+    {
         if (dash_script != null && dash_script.isDashing)
         {
             return;
