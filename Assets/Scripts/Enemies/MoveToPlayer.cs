@@ -5,6 +5,8 @@ using UnityEngine;
 // Class to make enemies move towards the player
 public class MoveToPlayer : MonoBehaviour
 {
+    public int damage = 10;
+
     [SerializeField]
     private int _speed = 5;
 
@@ -55,12 +57,10 @@ public class MoveToPlayer : MonoBehaviour
 
         if (hitObject.CompareTag("Player"))
         {
-            PlayerStatManager playerStats = hitObject.GetComponent<PlayerStatManager>();
+            StatManager playerStats = hitObject.GetComponent<StatManager>();
             if (playerStats != null)
             {
-                EnemyStats enemyStats = GetComponent<EnemyStats>();
-                if (enemyStats != null)
-                    playerStats.TakeDamage(enemyStats.damage);
+                    playerStats.TakeDamage(damage);
             }
             ObjectPoolManager.Instance.DespawnObject(this.gameObject);
         }

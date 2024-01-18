@@ -41,7 +41,7 @@ public class MovementDash : MonoBehaviour
 
     private void setUntargetable()
     {
-        PlayerStatManager playerStatManager = GetComponent<PlayerStatManager>();
+        StatManager playerStatManager = GetComponent<StatManager>();
         if (playerStatManager != null)
         {
             playerStatManager.IsTargetable = !playerStatManager.IsTargetable;

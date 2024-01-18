@@ -5,6 +5,8 @@ using UnityEngine;
 // Class to make enemies shoot at the player
 public class ShootAtPlayer : MonoBehaviour
 {
+    public int damage = 10;
+
     [SerializeField]
     private GameObject _bulletPrefab;
 
@@ -57,10 +59,7 @@ public class ShootAtPlayer : MonoBehaviour
             if (basicBullet != null)
             {
                 basicBullet.speed = _bulletSpeed;
-
-                EnemyStats enemyStats = GetComponent<EnemyStats>();
-                if (enemyStats != null)
-                    basicBullet.damage = enemyStats.damage;
+                basicBullet.damage = damage;
             }
         }
     }

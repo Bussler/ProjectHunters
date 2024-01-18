@@ -2,10 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-// Class to manage enemy stats: health, damage, death
-public class EnemyStats : MonoBehaviour
+// Class to manage Player stats: health, death
+public class StatManager : MonoBehaviour
 {
-    public int damage = 10;
+    private bool isTargetable = true;
 
     [SerializeField]
     private int _max_health = 100;
@@ -26,6 +26,8 @@ public class EnemyStats : MonoBehaviour
         }
     }
 
+    public bool IsTargetable { get => isTargetable; set => isTargetable = value; }
+
     private void Start()
     {
         Initilize();
@@ -38,6 +40,9 @@ public class EnemyStats : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (!IsTargetable)
+            return;
+
         Health -= damage;
         if (isDead())
         {
@@ -52,7 +57,15 @@ public class EnemyStats : MonoBehaviour
 
     public void Die()
     {
-        ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
-        // Destroy(gameObject);
+        if (gameObject.tag == "Player")
+        {
+            Debug.Log("Player died");
+            // TODO: Game over
+        }
+        else
+        {
+            ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
+        }
+
     }
 }

@@ -31,7 +31,7 @@ public class BasicBullet : MonoBehaviour
         }
         else if (hitObject.CompareTag("Player"))
         {
-            PlayerStatManager playerStats = hitObject.GetComponent<PlayerStatManager>();
+            StatManager playerStats = hitObject.GetComponent<StatManager>();
             if (playerStats != null)
             {
                 playerStats.TakeDamage(damage);
@@ -47,7 +47,8 @@ public class BasicBullet : MonoBehaviour
         }
         else if (hitObject.CompareTag("Enemy"))
         {
-            EnemyStats enemyStats = hitObject.GetComponent<EnemyStats>();
+            Debug.Log("Hit enemy");
+            StatManager enemyStats = hitObject.GetComponent<StatManager>();
             if (enemyStats != null)
             {
                 enemyStats.TakeDamage(damage);
