@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerStatManager : MonoBehaviour
 {
 
+    public bool isTargetable = true;
+
     [SerializeField]
     private int _max_health = 100;
     private int _min_health = 1;
@@ -36,6 +38,9 @@ public class PlayerStatManager : MonoBehaviour
 
     public void TakeDamage(int damage)
     {
+        if (!isTargetable)
+            return;
+
         Health -= damage;
         if (isDead())
         {

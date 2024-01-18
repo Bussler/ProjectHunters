@@ -35,6 +35,15 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""dash"",
+                    ""type"": ""Value"",
+                    ""id"": ""76c6a39b-f0df-4d48-8ee2-57788abf10ba"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
                 }
             ],
             ""bindings"": [
@@ -202,6 +211,28 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
                     ""action"": ""movement"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""42dee1d2-5f34-45b1-9520-8c29a9335420"",
+                    ""path"": ""<Keyboard>/space"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""41eab8dc-c64d-4319-9a74-53690bb23543"",
+                    ""path"": ""<Gamepad>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""dash"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         }
@@ -211,6 +242,7 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
         // gameplay
         m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
         m_gameplay_movement = m_gameplay.FindAction("movement", throwIfNotFound: true);
+        m_gameplay_dash = m_gameplay.FindAction("dash", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -273,11 +305,13 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
     private readonly InputActionMap m_gameplay;
     private List<IGameplayActions> m_GameplayActionsCallbackInterfaces = new List<IGameplayActions>();
     private readonly InputAction m_gameplay_movement;
+    private readonly InputAction m_gameplay_dash;
     public struct GameplayActions
     {
         private @MainControls m_Wrapper;
         public GameplayActions(@MainControls wrapper) { m_Wrapper = wrapper; }
         public InputAction @movement => m_Wrapper.m_gameplay_movement;
+        public InputAction @dash => m_Wrapper.m_gameplay_dash;
         public InputActionMap Get() { return m_Wrapper.m_gameplay; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -290,6 +324,9 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
             @movement.started += instance.OnMovement;
             @movement.performed += instance.OnMovement;
             @movement.canceled += instance.OnMovement;
+            @dash.started += instance.OnDash;
+            @dash.performed += instance.OnDash;
+            @dash.canceled += instance.OnDash;
         }
 
         private void UnregisterCallbacks(IGameplayActions instance)
@@ -297,6 +334,9 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
             @movement.started -= instance.OnMovement;
             @movement.performed -= instance.OnMovement;
             @movement.canceled -= instance.OnMovement;
+            @dash.started -= instance.OnDash;
+            @dash.performed -= instance.OnDash;
+            @dash.canceled -= instance.OnDash;
         }
 
         public void RemoveCallbacks(IGameplayActions instance)
@@ -317,5 +357,6 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
     public interface IGameplayActions
     {
         void OnMovement(InputAction.CallbackContext context);
+        void OnDash(InputAction.CallbackContext context);
     }
 }

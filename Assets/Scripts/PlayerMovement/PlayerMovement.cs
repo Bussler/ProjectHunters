@@ -17,10 +17,13 @@ public class PlayerMovement : MonoBehaviour
     [SerializeField]
     private float forceDamping = 1.2f;
 
+    private MovementDash dash_script;
+
     private void Awake()
     {
         input = new MainControls();
         rb = GetComponent<Rigidbody2D>();
+        dash_script = GetComponent<MovementDash>();
     }
 
     private void OnEnable()
@@ -28,6 +31,7 @@ public class PlayerMovement : MonoBehaviour
         input.Enable();
         input.gameplay.movement.performed += OnMovementPerformed;
         input.gameplay.movement.canceled += OnMovementCancelled;
+        input.gameplay.dash.performed += OnDashPerformed;
     }
 
     private void OnDisable()
@@ -35,11 +39,16 @@ public class PlayerMovement : MonoBehaviour
         input.Disable();
         input.gameplay.movement.performed -= OnMovementPerformed;
         input.gameplay.movement.canceled -= OnMovementCancelled;
+        input.gameplay.dash.performed -= OnDashPerformed;
     }
 
     private void FixedUpdate()
     {
-        //rb.velocity = movementVector * moveSpeed;
+        if (dash_script != null && dash_script.isDashing)
+        {
+            return;
+        }
+
         Vector2 moveForce = movementVector * moveSpeed;
         moveForce += forceToApply;
         forceToApply /= forceDamping;
@@ -60,6 +69,18 @@ public class PlayerMovement : MonoBehaviour
     private void OnMovementCancelled(InputAction.CallbackContext value)
     {
         movementVector = Vector2.zero;
+    }
+
+    private void OnDashPerformed(InputAction.CallbackContext value)
+    {
+        if (value.performed)
+        {
+            MovementDash dash_script = GetComponent<MovementDash>();
+            if (dash_script != null)
+            {
+                StartCoroutine(dash_script.Dash(movementVector));
+            }
+        }
     }
 
     private void OnCollisionEnter2D(Collision2D collision)
