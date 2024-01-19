@@ -9,8 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1138480102824498426}
+  - component: {fileID: -7516601647682660452}
   - component: {fileID: 145037126332970905}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: basic_gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -32,6 +33,41 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!58 &-7516601647682660452
+CircleCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5182718156045843204}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: 0, y: 0}
+  serializedVersion: 2
+  m_Radius: 10
 --- !u!114 &145037126332970905
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -46,6 +82,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 10
   _bulletPrefab: {fileID: 3073019189451554102, guid: 52977d5eb868c25468e1709ed102dab4, type: 3}
-  _bulletSpeed: 20
-  _amountBullets: 20
-  _fireRate: 1
+  _bulletSpeed: 25
+  _amountBullets: 4
+  _fireRate: 4
