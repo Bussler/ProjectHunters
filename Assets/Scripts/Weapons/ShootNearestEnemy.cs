@@ -88,7 +88,8 @@ public class ShootNearestEnemy : MonoBehaviour
         if (other.gameObject.CompareTag("Enemy") || other.gameObject.CompareTag("EnemyBullet"))
         {
             int id = other.gameObject.GetInstanceID();
-            _enemiesInRange.Add(id, other.gameObject);
+            if (!_enemiesInRange.ContainsKey(id))
+                _enemiesInRange.Add(id, other.gameObject);
         }
     }
 
