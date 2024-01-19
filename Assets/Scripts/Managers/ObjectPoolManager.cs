@@ -10,10 +10,10 @@ public class ObjectPoolManager : MonoBehaviour
     public static ObjectPoolManager Instance;
     public List<PooledObject> ObjectPools = new List<PooledObject>();
 
-    private GameObject _objectPoolHierarchyHolder;
-    private GameObject _enemyPoolHolder;
-    private GameObject _enemyBulletPoolHolder;
-    private GameObject _bulletPoolHolder;
+    public GameObject _objectPoolHierarchyHolder;
+    public GameObject _enemyPoolHolder;
+    public GameObject _enemyBulletPoolHolder;
+    public GameObject _bulletPoolHolder;
 
     public enum PoolType
     {

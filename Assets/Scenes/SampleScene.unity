@@ -395,6 +395,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: chaser
       objectReference: {fileID: 0}
+    - target: {fileID: 3162773697838870529, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4309681532238182244, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.74
@@ -708,6 +712,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 21490167321161665, guid: 25694ba9bc9831942968f5ed1470a2d4, type: 3}
+      propertyPath: _amountBullets
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 2095845309013890701, guid: 25694ba9bc9831942968f5ed1470a2d4, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -787,6 +795,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d43e37917e858654280a5ecb7ee656c9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _objectPoolHierarchyHolder: {fileID: 0}
+  _enemyPoolHolder: {fileID: 0}
+  _enemyBulletPoolHolder: {fileID: 0}
+  _bulletPoolHolder: {fileID: 0}
 --- !u!4 &1887036971
 Transform:
   m_ObjectHideFlags: 0
@@ -809,12 +821,12 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887036969}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 063bc1ac7ca75a9499a1a8073dd05506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  something: {fileID: 4733470079832116271, guid: c54742facceb0b74a9346d4dbc21ec2a, type: 3}
+  something: {fileID: 9139702496994208216, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
 --- !u!1 &2063876241
 GameObject:
   m_ObjectHideFlags: 0
