@@ -5,27 +5,15 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 
 // Class to manage Player movement: horizontal and vertical movement, dash
-public class PlayerMovement : MonoBehaviour
+public class PlayerMovement : BasicMovement
 {
-
-    private MainControls input = null; // Input system
     private Vector2 movementVector = Vector2.zero; // Movement input
-    Rigidbody2D rb = null; // Rigidbody2D component through which we apply force
-    [SerializeField]
-    private float moveSpeed = 7f;
-    
-    public Vector2 forceToApply = Vector2.zero; // used for knockback if a projectile hits the player
-    [SerializeField]
-    private float forceDamping = 1.2f;
-
-    private bool canMove = true;
+    private MainControls input = null; // Input system
     private MovementDash dash_script;
-
 
     private void Awake()
     {
         input = new MainControls();
-        rb = GetComponent<Rigidbody2D>();
         dash_script = GetComponent<MovementDash>();
         if (dash_script != null)
         {
@@ -51,29 +39,7 @@ public class PlayerMovement : MonoBehaviour
 
     private void FixedUpdate()
     {
-        Move();
-    }
-
-    private void Move()
-    {
-        if (!canMove)
-        {
-            return;
-        }
-
-        Vector2 moveForce = movementVector * moveSpeed;
-        moveForce += forceToApply;
-        forceToApply /= forceDamping;
-        if (Mathf.Abs(forceToApply.x) <= 0.01f && Mathf.Abs(forceToApply.y) <= 0.01f)
-        {
-            forceToApply = Vector2.zero;
-        }
-        rb.velocity = moveForce;
-    }
-
-    public void setCanMove(bool value)
-    {
-        this.canMove = !canMove;
+        Move(movementVector);
     }
 
     // Subscribe to events of input system
