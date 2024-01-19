@@ -6,12 +6,12 @@ using UnityEngine;
 public class DashEnemy : MonoBehaviour
 {
     private MovementDash dash_script;
-    private MoveToPlayer enemyMovement;
+    private BasicMovement enemyMovement;
 
     void Start()
     {
         dash_script = GetComponent<MovementDash>();
-        enemyMovement = GetComponent<MoveToPlayer>();
+        enemyMovement = GetComponent<BasicMovement>();
 
         if (dash_script != null && enemyMovement != null)
         {
