@@ -1,19 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 // Class to make enemies move towards the player
-public class MoveToPlayer : MonoBehaviour
+public class MoveToPlayer : BasicMovement
 {
     public int damage = 10;
-
-    [SerializeField]
-    private int _speed = 5;
-
     private Transform _target;
-    private Rigidbody2D _rb;
-
-    private bool canMove = true;
 
     void Start()
     {
@@ -26,29 +20,16 @@ public class MoveToPlayer : MonoBehaviour
         {
             Debug.Log("No GameObject with 'Player' tag found in the scene. Target not found for " + this.gameObject.name);
         }
-
-        _rb = GetComponent<Rigidbody2D>();
+        rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
     {
-        Move();
-    }
-
-    private void Move()
-    {
-        if (_target != null && canMove)
+        if (this._target != null)
         {
-            //float step = Time.deltaTime * _speed;
-            //transform.position = Vector2.MoveTowards(transform.position, _target.position, step);
-
             Vector2 direction = this._target.position - this.transform.position;
-            _rb.velocity = direction.normalized * _speed;
+            Move(direction.normalized);
         }
-    }
-    public void setCanMove(bool value)
-    {
-        this.canMove = !canMove;
     }
 
     private void OnCollisionEnter2D(Collision2D collision)

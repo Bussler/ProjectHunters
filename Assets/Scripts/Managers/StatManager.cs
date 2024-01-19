@@ -28,7 +28,7 @@ public class StatManager : MonoBehaviour
 
     public bool IsTargetable { get => isTargetable; set => isTargetable = value; }
 
-    private void Start()
+    private void Awake()
     {
         Initilize();
     }

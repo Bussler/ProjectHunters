@@ -49,7 +49,7 @@ public class ShootAtPlayer : MonoBehaviour
         if (_target != null)
         {
             // calculate quaternion to look at player
-            Vector3 direction = this._target.position - this.transform.position;
+            Vector2 direction = this._target.position - this.transform.position;
             float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
             Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 

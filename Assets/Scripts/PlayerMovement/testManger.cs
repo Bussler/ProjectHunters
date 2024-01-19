@@ -10,7 +10,7 @@ public class testManger : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        GameObject guy = ObjectPoolManager.Instance.SpawnObject(something, new Vector3(0, 0, 0), Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
+        GameObject guy = ObjectPoolManager.Instance.SpawnObject(something, new Vector3(5, 0, 0), Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
 
         StartCoroutine(ExecuteAfterTime(2, guy));
     }
@@ -21,7 +21,7 @@ public class testManger : MonoBehaviour
 
         // Code to execute after the delay
         Debug.Log("Executed after delay: " + time);
-        ObjectPoolManager.Instance.DespawnObject(guy);
+        //ObjectPoolManager.Instance.DespawnObject(guy);
     }
 
 }

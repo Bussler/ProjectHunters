@@ -21,13 +21,14 @@ public class BasicBullet : MonoBehaviour
         _rb.velocity = transform.up * speed;
     }
 
-    void OnTriggerEnter2D(Collider2D other)
+    void OnCollisionEnter2D(Collision2D other)
     {
         GameObject hitObject = other.gameObject;
         
-        if (hitObject.CompareTag("Bullet") || hitObject.CompareTag("EnemyBullet")) // Ignore other bullets TODO: Do with collision layer
+        if (hitObject.CompareTag("Bullet") || hitObject.CompareTag("EnemyBullet"))
         {
-            return;
+            // if bullet hits another bullet, destroy both
+            ObjectPoolManager.Instance.DespawnObject(other.gameObject);
         }
         else if (hitObject.CompareTag("Player"))
         {
@@ -52,6 +53,12 @@ public class BasicBullet : MonoBehaviour
             if (enemyStats != null)
             {
                 enemyStats.TakeDamage(damage);
+            }
+
+            MoveToPlayer playerMovement = hitObject.GetComponent<MoveToPlayer>();
+            if (playerMovement != null)
+            {
+                playerMovement.forceToApply += _rb.velocity * impactForce;
             }
         }
 

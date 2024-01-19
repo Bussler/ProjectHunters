@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 3685611229478744782}
   - component: {fileID: -6231579734047561445}
   - component: {fileID: 1176865373375714546}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: enemy_bullet
   m_TagString: EnemyBullet
   m_Icon: {fileID: 0}
@@ -113,7 +113,7 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
-  m_Constraints: 0
+  m_Constraints: 4
 --- !u!70 &-6231579734047561445
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
@@ -143,7 +143,7 @@ CapsuleCollider2D:
   m_CallbackLayers:
     serializedVersion: 2
     m_Bits: 4294967295
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
@@ -163,3 +163,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   speed: 20
   damage: 5
+  impactForce: 0
