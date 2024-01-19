@@ -30,35 +30,18 @@ public class BasicBullet : MonoBehaviour
             // if bullet hits another bullet, destroy both
             ObjectPoolManager.Instance.DespawnObject(other.gameObject);
         }
-        else if (hitObject.CompareTag("Player"))
+        else if (hitObject.CompareTag("Player") || hitObject.CompareTag("Enemy"))
         {
-            StatManager playerStats = hitObject.GetComponent<StatManager>();
-            if (playerStats != null)
+            StatManager stats = hitObject.GetComponent<StatManager>();
+            if (stats != null)
             {
-                playerStats.TakeDamage(damage);
+                stats.TakeDamage(damage);
             }
 
-            PlayerMovement playerMovement = hitObject.GetComponent<PlayerMovement>();
-            if (playerMovement != null)
+            BasicMovement movement = hitObject.GetComponent<BasicMovement>();
+            if (movement != null)
             {
-                playerMovement.forceToApply += _rb.velocity * impactForce;
-            }
-
-            ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
-        }
-        else if (hitObject.CompareTag("Enemy"))
-        {
-            Debug.Log("Hit enemy");
-            StatManager enemyStats = hitObject.GetComponent<StatManager>();
-            if (enemyStats != null)
-            {
-                enemyStats.TakeDamage(damage);
-            }
-
-            MoveToPlayer playerMovement = hitObject.GetComponent<MoveToPlayer>();
-            if (playerMovement != null)
-            {
-                playerMovement.forceToApply += _rb.velocity * impactForce;
+                movement.forceToApply += _rb.velocity.normalized * impactForce;
             }
         }
 
