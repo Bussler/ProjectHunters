@@ -54,6 +54,12 @@ public class BasicBullet : MonoBehaviour
             {
                 enemyStats.TakeDamage(damage);
             }
+
+            MoveToPlayer playerMovement = hitObject.GetComponent<MoveToPlayer>();
+            if (playerMovement != null)
+            {
+                playerMovement.forceToApply += _rb.velocity * impactForce;
+            }
         }
 
         ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool

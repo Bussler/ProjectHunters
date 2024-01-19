@@ -15,6 +15,10 @@ public class MoveToPlayer : MonoBehaviour
 
     private bool canMove = true;
 
+    public Vector2 forceToApply = Vector2.zero; // used for knockback if a projectile hits the player
+    [SerializeField]
+    private float forceDamping = 1.2f;
+
     void Start()
     {
         GameObject player = GameObject.FindWithTag("Player");
@@ -43,7 +47,15 @@ public class MoveToPlayer : MonoBehaviour
             //transform.position = Vector2.MoveTowards(transform.position, _target.position, step);
 
             Vector2 direction = this._target.position - this.transform.position;
-            _rb.velocity = direction.normalized * _speed;
+            Vector2 moveForce = direction.normalized * _speed;
+            moveForce += forceToApply;
+            forceToApply /= forceDamping;
+            if (Mathf.Abs(forceToApply.x) <= 0.01f && Mathf.Abs(forceToApply.y) <= 0.01f)
+            {
+                forceToApply = Vector2.zero;
+            }
+
+            _rb.velocity = moveForce; //direction.normalized * _speed;
         }
     }
     public void setCanMove(bool value)
