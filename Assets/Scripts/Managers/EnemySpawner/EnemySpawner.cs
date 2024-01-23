@@ -91,6 +91,10 @@ public class EnemySpawner : MonoBehaviour
                     // Spawn enemy
                     Vector2 spawnPosition = new Vector2(Random.Range(-spawnPositionInterval.x, spawnPositionInterval.x), Random.Range(-spawnPositionInterval.y, spawnPositionInterval.y));
                     GameObject gameObject = ObjectPoolManager.Instance.SpawnObject(enemyGroup.enemyPrefab, spawnPosition, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
+                    
+                    StatManager enemyStats = gameObject.GetComponent<StatManager>();
+                    if (enemyStats != null)
+                        enemyStats.Initilize();
 
                     enemyGroup.spawnCount++;
                     wave.spawnCount++;
