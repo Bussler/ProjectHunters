@@ -723,6 +723,7 @@ GameObject:
   - component: {fileID: 1887036971}
   - component: {fileID: 1887036970}
   - component: {fileID: 1887036972}
+  - component: {fileID: 1887036973}
   m_Layer: 0
   m_Name: ObjectPoolManager
   m_TagString: Untagged
@@ -768,12 +769,26 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1887036969}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 063bc1ac7ca75a9499a1a8073dd05506, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   something: {fileID: 9139702496994208216, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
+--- !u!114 &1887036973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1887036969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cff698761f4688c439581e9f5b2d2d42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waves:
+  - {fileID: 11400000, guid: 20196cc5e0d85f64385b63a03423c1bc, type: 2}
 --- !u!1 &2063876241
 GameObject:
   m_ObjectHideFlags: 0
