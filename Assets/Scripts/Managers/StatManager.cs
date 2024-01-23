@@ -62,9 +62,10 @@ public class StatManager : MonoBehaviour
             Debug.Log("Player died");
             // TODO: Game over
         }
-        else
+        else // Enemy
         {
             ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
+            EnemySpawner.Instance.OnEnemyDied();
         }
 
     }

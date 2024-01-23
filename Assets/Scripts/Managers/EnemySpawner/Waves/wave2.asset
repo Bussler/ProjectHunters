@@ -10,11 +10,11 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: c5ce70ed6f2ded341a6371b4915a8662, type: 3}
-  m_Name: wave1
+  m_Name: wave2
   m_EditorClassIdentifier: 
-  name: wave1
+  name: wave2
   enemyGroups:
-  - enemyCount: 5
-    enemyPrefab: {fileID: 3162773697838870529, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
-  waveQuota: 5
-  spawnInterval: 0.5
+  - enemyCount: 2
+    enemyPrefab: {fileID: 9139702496994208216, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
+  waveQuota: 0
+  spawnInterval: 1
