@@ -83,26 +83,31 @@ public class EnemySpawner : MonoBehaviour
         {
             foreach (EnemyGroup enemyGroup in wave.enemyGroups)
             {
-                if (enemyGroup.spawnCount < enemyGroup.enemyCount)
+                for (int i = 0; i < enemyGroup.spawnIntensity; i++)
                 {
-                    if (enemiesAlive >= maxEnemiesAllowed)
-                        return;
+                    if (enemyGroup.spawnCount < enemyGroup.enemyCount)
+                    {
+                        if (enemiesAlive >= maxEnemiesAllowed)
+                            return;
 
-                    // Spawn enemy
-                    Vector2 spawnPosition = new Vector2(Random.Range(-spawnPositionInterval.x, spawnPositionInterval.x), Random.Range(-spawnPositionInterval.y, spawnPositionInterval.y));
-                    GameObject gameObject = ObjectPoolManager.Instance.SpawnObject(enemyGroup.enemyPrefab, spawnPosition, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
-                    
-                    StatManager enemyStats = gameObject.GetComponent<StatManager>();
-                    if (enemyStats != null)
-                        enemyStats.Initilize();
+                        // Spawn enemy
+                        Vector2 spawnPosition = new Vector2(Random.Range(-spawnPositionInterval.x, spawnPositionInterval.x), Random.Range(-spawnPositionInterval.y, spawnPositionInterval.y));
+                        GameObject gameObject = ObjectPoolManager.Instance.SpawnObject(enemyGroup.enemyPrefab, spawnPosition, Quaternion.identity, ObjectPoolManager.PoolType.Enemy);
 
-                    enemyGroup.spawnCount++;
-                    wave.spawnCount++;
-                    enemiesAlive++;
+                        StatManager enemyStats = gameObject.GetComponent<StatManager>();
+                        if (enemyStats != null)
+                            enemyStats.Initilize();
+
+                        enemyGroup.spawnCount++;
+                        wave.spawnCount++;
+                        enemiesAlive++;
+                    }
                 }
             }
         }
         // TODO : Check if current wave is finished: All enemies have been killed
+        // M: For that we would have to keep some sort of map for each wave;
+        // lets keep a max amount enmies for now and spawn next wave when current wave is finished spawning
     }
 
     public void OnEnemyDied()

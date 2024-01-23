@@ -28,6 +28,7 @@ public class Wave : ScriptableObject
 public class EnemyGroup
 {
     public int enemyCount; // How many enemies in this group should be spawned
+    public int spawnIntensity = 1; // How many enemies in this group should be spawned at once
     public GameObject enemyPrefab; // Enemy prefab to spawn
 
     [System.NonSerialized]

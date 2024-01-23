@@ -15,6 +15,7 @@ MonoBehaviour:
   name: wave2
   enemyGroups:
   - enemyCount: 2
+    spawnIntensity: 1
     enemyPrefab: {fileID: 9139702496994208216, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
   waveQuota: 0
   spawnInterval: 1

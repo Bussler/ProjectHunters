@@ -860,6 +860,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2912210070301287601, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
+      propertyPath: maxEnemiesAllowed
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3495324563229933892, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
       propertyPath: m_Name
       value: EnemyManager

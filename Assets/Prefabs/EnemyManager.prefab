@@ -79,5 +79,5 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 20196cc5e0d85f64385b63a03423c1bc, type: 2}
   - {fileID: 11400000, guid: 1959d8fa92fb219469b36c5f73bd708a, type: 2}
   waveInterval: 5
-  maxEnemiesAllowed: 50
+  maxEnemiesAllowed: 10
   spawnPositionInterval: {x: 8, y: 4}
