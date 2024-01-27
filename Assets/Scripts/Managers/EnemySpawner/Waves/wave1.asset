@@ -14,8 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   name: wave1
   enemyGroups:
-  - enemyCount: 5
-    spawnIntensity: 2
+  - enemyCount: 6
+    spawnIntensity: 3
     enemyPrefab: {fileID: 3162773697838870529, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
-  waveQuota: 5
-  spawnInterval: 0.5
+  spawnInterval: 1

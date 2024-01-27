@@ -36,10 +36,13 @@ public class MovementDash : MonoBehaviour
 
     private void setUntargetable()
     {
-        StatManager playerStatManager = GetComponent<StatManager>();
-        if (playerStatManager != null)
+        if (this.gameObject.tag == "Player") // TODO: change this to a better solution; should enemies also be untargetable?
         {
-            playerStatManager.IsTargetable = !playerStatManager.IsTargetable;
+            StatManager playerStatManager = GetComponent<StatManager>();
+            if (playerStatManager != null)
+            {
+                playerStatManager.IsTargetable = !playerStatManager.IsTargetable;
+            }
         }
     }
 

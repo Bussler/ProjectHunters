@@ -131,9 +131,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   canDash: 1
-  _dashingPower: 12
-  _dashingTime: 0.3
-  _dashingCooldown: 2
 --- !u!114 &5900471170402254073
 MonoBehaviour:
   m_ObjectHideFlags: 0
