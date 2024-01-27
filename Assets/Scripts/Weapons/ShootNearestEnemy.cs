@@ -6,20 +6,11 @@ using UnityEngine;
 // Find the nearest enemies and shoot them
 public class ShootNearestEnemy : MonoBehaviour
 {
-    public int damage = 10;
+    private StatManager statManager;
     private Dictionary<int, GameObject> _enemiesInRange = new Dictionary<int, GameObject>();
 
     [SerializeField]
     private GameObject _bulletPrefab;
-
-    [SerializeField]
-    private float _bulletSpeed = 20f;
-
-    [SerializeField]
-    private float _amountBullets = 20f;
-
-    [SerializeField]
-    private float _fireRate = 1f;
 
     private float _nextFireTime = 0f;
 
@@ -27,6 +18,10 @@ public class ShootNearestEnemy : MonoBehaviour
     void Start()
     {
         _enemiesInRange = new Dictionary<int, GameObject>();
+        
+        statManager = GetComponentInParent<StatManager>();
+        if (statManager == null)
+            Debug.Log("No Statmanger found for " + this.gameObject.name);
     }
 
     // Update is called once per frame
@@ -38,7 +33,7 @@ public class ShootNearestEnemy : MonoBehaviour
     private void Shoot() {
         if (Time.time > _nextFireTime)
         {
-            _nextFireTime = Time.time + 1 / _fireRate;
+            _nextFireTime = Time.time + 1 / statManager.FireRate;
 
             // remove inactive enemies from dictionary
             _enemiesInRange = _enemiesInRange
@@ -56,7 +51,7 @@ public class ShootNearestEnemy : MonoBehaviour
             });
 
             // shoot at nearest enemies
-            for (int i = 0; i < _amountBullets; i++)
+            for (int i = 0; i < statManager.AmountBullets; i++)
             {
                 if (i < enemies.Count)
                 {
@@ -78,8 +73,8 @@ public class ShootNearestEnemy : MonoBehaviour
         BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
         if (basicBullet != null)
         {
-            basicBullet.speed = _bulletSpeed;
-            basicBullet.damage = damage;
+            basicBullet.speed = statManager.BulletSpeed;
+            basicBullet.damage = statManager.Damage;
         }
     }
 

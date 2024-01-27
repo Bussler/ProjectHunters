@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &3495324563229933892
+--- !u!1 &3230326976342421571
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,62 +8,60 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2506027146233499600}
-  - component: {fileID: 5160249236756911169}
-  - component: {fileID: 2912210070301287601}
+  - component: {fileID: 8762195773202237335}
+  - component: {fileID: 4438274152495535946}
+  - component: {fileID: 1653618314744328942}
   m_Layer: 0
-  m_Name: EnemyManager
+  m_Name: InventoryManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2506027146233499600
+--- !u!4 &8762195773202237335
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3495324563229933892}
+  m_GameObject: {fileID: 3230326976342421571}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.0483366, y: 0.4338819, z: -0.07120184}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &5160249236756911169
+--- !u!114 &4438274152495535946
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3495324563229933892}
+  m_GameObject: {fileID: 3230326976342421571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d43e37917e858654280a5ecb7ee656c9, type: 3}
+  m_Script: {fileID: 11500000, guid: 31625096e3317fe44890d18c9372dacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _objectPoolHierarchyHolder: {fileID: 0}
-  _enemyPoolHolder: {fileID: 0}
-  _enemyBulletPoolHolder: {fileID: 0}
-  _bulletPoolHolder: {fileID: 0}
---- !u!114 &2912210070301287601
+  startWeaponPrefabs:
+  - {fileID: 5182718156045843204, guid: 3518336844cadb04481edb8842df2f5d, type: 3}
+  startPassiveItemPrefabs:
+  - {fileID: 6810610160739252366, guid: 348761f6e445ca54b9427f7f203b92a4, type: 3}
+--- !u!114 &1653618314744328942
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3495324563229933892}
+  m_GameObject: {fileID: 3230326976342421571}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cff698761f4688c439581e9f5b2d2d42, type: 3}
+  m_Script: {fileID: 11500000, guid: 07b2756ae93aceb4eba0f0fd9f1fa17f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  waves:
-  - {fileID: 11400000, guid: 20196cc5e0d85f64385b63a03423c1bc, type: 2}
-  - {fileID: 11400000, guid: 1959d8fa92fb219469b36c5f73bd708a, type: 2}
-  waveInterval: 5
-  maxEnemiesAllowed: 10
-  spawnPositionInterval: {x: 8, y: 4}
+  weaponLevels: 000000000000000000000000000000000000000000000000
+  weaponItems: []
+  passiveItemsLevels: 
+  passiveItems: []
