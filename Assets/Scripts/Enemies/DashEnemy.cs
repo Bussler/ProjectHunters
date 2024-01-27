@@ -16,6 +16,7 @@ public class DashEnemy : MonoBehaviour
         if (dash_script != null && enemyMovement != null)
         {
             dash_script.OnDashingChanged += enemyMovement.setCanMove;
+            dash_script.OnDashingChanged += enemyMovement.setUseForceToApply;
         }
 
     }

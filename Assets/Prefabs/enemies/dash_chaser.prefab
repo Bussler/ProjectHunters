@@ -9,12 +9,16 @@ PrefabInstance:
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 1364928445074046725, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
+      propertyPath: _max_health
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364928445074046725, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
       propertyPath: _dashingTime
       value: 0.3
       objectReference: {fileID: 0}
     - target: {fileID: 1364928445074046725, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
       propertyPath: _dashingPower
-      value: 12
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 1364928445074046725, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
       propertyPath: _dashingCooldown

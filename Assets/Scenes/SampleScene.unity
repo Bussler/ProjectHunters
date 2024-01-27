@@ -747,18 +747,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4438274152495535946, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
-      propertyPath: startPassiveItemPrefabs.Array.size
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 4438274152495535946, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
-      propertyPath: startPassiveItemPrefabs.Array.data[1]
-      value: 
-      objectReference: {fileID: 1749407383038534419, guid: 51a4cdad5d0c03d4182a630aebaf24e5, type: 3}
-    - target: {fileID: 4438274152495535946, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
-      propertyPath: startPassiveItemPrefabs.Array.data[2]
-      value: 
-      objectReference: {fileID: 8138069095629682571, guid: bef18037244f77740824b3b20fa4e0e2, type: 3}
     - target: {fileID: 8762195773202237335, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0483366
@@ -917,40 +905,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: 2912210070301287601, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
-      propertyPath: waveInterval
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 2912210070301287601, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
-      propertyPath: waves.Array.size
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 2912210070301287601, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
-      propertyPath: maxEnemiesAllowed
-      value: 10
-      objectReference: {fileID: 0}
-    - target: {fileID: 2912210070301287601, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
-      propertyPath: waves.Array.data[0]
-      value: 
-      objectReference: {fileID: 11400000, guid: 20196cc5e0d85f64385b63a03423c1bc, type: 2}
-    - target: {fileID: 2912210070301287601, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
-      propertyPath: waves.Array.data[1]
-      value: 
-      objectReference: {fileID: 11400000, guid: 1959d8fa92fb219469b36c5f73bd708a, type: 2}
-    - target: {fileID: 2912210070301287601, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
-      propertyPath: waves.Array.data[2]
-      value: 
-      objectReference: {fileID: 11400000, guid: 9ab1ada16c4ba25499fc74a4efe4c445, type: 2}
     - target: {fileID: 3495324563229933892, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
       propertyPath: m_Name
       value: EnemyManager
       objectReference: {fileID: 0}
-    - target: {fileID: 3495324563229933892, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    m_RemovedComponents:
-    - {fileID: 3364044877180232628, guid: aff9f74c56c851a4186bbd4a684f73f0, type: 3}
+    m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []

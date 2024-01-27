@@ -18,6 +18,7 @@ public class PlayerMovement : BasicMovement
         if (dash_script != null)
         {
             dash_script.OnDashingChanged += setCanMove;
+            dash_script.OnDashingChanged += setUseForceToApply;
         }
     }
 

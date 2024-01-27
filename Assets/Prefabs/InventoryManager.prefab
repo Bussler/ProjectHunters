@@ -45,6 +45,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 31625096e3317fe44890d18c9372dacb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _passiveItemPrefabs: []
+  _dropChance: 0.5
   startWeaponPrefabs:
   - {fileID: 5182718156045843204, guid: 3518336844cadb04481edb8842df2f5d, type: 3}
   startPassiveItemPrefabs:

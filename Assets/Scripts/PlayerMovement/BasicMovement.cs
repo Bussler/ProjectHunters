@@ -12,6 +12,7 @@ public class BasicMovement : MonoBehaviour
     private float forceDamping = 1.2f;
 
     private bool canMove = true;
+    private bool useForceToApply = true;
 
     // Start is called before the first frame update
     void Start()
@@ -37,7 +38,10 @@ public class BasicMovement : MonoBehaviour
         }
 
         Vector2 moveForce = movementVector.normalized * statManager.MoveSpeed;
-        moveForce += forceToApply;
+
+        if (useForceToApply)
+            moveForce += forceToApply;
+
         forceToApply /= forceDamping;
         if (Mathf.Abs(forceToApply.x) <= 0.01f && Mathf.Abs(forceToApply.y) <= 0.01f)
         {
@@ -47,6 +51,11 @@ public class BasicMovement : MonoBehaviour
     }
     public void setCanMove(bool value)
     {
-        this.canMove = !canMove;
+        this.canMove = !value;
+    }
+
+    public void setUseForceToApply(bool value)
+    {
+        this.useForceToApply = !value;
     }
 }
