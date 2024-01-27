@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Experimental.GlobalIllumination;
 
@@ -9,7 +10,7 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance;
 
     public int[] weaponLevels = new int[6]; // TODO
-    public List<GameObject> weaponItems = new List<GameObject>(6); // TODO
+    public GameObject[] weaponItems = new GameObject[6]; // TODO
 
     public List<int> passiveItemsLevels = new List<int>();
     public List<PassiveItem> passiveItems = new List<PassiveItem>();
@@ -23,11 +24,14 @@ public class InventoryManager : MonoBehaviour
         }
 
         Instance = this;
+
+        Instance.weaponLevels = new int[6];
+        Instance.weaponItems = new GameObject[6];
     }
 
     public bool AddWeapon(GameObject weapon, int slotIndex)
     {
-        if(weaponItems.Count < slotIndex)
+        if(weaponItems.Length < slotIndex)
         {
             weaponItems[slotIndex] = weapon;
             return true;
@@ -37,7 +41,7 @@ public class InventoryManager : MonoBehaviour
 
     public bool AddWeapon(GameObject weapon)
     {
-        for (int i = 0; i < weaponItems.Count; i++)
+        for (int i = 0; i < weaponItems.Length; i++)
         {
             if (weaponItems[i] == null)
             {
@@ -48,9 +52,9 @@ public class InventoryManager : MonoBehaviour
         return false;
     }
 
-    public void RemoveWeapon(GameObject weapon)
+    public void RemoveWeapon(int slotIndex)
     {
-        weaponItems.Remove(weapon);
+        weaponItems[slotIndex] = null;
     }
 
     public void AddPassiveItem(PassiveItem passiveItem)

@@ -35,7 +35,11 @@ public class SpawnPlayerStartWeapon : MonoBehaviour
             GameObject weapon = Instantiate(startWeaponPrefabs[i], weaponHolster.transform.position, Quaternion.identity);
             weapon.transform.parent = weaponHolster.transform;
 
-            InventoryManager.Instance.AddWeapon(weapon);
+            bool addingSucceeded = InventoryManager.Instance.AddWeapon(weapon);
+            if (!addingSucceeded)
+            {
+                Destroy(weapon);
+            }
         }
     }
 }
