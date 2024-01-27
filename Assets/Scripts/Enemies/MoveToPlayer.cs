@@ -6,10 +6,9 @@ using UnityEngine;
 // Class to make enemies move towards the player
 public class MoveToPlayer : BasicMovement
 {
-    public int damage = 10;
     private Transform _target;
 
-    void Start()
+    void Awake()
     {
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
@@ -20,7 +19,6 @@ public class MoveToPlayer : BasicMovement
         {
             Debug.Log("No GameObject with 'Player' tag found in the scene. Target not found for " + this.gameObject.name);
         }
-        rb = GetComponent<Rigidbody2D>();
     }
 
     void FixedUpdate()
@@ -39,9 +37,10 @@ public class MoveToPlayer : BasicMovement
         if (hitObject.CompareTag("Player"))
         {
             StatManager playerStats = hitObject.GetComponent<StatManager>();
-            if (playerStats != null)
+            if (playerStats != null && statManager != null)
             {
-                    playerStats.TakeDamage(damage);
+                int dealt_damage = statManager.Damage;
+                playerStats.TakeDamage(dealt_damage);
             }
             ObjectPoolManager.Instance.DespawnObject(this.gameObject);
         }

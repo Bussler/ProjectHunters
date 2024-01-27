@@ -7,6 +7,27 @@ public class StatManager : MonoBehaviour
 {
     private bool isTargetable = true;
 
+    [Header("Damage Attributes")]
+    [SerializeField]
+    private int _damage = 10;
+    [SerializeField]
+    private float _bulletSpeed = 20f;
+    [SerializeField]
+    private int _amountBullets = 20;
+    [SerializeField]
+    private float _fireRate = 1f;
+
+    [Header("Movement Attributes")]
+    [SerializeField]
+    private float _moveSpeed = 7f;
+    [SerializeField]
+    private float _dashingPower = 20f;
+    [SerializeField]
+    private float _dashingTime = 0.2f;
+    [SerializeField]
+    private float _dashingCooldown = 1f;
+
+    [Header("Health Attributes")]
     [SerializeField]
     private int _max_health = 100;
     private int _min_health = 1;
@@ -14,6 +35,7 @@ public class StatManager : MonoBehaviour
     [SerializeField]
     private int _health;
 
+    // encapsulated private fiels
     public int Health
     {
         get { return _health; }
@@ -27,6 +49,15 @@ public class StatManager : MonoBehaviour
     }
 
     public bool IsTargetable { get => isTargetable; set => isTargetable = value; }
+    public float MoveSpeed { get => _moveSpeed; set => _moveSpeed = value; }
+    public int MaxHealth { get => _max_health; set => _max_health = value; }
+    public int Damage { get => _damage; set => _damage = value; }
+    public float BulletSpeed { get => _bulletSpeed; set => _bulletSpeed = value; }
+    public int AmountBullets { get => _amountBullets; set => _amountBullets = value; }
+    public float FireRate { get => _fireRate; set => _fireRate = value; }
+    public float DashingTime { get => _dashingTime; set => _dashingTime = value; }
+    public float DashingCooldown { get => _dashingCooldown; set => _dashingCooldown = value; }
+    public float DashingPower { get => _dashingPower; set => _dashingPower = value; }
 
     private void Awake()
     {
@@ -35,7 +66,7 @@ public class StatManager : MonoBehaviour
 
     public void Initilize()
     {
-        Health = _max_health;
+        Health = MaxHealth;
     }
 
     public void TakeDamage(int damage)

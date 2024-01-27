@@ -5,9 +5,7 @@ using UnityEngine;
 public class BasicMovement : MonoBehaviour
 {
     protected Rigidbody2D rb = null; // Rigidbody2D component through which we apply force
-    
-    [SerializeField]
-    private float moveSpeed = 7f;
+    protected StatManager statManager = null; // StatManager component to get moveSpeed
 
     public Vector2 forceToApply = Vector2.zero; // used for knockback if a projectile hits the player
     [SerializeField]
@@ -19,16 +17,26 @@ public class BasicMovement : MonoBehaviour
     void Start()
     {
         rb = GetComponent<Rigidbody2D>();
+        statManager = GetComponent<StatManager>();
+
+        if (rb == null)
+        {
+            Debug.Log("No Rigidbody component found on " + this.gameObject.name);
+        }
+        if (statManager == null)
+        {
+            Debug.Log("No StatManager component found on " + this.gameObject.name);
+        }
     }
 
     protected void Move(Vector2 movementVector)
     {
-        if (!canMove || rb == null)
+        if (!canMove || rb == null || statManager == null)
         {
             return;
         }
 
-        Vector2 moveForce = movementVector.normalized * moveSpeed;
+        Vector2 moveForce = movementVector.normalized * statManager.MoveSpeed;
         moveForce += forceToApply;
         forceToApply /= forceDamping;
         if (Mathf.Abs(forceToApply.x) <= 0.01f && Mathf.Abs(forceToApply.y) <= 0.01f)

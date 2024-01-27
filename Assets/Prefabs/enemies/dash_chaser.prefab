@@ -8,6 +8,18 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1364928445074046725, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
+      propertyPath: _dashingTime
+      value: 0.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364928445074046725, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
+      propertyPath: _dashingPower
+      value: 12
+      objectReference: {fileID: 0}
+    - target: {fileID: 1364928445074046725, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
+      propertyPath: _dashingCooldown
+      value: 2
+      objectReference: {fileID: 0}
     - target: {fileID: 3162773697838870529, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
       propertyPath: m_Name
       value: dash_chaser

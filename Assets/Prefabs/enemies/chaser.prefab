@@ -8,6 +8,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: -529745600925547733, guid: c54742facceb0b74a9346d4dbc21ec2a, type: 3}
+      propertyPath: _moveSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 4733470079832116271, guid: c54742facceb0b74a9346d4dbc21ec2a, type: 3}
       propertyPath: m_Name
       value: chaser
@@ -110,7 +114,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8dea8641e5ae65c44956239cff5cf589, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveSpeed: 3
   forceToApply: {x: 0, y: 0}
   forceDamping: 1.2
   damage: 10

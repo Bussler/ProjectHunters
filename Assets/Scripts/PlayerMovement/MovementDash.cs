@@ -6,16 +6,8 @@ using UnityEngine;
 public class MovementDash : MonoBehaviour
 {
     public bool canDash = true;
-    private Rigidbody2D _rb;
-
-    [SerializeField]
-    private float _dashingPower = 24f;
-
-    [SerializeField]
-    private float _dashingTime = 0.2f;
-
-    [SerializeField]
-    private float _dashingCooldown = 1f;
+    private Rigidbody2D _rb = null;
+    private StatManager _statManager = null;
 
     private bool _isDashing;
     public delegate void IsDashingChangedHandler(bool _isDashing);
@@ -37,6 +29,9 @@ public class MovementDash : MonoBehaviour
     void Start()
     {
         _rb = GetComponent<Rigidbody2D>();
+        _statManager = GetComponentInParent<StatManager>();
+        if (_statManager == null)
+            Debug.Log("No Statmanger found for " + this.gameObject.name);
     }
 
     private void setUntargetable()
@@ -61,12 +56,12 @@ public class MovementDash : MonoBehaviour
 
         float originalGravity = _rb.gravityScale;
         _rb.gravityScale = 0f;
-        _rb.velocity = direction.normalized * _dashingPower;
-        yield return new WaitForSeconds(_dashingTime);
+        _rb.velocity = direction.normalized * _statManager.DashingPower;
+        yield return new WaitForSeconds(_statManager.DashingTime);
         _rb.gravityScale = originalGravity;
         setUntargetable();
         isDashing = false;
-        yield return new WaitForSeconds(_dashingCooldown);
+        yield return new WaitForSeconds(_statManager.DashingCooldown);
         canDash = true;
     }
 }

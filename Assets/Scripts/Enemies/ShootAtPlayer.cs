@@ -5,19 +5,13 @@ using UnityEngine;
 // Class to make enemies shoot at the player
 public class ShootAtPlayer : MonoBehaviour
 {
-    public int damage = 10;
+    private StatManager statManager;
 
     [SerializeField]
     private GameObject _bulletPrefab;
 
     [SerializeField]
     private GameObject _bulletSpawn;
-
-    [SerializeField]
-    private float _bulletSpeed = 20f;
-
-    [SerializeField]
-    private float _fireRate = 1f;
 
     private Transform _target;
     private float _nextFireTime = 0f;
@@ -33,6 +27,10 @@ public class ShootAtPlayer : MonoBehaviour
         {
             Debug.Log("No GameObject with 'Player' tag found in the scene. Target not found for " + this.gameObject.name);
         }
+
+        statManager = GetComponent<StatManager>();
+        if (statManager == null)
+            Debug.Log("No Statmanger found for " + this.gameObject.name);
     }
 
     void FixedUpdate()
@@ -40,7 +38,7 @@ public class ShootAtPlayer : MonoBehaviour
         if (Time.time > _nextFireTime)
         {
             Shoot();
-            _nextFireTime = Time.time + 1 / _fireRate;
+            _nextFireTime = Time.time + 1 / statManager.FireRate;
         }
     }
 
@@ -58,8 +56,8 @@ public class ShootAtPlayer : MonoBehaviour
             BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
             if (basicBullet != null)
             {
-                basicBullet.speed = _bulletSpeed;
-                basicBullet.damage = damage;
+                basicBullet.speed = statManager.BulletSpeed;
+                basicBullet.damage = statManager.Damage;
             }
         }
     }
