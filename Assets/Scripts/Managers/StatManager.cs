@@ -30,7 +30,7 @@ public class StatManager : MonoBehaviour
     [Header("Health Attributes")]
     [SerializeField]
     private int _max_health = 100;
-    private int _min_health = 1;
+    private int _min_health = 0;
 
     [SerializeField]
     private int _health;
@@ -41,8 +41,10 @@ public class StatManager : MonoBehaviour
         get { return _health; }
         set
         {
-            if (value < 0)
-                _health = 0;
+            if (value <= _min_health)
+                _health = _min_health;
+            else if (value >= _max_health)
+                _health = _max_health;
             else
                 _health = value;
         }
