@@ -8,8 +8,10 @@ public class Wave : ScriptableObject
 {
     public new string name;
     public List<EnemyGroup> enemyGroups; // List of enemies in this wave
-    public int waveQuota; // total number of enemies in this wave. Is calculated automatically, if set to 0
     public float spawnInterval; // How often enemies should spawn
+
+    [System.NonSerialized]
+    public int waveQuota = 0; // total number of enemies in this wave. Is calculated automatically, if set to 0
 
     [System.NonSerialized]
     public float spawnCount; // How many enemies have been spawned

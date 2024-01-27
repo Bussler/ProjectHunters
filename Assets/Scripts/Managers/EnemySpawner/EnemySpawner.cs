@@ -22,6 +22,7 @@ public class EnemySpawner : MonoBehaviour
     private int currentWave; // Index of current wave
     private float spawnTimer; // Timer to check spawn of next enemy in current wave
     private int enemiesAlive; // Number of enemies currently alive
+    private bool waitingForNextWave = false; // Flag to check if waiting for next wave
 
 
     void Awake()
@@ -43,12 +44,14 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
+    // TODO here is a bug with the waves: Some wave not spawning
     // Update is called once per frame
-    void Update()
+    void FixedUpdate()
     {
         //Check if current wave is finished: if all enemies have been spawned, move to next wave
-        if (currentWave < waves.Count && waves[currentWave].spawnCount >= waves[currentWave].waveQuota)
+        if (currentWave < waves.Count - 1 && waves[currentWave].spawnCount >= waves[currentWave].waveQuota && !waitingForNextWave)
         {
+            waitingForNextWave = true;
             StartCoroutine(BeginNextWave());
         }
 
@@ -60,7 +63,6 @@ public class EnemySpawner : MonoBehaviour
             SpawnWave();
         }
 
-        // TODO : Timer to spawn next wave
     }
 
     // Coroutine to start next wave after waveInterval
@@ -73,6 +75,7 @@ public class EnemySpawner : MonoBehaviour
             currentWave++;
             spawnTimer = 0;
         }
+        waitingForNextWave = false;
     }
 
     // Spawn enemies from current wave: Go through each enemy group and spawn enemies
