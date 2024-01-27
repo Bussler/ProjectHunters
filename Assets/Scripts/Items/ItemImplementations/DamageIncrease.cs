@@ -6,11 +6,11 @@ public class DamageIncrease : PassiveItem
 {
     protected override void ApplyPassiveItem()
     {
-        appliedStatManager.Damage += (int)passiveItemData.valueIncrease;
+        appliedStatManager.Damage += (int)passiveItemData.calculateIncrease(level);
     }
 
     protected override void RemovePassiveItem()
     {
-        appliedStatManager.Damage -= (int)passiveItemData.valueIncrease;
+        appliedStatManager.Damage -= (int)passiveItemData.calculateIncrease(level);
     }
 }

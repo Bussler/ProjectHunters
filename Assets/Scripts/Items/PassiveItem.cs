@@ -6,7 +6,9 @@ using UnityEngine;
 public class PassiveItem : MonoBehaviour
 {
     public PassiveItemScriptableObject passiveItemData;
+    public int level = 1;
     protected StatManager appliedStatManager;
+    protected bool isApplied = false;
 
     protected virtual void ApplyPassiveItem()
     {
@@ -20,10 +22,25 @@ public class PassiveItem : MonoBehaviour
         // Overwrite this method in child classes
     }
 
+    // Level up the passive item and apply the new stats
+    public void LevelUpPassiveItem()
+    {
+        if (!isApplied)
+        {
+            Debug.LogError("Leveling Up Passive Item before it is applied!");
+            return;
+        }
+
+        RemovePassiveItem();
+        level++;
+        ApplyPassiveItem();
+    }
+
     void Start()
     {
         appliedStatManager = GetComponentInParent<StatManager>();
         ApplyPassiveItem();
+        isApplied = true;
     }
 
     void OnDestroy()

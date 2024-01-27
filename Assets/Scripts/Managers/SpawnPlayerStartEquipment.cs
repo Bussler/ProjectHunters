@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Class to spawn the player's start equipment: weapons, passive items ...
 public class SpawnPlayerStartEquipment : MonoBehaviour
 {
     public List<GameObject> startWeaponPrefabs;

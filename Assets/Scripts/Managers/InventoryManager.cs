@@ -34,6 +34,7 @@ public class InventoryManager : MonoBehaviour
         if(weaponItems.Length < slotIndex)
         {
             weaponItems[slotIndex] = weapon;
+            weaponLevels[slotIndex] = 1;
             return true;
         }
 
@@ -49,6 +50,7 @@ public class InventoryManager : MonoBehaviour
             if (weaponItems[i] == null)
             {
                 weaponItems[i] = weapon;
+                weaponLevels[i] = 1;
                 return true;
             }
         }
@@ -60,6 +62,7 @@ public class InventoryManager : MonoBehaviour
     public bool RemoveWeapon(int slotIndex)
     {
         weaponItems[slotIndex] = null;
+        weaponLevels[slotIndex] = 0;
 
         return true;
     }
@@ -67,26 +70,45 @@ public class InventoryManager : MonoBehaviour
     public bool AddPassiveItem(PassiveItem passiveItem)
     {
         passiveItems.Add(passiveItem);
+        passiveItemsLevels.Add(1);
 
         return true;
     }
 
     public bool RemovePassiveItem(PassiveItem passiveItem)
     {
-        passiveItems.Remove(passiveItem);
+        int index = passiveItems.IndexOf(passiveItem);
+        if (index != -1)
+        {
+            // Remove passive item from list
+            passiveItems.RemoveAt(index);
 
-        return true;
+            // Reset level
+            passiveItemsLevels.RemoveAt(index);
+
+            return true;
+        }
+
+        Debug.Log("Passive item not found in inventory!");
+        return false;
     }
 
     public void LevelUpWeapon(int slotIndex)
     {
-        weaponLevels[slotIndex]++;
-        // TODO: Update weapon stats
+        if(weaponLevels.Length < slotIndex)
+        {
+            weaponLevels[slotIndex]++;
+            // TODO: Update weapon stats
+        }
     }
 
     public void LevelUpPassiveItem(int slotIndex)
     {
-        passiveItemsLevels[slotIndex]++;
+        if (passiveItems.Count > slotIndex)
+        {
+            passiveItemsLevels[slotIndex]++;
+            passiveItems[slotIndex].LevelUpPassiveItem();
+        }
     }
     
 }

@@ -6,11 +6,11 @@ public class Heal : PassiveItem
 {
     protected override void ApplyPassiveItem()
     {
-        appliedStatManager.Health += (int)passiveItemData.valueIncrease;
+        appliedStatManager.Health += (int)passiveItemData.calculateIncrease(level);
     }
 
     protected override void RemovePassiveItem()
     {
-        appliedStatManager.Health -= (int)passiveItemData.valueIncrease;
+        appliedStatManager.Health -= (int)passiveItemData.calculateIncrease(level);
     }
 }
