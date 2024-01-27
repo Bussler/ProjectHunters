@@ -20,6 +20,11 @@ public class PlayerWeapon : MonoBehaviour
             Debug.Log("No Statmanger found for " + this.gameObject.name);
     }
 
+    public void LevelUp()
+    {
+        currentLevel++;
+    }
+
     // Damage of the weapon depends on the current level, the weapon damage and the player's damage
     protected int getCurrentDamage()
     {
