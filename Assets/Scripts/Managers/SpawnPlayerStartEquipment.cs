@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Class to spawn the player's start equipment: weapons, passive items ...
-public class SpawnPlayerStartEquipment : MonoBehaviour
+public class SpawnPlayerStartEquipment : DropItem
 {
     public List<GameObject> startWeaponPrefabs;
     public List<GameObject> startPassiveItemPrefabs;
@@ -70,22 +70,7 @@ public class SpawnPlayerStartEquipment : MonoBehaviour
 
         for (int i = 0; i < startPassiveItemPrefabs.Count; i++)
         {
-            GameObject item = Instantiate(startPassiveItemPrefabs[i], itemBag.transform.position, Quaternion.identity);
-            item.transform.parent = itemBag.transform;
-
-            PassiveItem passiveItem = item.GetComponent<PassiveItem>();
-            if (passiveItem != null)
-            {
-                bool addingSucceeded = InventoryManager.Instance.AddPassiveItem(passiveItem);
-                if (!addingSucceeded)
-                {
-                    Destroy(item);
-                }
-            }
-            else { 
-                Debug.Log("Item is not a PassiveItem!");
-                Destroy(item);
-            }
+            spawnPassiveItem(startPassiveItemPrefabs[i], itemBag.transform);
         }
     }
 }

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 8634213865404230946}
   - component: {fileID: 3531901043861422696}
   - component: {fileID: -529745600925547733}
+  - component: {fileID: 3594009152928985120}
   m_Layer: 6
   m_Name: enemy
   m_TagString: Enemy
@@ -143,6 +144,31 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cf3edc80e5102614db58adae7d7768fc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _damage: 10
+  _bulletSpeed: 20
+  _amountBullets: 20
+  _fireRate: 1
   _moveSpeed: 3
+  _dashingPower: 24
+  _dashingTime: 0.2
+  _dashingCooldown: 1
   _max_health: 100
   _health: 0
+--- !u!114 &3594009152928985120
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4733470079832116271}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc8f5cd85a6992342b13c10a37f5e58e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _passiveItemPrefabs:
+  - {fileID: 8138069095629682571, guid: bef18037244f77740824b3b20fa4e0e2, type: 3}
+  - {fileID: 1749407383038534419, guid: 51a4cdad5d0c03d4182a630aebaf24e5, type: 3}
+  - {fileID: 1629093123853659624, guid: 6c187570808c210498fcd836b3af57b5, type: 3}
+  - {fileID: 6810610160739252366, guid: 348761f6e445ca54b9427f7f203b92a4, type: 3}
+  _dropChance: 0.5

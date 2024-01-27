@@ -747,6 +747,18 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryManager
       objectReference: {fileID: 0}
+    - target: {fileID: 4438274152495535946, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+      propertyPath: startPassiveItemPrefabs.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4438274152495535946, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+      propertyPath: startPassiveItemPrefabs.Array.data[1]
+      value: 
+      objectReference: {fileID: 1749407383038534419, guid: 51a4cdad5d0c03d4182a630aebaf24e5, type: 3}
+    - target: {fileID: 4438274152495535946, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+      propertyPath: startPassiveItemPrefabs.Array.data[2]
+      value: 
+      objectReference: {fileID: 8138069095629682571, guid: bef18037244f77740824b3b20fa4e0e2, type: 3}
     - target: {fileID: 8762195773202237335, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0483366

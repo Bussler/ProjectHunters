@@ -8,11 +8,27 @@ public class BulletWeapon : PlayerWeapon
     [SerializeField]
     protected GameObject bulletPrefab;
 
+    protected float _nextFireTime = 0f;
+
     void Start()
     {
         statManager = GetComponentInParent<StatManager>();
         if (statManager == null)
             Debug.Log("No Statmanger found for " + this.gameObject.name);
+    }
+
+    // Shoot at a fixed rate: 1 / FireRate
+    protected void FixedUpdate()
+    {
+        if (Time.time > _nextFireTime)
+        {
+            _nextFireTime = Time.time + 1 / statManager.FireRate;
+            Shoot();
+        }
+    }
+    protected virtual void Shoot()
+    {
+        // Overwrite this method in child classes for concrete shooting behaviour
     }
 
     protected Vector2 getShootingDirection(GameObject enemy)
@@ -35,11 +51,6 @@ public class BulletWeapon : PlayerWeapon
             basicBullet.speed = statManager.BulletSpeed;
             basicBullet.damage = getCurrentDamage();
         }
-    }
-
-    protected virtual void Shoot()
-    {
-        // Overwrite this method in child classes for concrete shooting behaviour
     }
 
 }
