@@ -2,12 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SpawnPlayerStartWeapon : MonoBehaviour
+public class SpawnPlayerStartEquipment : MonoBehaviour
 {
     public List<GameObject> startWeaponPrefabs;
+    public List<GameObject> startPassiveItemPrefabs;
 
     private GameObject player;
     private GameObject weaponHolster;
+    private GameObject itemBag;
 
     // Start is called before the first frame update
     void Awake()
@@ -16,6 +18,7 @@ public class SpawnPlayerStartWeapon : MonoBehaviour
         if (player != null)
         {
             SpawnPlayerWeapons();
+            SpawnPlayerItems();
         }
     }
 
@@ -39,6 +42,38 @@ public class SpawnPlayerStartWeapon : MonoBehaviour
             if (!addingSucceeded)
             {
                 Destroy(weapon);
+            }
+        }
+    }
+
+    void SpawnPlayerItemsBag()
+    {
+        itemBag = new GameObject("Item Bag");
+        itemBag.transform.SetParent(player.transform);
+    }
+
+    void SpawnPlayerItems()
+    {
+        if (itemBag == null)
+            SpawnPlayerItemsBag();
+
+        for (int i = 0; i < startPassiveItemPrefabs.Count; i++)
+        {
+            GameObject item = Instantiate(startPassiveItemPrefabs[i], itemBag.transform.position, Quaternion.identity);
+            item.transform.parent = itemBag.transform;
+
+            PassiveItem passiveItem = item.GetComponent<PassiveItem>();
+            if (passiveItem != null)
+            {
+                bool addingSucceeded = InventoryManager.Instance.AddPassiveItem(passiveItem);
+                if (!addingSucceeded)
+                {
+                    Destroy(item);
+                }
+            }
+            else { 
+                Debug.Log("Item is not a PassiveItem!");
+                Destroy(item);
             }
         }
     }

@@ -47,6 +47,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   startWeaponPrefabs:
   - {fileID: 5182718156045843204, guid: 3518336844cadb04481edb8842df2f5d, type: 3}
+  startPassiveItemPrefabs:
+  - {fileID: 6810610160739252366, guid: 348761f6e445ca54b9427f7f203b92a4, type: 3}
 --- !u!114 &1653618314744328942
 MonoBehaviour:
   m_ObjectHideFlags: 0

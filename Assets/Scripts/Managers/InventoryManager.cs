@@ -36,9 +36,12 @@ public class InventoryManager : MonoBehaviour
             weaponItems[slotIndex] = weapon;
             return true;
         }
+
+        Debug.Log("Weapon-Inventory full!");
         return false;
     }
 
+    // Search for the first empty slot and add the weapon there
     public bool AddWeapon(GameObject weapon)
     {
         for (int i = 0; i < weaponItems.Length; i++)
@@ -49,22 +52,30 @@ public class InventoryManager : MonoBehaviour
                 return true;
             }
         }
+
+        Debug.Log("Weapon-Inventory full!");
         return false;
     }
 
-    public void RemoveWeapon(int slotIndex)
+    public bool RemoveWeapon(int slotIndex)
     {
         weaponItems[slotIndex] = null;
+
+        return true;
     }
 
-    public void AddPassiveItem(PassiveItem passiveItem)
+    public bool AddPassiveItem(PassiveItem passiveItem)
     {
         passiveItems.Add(passiveItem);
+
+        return true;
     }
 
-    public void RemovePassiveItem(PassiveItem passiveItem)
+    public bool RemovePassiveItem(PassiveItem passiveItem)
     {
         passiveItems.Remove(passiveItem);
+
+        return true;
     }
 
     public void LevelUpWeapon(int slotIndex)
