@@ -10,7 +10,7 @@ public class InventoryManager : MonoBehaviour
     public static InventoryManager Instance;
 
     public int[] weaponLevels = new int[6]; // TODO
-    public GameObject[] weaponItems = new GameObject[6]; // TODO
+    public PlayerWeapon[] weaponItems = new PlayerWeapon[6]; // TODO
 
     public List<int> passiveItemsLevels = new List<int>();
     public List<PassiveItem> passiveItems = new List<PassiveItem>();
@@ -26,10 +26,10 @@ public class InventoryManager : MonoBehaviour
         Instance = this;
 
         Instance.weaponLevels = new int[6];
-        Instance.weaponItems = new GameObject[6];
+        Instance.weaponItems = new PlayerWeapon[6];
     }
 
-    public bool AddWeapon(GameObject weapon, int slotIndex)
+    public bool AddWeapon(PlayerWeapon weapon, int slotIndex)
     {
         if(weaponItems.Length < slotIndex)
         {
@@ -43,7 +43,7 @@ public class InventoryManager : MonoBehaviour
     }
 
     // Search for the first empty slot and add the weapon there
-    public bool AddWeapon(GameObject weapon)
+    public bool AddWeapon(PlayerWeapon weapon)
     {
         for (int i = 0; i < weaponItems.Length; i++)
         {
@@ -98,7 +98,7 @@ public class InventoryManager : MonoBehaviour
         if(weaponLevels.Length < slotIndex)
         {
             weaponLevels[slotIndex]++;
-            // TODO: Update weapon stats
+            weaponItems[slotIndex].LevelUp();
         }
     }
 

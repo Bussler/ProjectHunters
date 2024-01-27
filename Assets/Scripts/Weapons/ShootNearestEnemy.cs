@@ -4,24 +4,15 @@ using System.Linq;
 using UnityEngine;
 
 // Find the nearest enemies and shoot them
-public class ShootNearestEnemy : MonoBehaviour
+public class ShootNearestEnemy : BulletWeapon
 {
-    private StatManager statManager;
     private Dictionary<int, GameObject> _enemiesInRange = new Dictionary<int, GameObject>();
-
-    [SerializeField]
-    private GameObject _bulletPrefab;
 
     private float _nextFireTime = 0f;
 
-    // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
         _enemiesInRange = new Dictionary<int, GameObject>();
-        
-        statManager = GetComponentInParent<StatManager>();
-        if (statManager == null)
-            Debug.Log("No Statmanger found for " + this.gameObject.name);
     }
 
     // Update is called once per frame
@@ -30,7 +21,7 @@ public class ShootNearestEnemy : MonoBehaviour
         Shoot();
     }
 
-    private void Shoot() {
+    protected override void Shoot() {
         if (Time.time > _nextFireTime)
         {
             _nextFireTime = Time.time + 1 / statManager.FireRate;
@@ -55,26 +46,9 @@ public class ShootNearestEnemy : MonoBehaviour
             {
                 if (i < enemies.Count)
                 {
-                    ShootAt(enemies[i]);
+                    ShootAt(getShootingDirection(enemies[i]));
                 }
             }
-        }
-    }
-
-    private void ShootAt(GameObject enemy)
-    {
-        // calculate quaternion to look at enemy
-        Vector2 direction = enemy.transform.position - this.transform.position;
-        float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
-        Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
-
-        GameObject bullet = ObjectPoolManager.Instance.SpawnObject(_bulletPrefab, this.transform.position, rotation, ObjectPoolManager.PoolType.Bullet);
-
-        BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
-        if (basicBullet != null)
-        {
-            basicBullet.speed = statManager.BulletSpeed;
-            basicBullet.damage = statManager.Damage;
         }
     }
 
