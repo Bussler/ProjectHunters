@@ -80,8 +80,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861aef4438fa2094cbc20bacb919a28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  damage: 20
-  _bulletPrefab: {fileID: 3073019189451554102, guid: 52977d5eb868c25468e1709ed102dab4, type: 3}
-  _bulletSpeed: 25
-  _amountBullets: 4
-  _fireRate: 4
+  bulletPrefab: {fileID: 3073019189451554102, guid: 52977d5eb868c25468e1709ed102dab4, type: 3}
