@@ -8,46 +8,34 @@ public class ShootNearestEnemy : BulletWeapon
 {
     private Dictionary<int, GameObject> _enemiesInRange = new Dictionary<int, GameObject>();
 
-    private float _nextFireTime = 0f;
-
     void Awake()
     {
         _enemiesInRange = new Dictionary<int, GameObject>();
     }
 
-    // Update is called once per frame
-    void FixedUpdate()
-    {
-        Shoot();
-    }
-
+    // shoot at nearest enemies
     protected override void Shoot() {
-        if (Time.time > _nextFireTime)
+        // remove inactive enemies from dictionary
+        _enemiesInRange = _enemiesInRange
+            .Where(pair => pair.Value.activeInHierarchy)
+            .ToDictionary(pair => pair.Key, pair => pair.Value);
+
+        List<GameObject> enemies = new List<GameObject>(_enemiesInRange.Values);
+
+        // sort by distance
+        enemies.Sort(delegate (GameObject a, GameObject b)
         {
-            _nextFireTime = Time.time + 1 / statManager.FireRate;
+            return Vector2.Distance(this.transform.position, a.transform.position)
+            .CompareTo(Vector2.Distance(this.transform.position, b.transform.position)
+            );
+        });
 
-            // remove inactive enemies from dictionary
-            _enemiesInRange = _enemiesInRange
-                .Where(pair => pair.Value.activeInHierarchy)
-                .ToDictionary(pair => pair.Key, pair => pair.Value);
-
-            List<GameObject> enemies = new List<GameObject>(_enemiesInRange.Values);
-
-            // sort by distance
-            enemies.Sort(delegate (GameObject a, GameObject b)
+        // shoot at nearest enemies
+        for (int i = 0; i < statManager.AmountBullets; i++)
+        {
+            if (i < enemies.Count)
             {
-                return Vector2.Distance(this.transform.position, a.transform.position)
-                .CompareTo(Vector2.Distance(this.transform.position, b.transform.position)
-                );
-            });
-
-            // shoot at nearest enemies
-            for (int i = 0; i < statManager.AmountBullets; i++)
-            {
-                if (i < enemies.Count)
-                {
-                    ShootAt(getShootingDirection(enemies[i]));
-                }
+                ShootAt(getShootingDirection(enemies[i]));
             }
         }
     }
