@@ -22,8 +22,13 @@ public class PassiveItem : MonoBehaviour
 
     void Start()
     {
-        appliedStatManager = GetComponent<StatManager>();
+        appliedStatManager = GetComponentInParent<StatManager>();
         ApplyPassiveItem();
+    }
+
+    void OnDestroy()
+    {
+        RemovePassiveItem();
     }
 
 }

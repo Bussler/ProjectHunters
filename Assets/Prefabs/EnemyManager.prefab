@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2506027146233499600}
   - component: {fileID: 5160249236756911169}
-  - component: {fileID: 3364044877180232628}
   - component: {fileID: 2912210070301287601}
   m_Layer: 0
   m_Name: EnemyManager
@@ -50,19 +49,6 @@ MonoBehaviour:
   _enemyPoolHolder: {fileID: 0}
   _enemyBulletPoolHolder: {fileID: 0}
   _bulletPoolHolder: {fileID: 0}
---- !u!114 &3364044877180232628
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3495324563229933892}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 063bc1ac7ca75a9499a1a8073dd05506, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  something: {fileID: 9139702496994208216, guid: 1a944149e9d1adb4095d2ccb1253affd, type: 3}
 --- !u!114 &2912210070301287601
 MonoBehaviour:
   m_ObjectHideFlags: 0
