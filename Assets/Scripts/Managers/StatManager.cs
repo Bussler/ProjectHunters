@@ -99,6 +99,12 @@ public class StatManager : MonoBehaviour
         {
             ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
             EnemySpawner.Instance.OnEnemyDied();
+
+            DropItem dropItem = GetComponent<DropItem>();
+            if (dropItem != null)
+            {
+                dropItem.Drop();
+            }
         }
 
     }
