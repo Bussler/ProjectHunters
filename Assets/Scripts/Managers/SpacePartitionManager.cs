@@ -76,12 +76,27 @@ public class SpacePartitionManager : MonoBehaviour
     public int AddObject(GameObject obj)
     {
         int cellIndex = GetCellIndex(obj.transform.position);
+
+        if (cellIndex < 0 || cellIndex >= grid.Length -1)
+        {
+            Debug.Log("Object out of bounds " + obj.name);
+            ObjectPoolManager.Instance.DespawnObject(obj); // Instead of destroy, deactivation in pool
+            return -1;
+        }
+
         grid[cellIndex].Add(obj);
         return cellIndex;
     }
 
     public void AddObject(GameObject obj, int cellIndex)
     {
+        if (cellIndex < 0 || cellIndex >= grid.Length -1)
+        {
+            Debug.Log("Object out of bounds " + obj.name);
+            ObjectPoolManager.Instance.DespawnObject(obj); // Instead of destroy, deactivation in pool
+            return;
+        }
+
         grid[cellIndex].Add(obj);
     }
     public int RemoveObject(GameObject obj)
@@ -93,6 +108,13 @@ public class SpacePartitionManager : MonoBehaviour
 
     public void RemoveObject(GameObject obj, int cellIndex)
     {
+        if (cellIndex < 0 || cellIndex >= grid.Length -1)
+        {
+            Debug.Log("Object out of bounds " + obj.name);
+            ObjectPoolManager.Instance.DespawnObject(obj); // Instead of destroy, deactivation in pool
+            return;
+        }
+
         grid[cellIndex].Remove(obj);
     }
 
