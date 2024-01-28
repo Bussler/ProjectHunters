@@ -10,7 +10,7 @@ public class BasicBullet : MonoBehaviour
     public float impactForce = 4f;
     private Rigidbody2D _rb;
 
-    void Start()
+    void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
     }
