@@ -50,8 +50,7 @@ public class SpacePartitionManager : MonoBehaviour
     private void FixedUpdate()
     {
         runLogicTimer += Time.deltaTime;
-        int i = (int)(runLogicTimer * 50) % 50;
-        RunBatchLogic(i);
+        RunBatchLogic((int)(runLogicTimer * 50) % batches.Length);
     }
 
     private void RunBatchLogic(int batchID)
@@ -67,6 +66,11 @@ public class SpacePartitionManager : MonoBehaviour
                 }
             }
         }
+    }
+    public void AddObjectToBatch(GameObject obj)
+    {
+        int batchID = GetCellIndex(obj.transform.position) % batches.Length;
+        batches[batchID].Add(obj);
     }
 
     public int AddObject(GameObject obj)

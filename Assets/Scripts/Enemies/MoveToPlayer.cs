@@ -25,7 +25,7 @@ public class MoveToPlayer : BasicMovement
         }
 
         cellIndex = SpacePartitionManager.Instance.AddObject(this.gameObject);
-        SpacePartitionManager.Instance.batches[cellIndex % 50].Add(this.gameObject);
+        SpacePartitionManager.Instance.AddObjectToBatch(this.gameObject);
     }
 
     void FixedUpdate()
@@ -65,18 +65,18 @@ public class MoveToPlayer : BasicMovement
             if (enemy != null && enemy != this.gameObject)
             {
                 float distance = Vector2.Distance(enemy.transform.position, this.transform.position);
-                if (Mathf.Abs(distance) < 0.2f)
+                if (Mathf.Abs(distance) < 1f)
                 {
                     //Vector2 direction = enemy.transform.position - this.transform.position;
                     //BasicMovement movement = enemy.GetComponent<BasicMovement>();
                     //if (movement != null)
                     //{
-                    //    movement.forceToApply += direction.normalized * 3f;
+                    //    movement.forceToApply += direction.normalized * Time.deltaTime * statManager.MoveSpeed * 10f;
                     //}
 
-                    // TODO the push back here is not yet strong enough!
+                    // TODO check if we can do the pushback better?
                     Vector2 direction = enemy.transform.position - this.transform.position;
-                    enemy.transform.position += (Vector3)direction.normalized * Time.deltaTime * statManager.MoveSpeed * 5f;
+                    enemy.transform.position += (Vector3)direction.normalized * Time.deltaTime * statManager.MoveSpeed * 10f;
                 }
             }
         }
