@@ -747,10 +747,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: InventoryManager
       objectReference: {fileID: 0}
-    - target: {fileID: 4438274152495535946, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
-      propertyPath: startWeaponPrefabs.Array.data[0]
-      value: 
-      objectReference: {fileID: 5182718156045843204, guid: 3518336844cadb04481edb8842df2f5d, type: 3}
     - target: {fileID: 8762195773202237335, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.0483366

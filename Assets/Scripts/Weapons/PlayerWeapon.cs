@@ -8,12 +8,12 @@ public class PlayerWeapon : MonoBehaviour
     protected StatManager statManager;
 
     [SerializeField]
-    protected int basicWeaponDamage = 5;
+    protected BasicWeaponStats weaponStats;
 
     public int currentLevel = 1;
 
     // Start is called before the first frame update
-    protected void Start()
+    protected virtual void Start()
     {
         statManager = GetComponentInParent<StatManager>();
         if (statManager == null)
@@ -28,7 +28,7 @@ public class PlayerWeapon : MonoBehaviour
     // Damage of the weapon depends on the current level, the weapon damage and the player's damage
     protected int getCurrentDamage()
     {
-        return statManager.Damage + (basicWeaponDamage * currentLevel);
+        return statManager.Damage + (weaponStats.BasicWeaponDamage * currentLevel);
     }
 
 }

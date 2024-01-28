@@ -8,7 +8,7 @@ public class MoveToPlayer : BasicMovement
 {
     private Transform _target;
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
         GameObject player = GameObject.FindWithTag("Player");

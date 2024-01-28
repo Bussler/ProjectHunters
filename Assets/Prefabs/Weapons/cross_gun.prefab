@@ -44,6 +44,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 92a550e43c8910441a1b201f7dc464c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  basicWeaponDamage: 10
+  weaponStats: {fileID: 11400000, guid: 64302853042ef1449a111254d20d0258, type: 2}
   currentLevel: 1
-  bulletPrefab: {fileID: 3073019189451554102, guid: 52977d5eb868c25468e1709ed102dab4, type: 3}
+  bulletWeaponStats: {fileID: 0}

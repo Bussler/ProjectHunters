@@ -16,7 +16,7 @@ public class PlayerMovement : BasicMovement
         input = new MainControls();
     }
 
-    private void Start()
+    protected override void Start()
     {
         base.Start();
         dash_script = GetComponent<MovementDash>();

@@ -80,4 +80,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 861aef4438fa2094cbc20bacb919a28f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletPrefab: {fileID: 3073019189451554102, guid: 52977d5eb868c25468e1709ed102dab4, type: 3}
+  weaponStats: {fileID: 11400000, guid: e6dba25119f987c4c8f60ece99a398d9, type: 2}
+  currentLevel: 1
+  bulletWeaponStats: {fileID: 0}

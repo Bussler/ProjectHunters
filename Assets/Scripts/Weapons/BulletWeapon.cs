@@ -5,14 +5,14 @@ using UnityEngine;
 // Base class for all player bullet based weapons
 public class BulletWeapon : PlayerWeapon
 {
-    [SerializeField]
-    protected GameObject bulletPrefab;
+    protected BulletWeaponStats bulletWeaponStats;
 
     protected float _nextFireTime = 0f;
 
-    protected void Start()
+    protected override void Start()
     {
         base.Start();
+        bulletWeaponStats = weaponStats as BulletWeaponStats;
     }
 
     // Shoot at a fixed rate: 1 / FireRate
@@ -41,7 +41,7 @@ public class BulletWeapon : PlayerWeapon
         float angle = Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg;
         Quaternion rotation = Quaternion.AngleAxis(angle - 90, Vector3.forward);
 
-        GameObject bullet = ObjectPoolManager.Instance.SpawnObject(bulletPrefab, this.transform.position, rotation, ObjectPoolManager.PoolType.Bullet);
+        GameObject bullet = ObjectPoolManager.Instance.SpawnObject(bulletWeaponStats.WeaponPrefab, this.transform.position, rotation, ObjectPoolManager.PoolType.Bullet);
 
         BasicBullet basicBullet = bullet.GetComponent<BasicBullet>();
         if (basicBullet != null)

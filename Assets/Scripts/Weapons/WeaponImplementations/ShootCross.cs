@@ -5,11 +5,6 @@ using UnityEngine;
 // Shoot in a cross pattern
 public class ShootCross : BulletWeapon
 {
-    // Start is called before the first frame update
-    void Awake()
-    {
-        
-    }
 
     protected override void Shoot()
     {

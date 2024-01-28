@@ -8,7 +8,7 @@ public class ShootNearestEnemy : BulletWeapon
 {
     private Dictionary<int, GameObject> _enemiesInRange = new Dictionary<int, GameObject>();
 
-    void Start()
+    protected override void Start()
     {
         base.Start();
         _enemiesInRange = new Dictionary<int, GameObject>();
