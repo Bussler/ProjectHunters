@@ -34,8 +34,7 @@ public class MoveToPlayer : BasicMovement
             Vector2 direction = this._target.position - this.transform.position;
             Move(direction.normalized);
 
-            PushNearbyEnemies();
-
+            //PushNearbyEnemies();
             UpdateSpatialGroup();
         }
     }
@@ -43,7 +42,10 @@ public class MoveToPlayer : BasicMovement
     // Push enemies that are too close to this enemy away
     private void PushNearbyEnemies()
     {
-        List<GameObject> nearbyEnemies = SpacePartitionManager.Instance.GetNearbyObjects(cellIndex);
+        //List<GameObject> nearbyEnemies = SpacePartitionManager.Instance.GetCellObjects(cellIndex);
+
+        List<int> nearbyCells = SpacePartitionManager.GetNearbyCells(cellIndex);
+        List<GameObject> nearbyEnemies = SpacePartitionManager.GetAllObjectsInGridGroups(nearbyCells);
 
         foreach (GameObject enemy in nearbyEnemies)
         {

@@ -76,14 +76,58 @@ public class SpacePartitionManager : MonoBehaviour
     }
 
     // Get the list of objects in the cell where the object is located
-    public List<GameObject> GetNearbyObjects(GameObject obj)
+    public List<GameObject> GetCellObjects(GameObject obj)
     {
         int cellIndex = GetCellIndex(obj.transform.position);
         return grid[cellIndex];
     }
 
-    public List<GameObject> GetNearbyObjects(int cellIndex)
+    public List<GameObject> GetCellObjects(int cellIndex)
     {
         return grid[cellIndex];
+    }
+
+    // Return a list of cell IDs that are within the radius of the current cell ID
+    public static List<int> GetNearbyCells(int currentCellID, int radius = 1)
+    {
+        List<int> cellIDs = new List<int>();
+
+        int widthRange = Instance.gridWidth;
+        int heightRange = Instance.gridHeight;
+        int amountCells = Instance.grid.Length;
+
+        for(int i_x = -radius; i_x <= radius; i_x++)
+        {
+            for (int i_y = -radius; i_y <= radius; i_y++)
+            {
+                int newGroup = currentCellID + i_x + i_y * widthRange;
+
+                bool isWithinWidth = newGroup % widthRange >= 0 && newGroup % widthRange < widthRange;
+                bool isWithinHeight = newGroup / widthRange >= 0 && newGroup / widthRange < heightRange;
+                bool isWithinRange = isWithinWidth && isWithinHeight;
+
+                bool isWithinPartitions = newGroup >= 0 && newGroup < amountCells;
+
+                if (isWithinRange && isWithinPartitions)
+                {
+                    cellIDs.Add(newGroup);
+                }
+            }
+        }
+
+        return cellIDs;
+    }
+
+    // Get all objects in the grid groups referenced by the list of cell IDs
+    public static List<GameObject> GetAllObjectsInGridGroups(List<int> spatialGroups)
+    {
+        List<GameObject> objects = new List<GameObject>();
+
+        foreach (int cellID in spatialGroups)
+        {
+            objects.AddRange(Instance.grid[cellID]);
+        }
+
+        return objects;
     }
 }
