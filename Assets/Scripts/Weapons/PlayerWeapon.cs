@@ -13,7 +13,7 @@ public class PlayerWeapon : MonoBehaviour
     public int currentLevel = 1;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         statManager = GetComponentInParent<StatManager>();
         if (statManager == null)

@@ -10,11 +10,9 @@ public class BulletWeapon : PlayerWeapon
 
     protected float _nextFireTime = 0f;
 
-    void Start()
+    protected void Start()
     {
-        statManager = GetComponentInParent<StatManager>();
-        if (statManager == null)
-            Debug.Log("No Statmanger found for " + this.gameObject.name);
+        base.Start();
     }
 
     // Shoot at a fixed rate: 1 / FireRate

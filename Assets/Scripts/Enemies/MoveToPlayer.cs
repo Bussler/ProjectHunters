@@ -8,8 +8,9 @@ public class MoveToPlayer : BasicMovement
 {
     private Transform _target;
 
-    void Awake()
+    protected void Start()
     {
+        base.Start();
         GameObject player = GameObject.FindWithTag("Player");
         if (player != null)
         {

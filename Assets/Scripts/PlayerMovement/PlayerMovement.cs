@@ -14,6 +14,11 @@ public class PlayerMovement : BasicMovement
     private void Awake()
     {
         input = new MainControls();
+    }
+
+    private void Start()
+    {
+        base.Start();
         dash_script = GetComponent<MovementDash>();
         if (dash_script != null)
         {

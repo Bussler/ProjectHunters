@@ -15,7 +15,7 @@ public class BasicMovement : MonoBehaviour
     private bool useForceToApply = true;
 
     // Start is called before the first frame update
-    void Start()
+    protected void Start()
     {
         rb = GetComponent<Rigidbody2D>();
         statManager = GetComponent<StatManager>();
