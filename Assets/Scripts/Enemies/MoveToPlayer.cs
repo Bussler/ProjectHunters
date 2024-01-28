@@ -8,6 +8,9 @@ public class MoveToPlayer : BasicMovement
 {
     private Transform _target;
 
+    [SerializeField]
+    private int cellIndex;
+
     protected override void Start()
     {
         base.Start();
@@ -20,6 +23,8 @@ public class MoveToPlayer : BasicMovement
         {
             Debug.Log("No GameObject with 'Player' tag found in the scene. Target not found for " + this.gameObject.name);
         }
+
+        cellIndex = SpacePartitionManager.Instance.AddObject(this.gameObject);
     }
 
     void FixedUpdate()
@@ -28,6 +33,28 @@ public class MoveToPlayer : BasicMovement
         {
             Vector2 direction = this._target.position - this.transform.position;
             Move(direction.normalized);
+
+            PushNearbyEnemies();
+
+            UpdateSpatialGroup();
+        }
+    }
+
+    private void PushNearbyEnemies()
+    {
+
+    }
+
+    private void UpdateSpatialGroup()
+    {
+        int newCellIndex = SpacePartitionManager.Instance.GetCellIndex(this.transform.position);
+        if (newCellIndex != cellIndex)
+        {
+            SpacePartitionManager.Instance.RemoveObject(this.gameObject, cellIndex);
+
+            cellIndex = newCellIndex;
+
+            SpacePartitionManager.Instance.AddObject(this.gameObject, cellIndex);
         }
     }
 
