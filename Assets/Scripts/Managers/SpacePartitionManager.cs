@@ -18,6 +18,9 @@ public class SpacePartitionManager : MonoBehaviour
 
     public int cellsPerRow;
 
+    public List<GameObject>[] batches = new List<GameObject>[50];
+    private float runLogicTimer = 0f;
+
     void Awake()
     {
         if (Instance != null)
@@ -36,6 +39,34 @@ public class SpacePartitionManager : MonoBehaviour
         }
 
         cellsPerRow = gridWidth / cellSize; //assume square grid
+
+        batches = new List<GameObject>[50];
+        for (int i = 0; i < batches.Length; i++)
+        {
+            batches[i] = new List<GameObject>();
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        runLogicTimer += Time.deltaTime;
+        int i = (int)(runLogicTimer * 50) % 50;
+        RunBatchLogic(i);
+    }
+
+    private void RunBatchLogic(int batchID)
+    {
+        foreach (GameObject obj in batches[batchID])
+        {
+            if (obj != null)
+            {
+                MoveToPlayer movement = obj.GetComponent<MoveToPlayer>();
+                if (movement != null)
+                {
+                    movement.RunLogic();
+                }
+            }
+        }
     }
 
     public int AddObject(GameObject obj)

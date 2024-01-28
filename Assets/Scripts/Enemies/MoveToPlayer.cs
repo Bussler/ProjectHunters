@@ -25,16 +25,29 @@ public class MoveToPlayer : BasicMovement
         }
 
         cellIndex = SpacePartitionManager.Instance.AddObject(this.gameObject);
+        SpacePartitionManager.Instance.batches[cellIndex % 50].Add(this.gameObject);
     }
 
     void FixedUpdate()
+    {
+        //if (this._target != null)
+        //{
+        //    Vector2 direction = this._target.position - this.transform.position;
+        //    Move(direction.normalized);
+
+        //    PushNearbyEnemies();
+        //    UpdateSpatialGroup();
+        //}
+    }
+
+    public void RunLogic()
     {
         if (this._target != null)
         {
             Vector2 direction = this._target.position - this.transform.position;
             Move(direction.normalized);
 
-            //PushNearbyEnemies();
+            PushNearbyEnemies();
             UpdateSpatialGroup();
         }
     }
