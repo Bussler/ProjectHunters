@@ -40,9 +40,31 @@ public class MoveToPlayer : BasicMovement
         }
     }
 
+    // Push enemies that are too close to this enemy away
     private void PushNearbyEnemies()
     {
+        List<GameObject> nearbyEnemies = SpacePartitionManager.Instance.GetNearbyObjects(cellIndex);
 
+        foreach (GameObject enemy in nearbyEnemies)
+        {
+            if (enemy != null && enemy != this.gameObject)
+            {
+                float distance = Vector2.Distance(enemy.transform.position, this.transform.position);
+                if (Mathf.Abs(distance) < 0.2f)
+                {
+                    //Vector2 direction = enemy.transform.position - this.transform.position;
+                    //BasicMovement movement = enemy.GetComponent<BasicMovement>();
+                    //if (movement != null)
+                    //{
+                    //    movement.forceToApply += direction.normalized * 3f;
+                    //}
+
+                    // TODO the push back here is not yet strong enough!
+                    Vector2 direction = enemy.transform.position - this.transform.position;
+                    enemy.transform.position += (Vector3)direction.normalized * Time.deltaTime * statManager.MoveSpeed * 5f;
+                }
+            }
+        }
     }
 
     private void UpdateSpatialGroup()

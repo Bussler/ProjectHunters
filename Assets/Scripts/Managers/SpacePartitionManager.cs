@@ -74,4 +74,16 @@ public class SpacePartitionManager : MonoBehaviour
 
         return x_index + y_index * cellsPerRow;
     }
+
+    // Get the list of objects in the cell where the object is located
+    public List<GameObject> GetNearbyObjects(GameObject obj)
+    {
+        int cellIndex = GetCellIndex(obj.transform.position);
+        return grid[cellIndex];
+    }
+
+    public List<GameObject> GetNearbyObjects(int cellIndex)
+    {
+        return grid[cellIndex];
+    }
 }
