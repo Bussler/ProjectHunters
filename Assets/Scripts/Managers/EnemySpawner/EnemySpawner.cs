@@ -48,6 +48,9 @@ public class EnemySpawner : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
+        if(currentWave >= waves.Count)
+            return;
+
         //Check if current wave is finished: if all enemies have been spawned, move to next wave
         if (currentWave < waves.Count - 1 && waves[currentWave].spawnCount >= waves[currentWave].waveQuota && !waitingForNextWave)
         {
