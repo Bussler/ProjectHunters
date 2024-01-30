@@ -36,11 +36,15 @@ public class BasicBullet : MonoBehaviour
     void OnCollisionEnter2D(Collision2D other)
     {
         GameObject hitObject = other.gameObject;
-        
+        HandleCollision(hitObject);
+    }
+
+    void HandleCollision(GameObject hitObject)
+    {
         if (hitObject.CompareTag("Bullet") || hitObject.CompareTag("EnemyBullet"))
         {
             // if bullet hits another bullet, destroy both
-            ObjectPoolManager.Instance.DespawnObject(other.gameObject);
+            ObjectPoolManager.Instance.DespawnObject(hitObject);
         }
         else if (hitObject.CompareTag("Player") || hitObject.CompareTag("Enemy"))
         {
