@@ -9,6 +9,8 @@ public class BasicBullet : MonoBehaviour
     public int damage = 5;
     public float impactForce = 4f;
     public int timeToLive = 3;
+    public LayerMask possibleHits; // Layer mask to check for collisions
+
     private Rigidbody2D _rb;
 
     void Awake()
@@ -31,8 +33,21 @@ public class BasicBullet : MonoBehaviour
     void FixedUpdate()
     {
         _rb.velocity = transform.up * speed;
+        CheckForCollisionRaycast();
     }
 
+    // check for collision with player or enemy with a raycast
+    private void CheckForCollisionRaycast()
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, transform.up, 0.5f, possibleHits);
+        if (hit.collider != null)
+        {
+            GameObject hitObject = hit.collider.gameObject;
+            HandleCollision(hitObject);
+        }
+    }
+
+    // Deprecated: check for collision with player or enemy with collider
     void OnCollisionEnter2D(Collision2D other)
     {
         GameObject hitObject = other.gameObject;
@@ -43,7 +58,6 @@ public class BasicBullet : MonoBehaviour
     {
         if (hitObject.CompareTag("Bullet") || hitObject.CompareTag("EnemyBullet"))
         {
-            // if bullet hits another bullet, destroy both
             ObjectPoolManager.Instance.DespawnObject(hitObject);
         }
         else if (hitObject.CompareTag("Player") || hitObject.CompareTag("Enemy"))

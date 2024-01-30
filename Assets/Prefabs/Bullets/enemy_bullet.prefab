@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 2719867500884045757}
   - component: {fileID: 4460278692824449533}
   - component: {fileID: 3685611229478744782}
-  - component: {fileID: -6231579734047561445}
   - component: {fileID: 1176865373375714546}
   m_Layer: 7
   m_Name: enemy_bullet
@@ -114,41 +113,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 4
---- !u!70 &-6231579734047561445
-CapsuleCollider2D:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8832895798969398331}
-  m_Enabled: 1
-  m_Density: 1
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_ForceSendLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ForceReceiveLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_ContactCaptureLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_CallbackLayers:
-    serializedVersion: 2
-    m_Bits: 4294967295
-  m_IsTrigger: 0
-  m_UsedByEffector: 0
-  m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
-  m_Size: {x: 1, y: 2}
-  m_Direction: 0
 --- !u!114 &1176865373375714546
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -161,6 +125,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ecaf04eed5ce65f44b4d0147b83a14a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 20
+  speed: 1
   damage: 5
   impactForce: 0
+  timeToLive: 3
+  possibleHits:
+    serializedVersion: 2
+    m_Bits: 823

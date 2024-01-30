@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5730585503217508842}
   - component: {fileID: 8248862135834849307}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: cross_gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -46,4 +46,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponStats: {fileID: 11400000, guid: 64302853042ef1449a111254d20d0258, type: 2}
   currentLevel: 1
-  bulletWeaponStats: {fileID: 0}

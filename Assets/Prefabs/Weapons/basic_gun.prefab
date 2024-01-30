@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1138480102824498426}
   - component: {fileID: -7516601647682660452}
   - component: {fileID: 145037126332970905}
-  m_Layer: 8
+  m_Layer: 10
   m_Name: basic_gun
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -82,4 +82,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   weaponStats: {fileID: 11400000, guid: e6dba25119f987c4c8f60ece99a398d9, type: 2}
   currentLevel: 1
-  bulletWeaponStats: {fileID: 0}
