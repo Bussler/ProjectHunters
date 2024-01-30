@@ -1,0 +1,20 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5ce70ed6f2ded341a6371b4915a8662, type: 3}
+  m_Name: LargeTestWave
+  m_EditorClassIdentifier: 
+  name: 
+  enemyGroups:
+  - enemyCount: 1000
+    spawnIntensity: 500
+    enemyPrefab: {fileID: 3162773697838870529, guid: 00920c5e742654941b9fb2de27f2063e, type: 3}
+  spawnInterval: 1

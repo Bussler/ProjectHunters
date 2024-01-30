@@ -171,4 +171,4 @@ MonoBehaviour:
   - {fileID: 1749407383038534419, guid: 51a4cdad5d0c03d4182a630aebaf24e5, type: 3}
   - {fileID: 1629093123853659624, guid: 6c187570808c210498fcd836b3af57b5, type: 3}
   - {fileID: 6810610160739252366, guid: 348761f6e445ca54b9427f7f203b92a4, type: 3}
-  _dropChance: 0.5
+  _dropChance: 0.1
