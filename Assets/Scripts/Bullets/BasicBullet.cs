@@ -8,11 +8,23 @@ public class BasicBullet : MonoBehaviour
     public float speed = 20f;
     public int damage = 5;
     public float impactForce = 4f;
+    public int timeToLive = 3;
     private Rigidbody2D _rb;
 
     void Awake()
     {
         _rb = GetComponent<Rigidbody2D>();
+    }
+
+    public void Initialize()
+    {
+        StartCoroutine(DeleteAfterSeconds(timeToLive));
+    }
+
+    IEnumerator DeleteAfterSeconds(int seconds)
+    {
+        yield return new WaitForSeconds(seconds);
+        ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
     }
 
     // Move forward

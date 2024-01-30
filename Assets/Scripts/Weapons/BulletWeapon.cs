@@ -48,6 +48,7 @@ public class BulletWeapon : PlayerWeapon
         {
             basicBullet.speed = statManager.BulletSpeed;
             basicBullet.damage = getCurrentDamage();
+            basicBullet.Initialize();
         }
     }
 
