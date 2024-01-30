@@ -73,8 +73,13 @@ public class BasicBullet : MonoBehaviour
     {
         if (hitObject.CompareTag("Bullet") || hitObject.CompareTag("EnemyBullet"))
         {
-            // if bullet hits another bullet, destroy both
-            //ObjectPoolManager.Instance.DespawnObject(hitObject);
+            if((hitObject.CompareTag("Bullet") && this.gameObject.CompareTag("Bullet")) ||
+                (hitObject.CompareTag("EnemyBullet") && this.gameObject.CompareTag("EnemyBullet")))
+            {
+                   return;
+            }
+
+            ObjectPoolManager.Instance.DespawnObject(hitObject); // if bullet hits another bullet, destroy both
         }
         else if (hitObject.CompareTag("Player") || hitObject.CompareTag("Enemy"))
         {
@@ -92,7 +97,7 @@ public class BasicBullet : MonoBehaviour
         }
 
         // TODO activate again, check in beginning if we collide with our own bullets and then dont collide
-        //ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
+        ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
     }
 
 }
