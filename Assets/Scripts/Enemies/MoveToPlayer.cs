@@ -76,7 +76,7 @@ public class MoveToPlayer : BasicMovement
 
                     // TODO check if we can do the pushback better?
                     Vector2 direction = enemy.transform.position - this.transform.position;
-                    enemy.transform.position += (Vector3)direction.normalized * Time.deltaTime * statManager.MoveSpeed * 10f;
+                    enemy.transform.position += (Vector3)direction.normalized * Time.deltaTime * statManager.MoveSpeed * 7f;
                 }
             }
         }

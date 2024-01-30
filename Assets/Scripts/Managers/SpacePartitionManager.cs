@@ -13,6 +13,7 @@ public class SpacePartitionManager : MonoBehaviour
     public int gridWidth = 100;
     public int gridHeight = 100;
     public int cellSize = 1;
+    public int enemyBatches = 10;
 
     public List<GameObject>[] grid;
 
@@ -40,7 +41,7 @@ public class SpacePartitionManager : MonoBehaviour
 
         cellsPerRow = gridWidth / cellSize; //assume square grid
 
-        batches = new List<GameObject>[50];
+        batches = new List<GameObject>[enemyBatches];
         for (int i = 0; i < batches.Length; i++)
         {
             batches[i] = new List<GameObject>();
