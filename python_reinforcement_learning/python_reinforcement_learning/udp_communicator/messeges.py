@@ -10,6 +10,8 @@ class StopType(enum.Enum):
 
 @dataclass
 class Message:
+    classType: str
+    
     def as_json(self):
         return json.dumps(
             self.__dict__, default=lambda x: x.value if isinstance(x, enum.Enum) else x
@@ -19,13 +21,19 @@ class Message:
 @dataclass
 class ControlMessage(Message):
     sendMessage: StopType
-    classType: str = "ControlMessage"
+    
+    def __init__(self, sendMessage: StopType):
+        super().__init__(classType="ControlMessage")
+        self.sendMessage = sendMessage
 
 
 @dataclass
 class InfoMessage(Message):
     content: str
-    classType: str = "InfoMessage"
+    
+    def __init__(self, info: str):
+        super().__init__(classType="InfoMessage")
+        self.info = info
 
 
 if __name__ == "__main__":
