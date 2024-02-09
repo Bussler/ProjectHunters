@@ -25,7 +25,7 @@ class InfoLogRecvProtocol(asyncio.DatagramProtocol):
     def datagram_received(self, data, addr) -> None:
         message = InfoMessage.parse(data)
         if message is not None:
-            logger.debug(f"[x] Received InfoMessage message: {message.info}")
+            logger.debug(f"[x] Received InfoMessage message: {message.Info}")
         else:
             logger.debug(f"[x] Received corrupt message, expected InfoMessage: {data}")
 
