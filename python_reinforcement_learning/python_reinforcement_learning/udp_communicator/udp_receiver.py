@@ -1,9 +1,14 @@
 import asyncio
+import logging
 
 HOST = '0.0.0.0'
 PORT = 1337
 
 loop = asyncio.get_event_loop()
+
+# Set up logging
+logging.basicConfig(level=logging.DEBUG)
+logger = logging.getLogger(__name__)
 
 class LogRecvProtocol(asyncio.DatagramProtocol):
     def __init__(self):
@@ -15,11 +20,11 @@ class LogRecvProtocol(asyncio.DatagramProtocol):
 
     # Main entrypoint for processing message
     def datagram_received(self, data, addr) -> None:
-        print(f"[x] Received Syslog message: {data}")
+        logger.debug(f"[x] Received Syslog message: {data}")
 
 
 def main():
-    print(f"[x] Listening on {HOST}:{PORT}")
+    logger.info(f"[x] Listening on {HOST}:{PORT}")
     t = loop.create_datagram_endpoint(LogRecvProtocol, local_addr=(HOST, PORT))
     loop.run_until_complete(t) # Server starts listening
     loop.run_forever()
