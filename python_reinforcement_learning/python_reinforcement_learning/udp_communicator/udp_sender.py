@@ -3,6 +3,8 @@ import logging
 import random
 import socket
 
+from .messages import InfoMessage
+
 HOST = "localhost"
 PORT = 1337
 
@@ -27,7 +29,8 @@ async def write_test_messages(
     logger.info("[x] Writing messages...")
     for line in fp.readlines():
         await asyncio.sleep(random.uniform(0.1, 1.0))
-        send_message(line)
+        message = InfoMessage(line)
+        send_message(message.as_json())
 
 
 def main():
