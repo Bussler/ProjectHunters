@@ -10,6 +10,10 @@ python = "^3.9"
 asyncio = "^3.4.3"
 
 
+[tool.poetry.group.dev.dependencies]
+black = "^24.1.1"
+isort = "^5.13.2"
+
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
@@ -18,3 +22,9 @@ build-backend = "poetry.core.masonry.api"
 [tool.poetry.scripts]
 udp = "python_reinforcement_learning.udp_communicator.udp_receiver:main"
 udp_send_test = "python_reinforcement_learning.udp_communicator.udp_sender:main"
+
+[tool.black]
+line-length = 110
+
+[tool.isort]
+profile = "black"
