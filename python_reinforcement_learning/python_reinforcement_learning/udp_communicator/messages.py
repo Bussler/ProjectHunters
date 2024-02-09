@@ -64,14 +64,3 @@ class InfoMessage(Message):
         if "classType" not in json_data or json_data["classType"] != "InfoMessage":
             return None
         return cls(info=json_data["info"])
-
-
-if __name__ == "__main__":
-    message = ControlMessage(StopType.STOP)
-    jsting = message.as_json()
-
-    m = ControlMessage.parse(jsting)
-    print(m)
-
-    # message = InfoMessage("This is a test message.")
-    # print(message.as_json())
