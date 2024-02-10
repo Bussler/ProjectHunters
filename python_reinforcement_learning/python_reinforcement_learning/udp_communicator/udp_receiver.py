@@ -1,7 +1,7 @@
 import asyncio
 import logging
 
-from .messages import InfoMessage
+from .messages import ControlMessage, InfoMessage
 
 HOST = "0.0.0.0"
 PORT = 1337
@@ -27,7 +27,11 @@ class InfoLogRecvProtocol(asyncio.DatagramProtocol):
         if message is not None:
             logger.debug(f"[x] Received InfoMessage message: {message.Info}")
         else:
-            logger.debug(f"[x] Received corrupt message, expected InfoMessage: {data}")
+            message = ControlMessage.parse(data)
+            if message is not None:
+                logger.debug(f"[x] Received ControlMessage message: {message.SendMessage}")
+            else:
+                logger.debug(f"[x] Received corrupt message, expected InfoMessage: {data}")
 
 
 def main():

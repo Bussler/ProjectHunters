@@ -3,7 +3,7 @@ import logging
 import random
 import socket
 
-from .messages import InfoMessage
+from .messages import ControlMessage, InfoMessage, StopType
 
 HOST = "localhost"
 PORT = 1337
@@ -31,6 +31,24 @@ async def write_test_messages(
         await asyncio.sleep(random.uniform(0.1, 1.0))
         message = InfoMessage(line)
         send_message(message.as_json())
+
+
+async def write_stop_message() -> None:
+    message = ControlMessage(StopType.STOP)
+    send_message(message.as_json())
+
+
+async def write_resume_message() -> None:
+    message = ControlMessage(StopType.RESUME)
+    send_message(message.as_json())
+
+
+def stop() -> None:
+    loop.run_until_complete(write_stop_message())
+
+
+def resume() -> None:
+    loop.run_until_complete(write_resume_message())
 
 
 def main():

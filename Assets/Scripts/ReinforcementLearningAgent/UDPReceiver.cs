@@ -5,6 +5,7 @@ using System.Threading;
 using UnityEngine;
 
 
+// Class to receive UDP messages from host:port and convey them to the Controller
 public class UDPReceiver : MonoBehaviour
 {
     public string host = "127.0.0.1";
@@ -32,23 +33,7 @@ public class UDPReceiver : MonoBehaviour
 
                 string text = Encoding.UTF8.GetString(data);
 
-                InfoMessage imessenge = InfoMessage.Parse(text);
-                if (imessenge != null)
-                {
-                    Debug.Log("Received Info: " + imessenge.Info);
-                }
-                else
-                {
-                    ControlMessage cmessenge = ControlMessage.Parse(text);
-                    if (cmessenge != null)
-                    {
-                        Debug.Log("Received Control: " + cmessenge.SendMessage);
-                    }
-                    else
-                    {
-                        Debug.Log("Received: " + text);
-                    }
-                }
+                ReinforcementLearningController.Instance.ParseMessage(text);
                 
             }
             catch (SocketException e)

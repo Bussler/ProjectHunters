@@ -45,7 +45,7 @@ class ControlMessage(Message):
     @classmethod
     def parse(cls, data: str):
         json_data = json.loads(data)
-        if "classType" not in json_data or json_data["ClassType"] != "ControlMessage":
+        if "ClassType" not in json_data or json_data["ClassType"] != "ControlMessage":
             return None
         return cls(sendMessage=StopType(json_data["SendMessage"]))
 
@@ -61,6 +61,6 @@ class InfoMessage(Message):
     @classmethod
     def parse(cls, data: str):
         json_data = json.loads(data)
-        if "classType" not in json_data or json_data["ClassType"] != "InfoMessage":
+        if "ClassType" not in json_data or json_data["ClassType"] != "InfoMessage":
             return None
         return cls(info=json_data["Info"])

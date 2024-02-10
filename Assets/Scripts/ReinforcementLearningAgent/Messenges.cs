@@ -1,3 +1,4 @@
+using JetBrains.Annotations;
 using System;
 using System.Collections;
 using System.Xml.Linq;
@@ -11,12 +12,17 @@ public enum StopType
 }
 
 [Serializable]
-public class ControlMessage
+public class CommunicationMessage
 {
-	public string ClassType;
-	public StopType SendMessage;
+    public string ClassType;
+}
 
-	public ControlMessage(StopType message)
+[Serializable]
+public class ControlMessage: CommunicationMessage
+{
+	public string SendMessage;
+
+	public ControlMessage(string message)
 	{
 		ClassType = "ControlMessage";
 		SendMessage = message;
@@ -24,7 +30,7 @@ public class ControlMessage
 
 	public static ControlMessage Parse(string data)
 	{
-		var jsonData = JsonUtility.FromJson<ControlMessage>(data);
+        var jsonData = JsonUtility.FromJson<ControlMessage>(data);
 		if (jsonData.ClassType != "ControlMessage")
 		{
 			return null;
@@ -34,9 +40,8 @@ public class ControlMessage
 }
 
 [Serializable]
-public class InfoMessage
+public class InfoMessage: CommunicationMessage
 {
-	public string ClassType;
     public string Info;
 
 	public InfoMessage(string info)

@@ -909,10 +909,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: CommunicationManager
       objectReference: {fileID: 0}
-    - target: {fileID: 8008879428603945093, guid: 9a7f33dabe08a91468c50305a7030bd7, type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
