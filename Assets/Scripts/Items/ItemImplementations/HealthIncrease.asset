@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 36d2f4aa392ff824e968f159c1701405, type: 3}
-  m_Name: Heal
+  m_Name: HealthIncrease
   m_EditorClassIdentifier: 
   basicValueIncrease: 10
   levelValueMultiplier: 1
