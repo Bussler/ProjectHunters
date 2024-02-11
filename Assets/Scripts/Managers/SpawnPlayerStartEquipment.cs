@@ -9,8 +9,6 @@ public class SpawnPlayerStartEquipment : DropItem
     public List<GameObject> startPassiveItemPrefabs;
 
     private GameObject player;
-    private GameObject weaponHolster;
-    private GameObject itemBag;
 
     // Start is called before the first frame update
     void Awake()
@@ -21,56 +19,32 @@ public class SpawnPlayerStartEquipment : DropItem
             SpawnPlayerWeapons();
             SpawnPlayerItems();
         }
-    }
-
-    void SpawnPlayerWeaponsHolster()
-    {
-        weaponHolster = new GameObject("Weapon Holster");
-        weaponHolster.transform.SetParent(player.transform);
+        else
+        {
+            Debug.LogError("Player not found for Spawn Inventory!");
+        }
     }
 
     void SpawnPlayerWeapons()
     {
-        if(weaponHolster == null)
-            SpawnPlayerWeaponsHolster();
-       
         for (int i = 0; i < startWeaponPrefabs.Count; i++)
         {
-            GameObject weapon = Instantiate(startWeaponPrefabs[i], weaponHolster.transform.position, Quaternion.identity);
-            weapon.transform.parent = weaponHolster.transform;
+            GameObject currentPrefab = startWeaponPrefabs[i];
 
-            PlayerWeapon playerWeapon = weapon.GetComponent<PlayerWeapon>();
-            if (playerWeapon != null)
+            bool addingSucceeded = InventoryManager.Instance.AddWeapon(currentPrefab);
+            if (!addingSucceeded)
             {
-                bool addingSucceeded = InventoryManager.Instance.AddWeapon(playerWeapon);
-                if (!addingSucceeded)
-                {
-                    Destroy(weapon);
-                }
-            }
-            else
-            {
-                Debug.Log("Weapon is not a PlayerWeapon!");
-                Destroy(weapon);
+                Debug.Log("Adding weapon to inventory failed!");
             }
 
         }
     }
 
-    void SpawnPlayerItemsBag()
-    {
-        itemBag = new GameObject("Item Bag");
-        itemBag.transform.SetParent(player.transform);
-    }
-
     void SpawnPlayerItems()
     {
-        if (itemBag == null)
-            SpawnPlayerItemsBag();
-
         for (int i = 0; i < startPassiveItemPrefabs.Count; i++)
         {
-            spawnPassiveItem(startPassiveItemPrefabs[i], itemBag.transform);
+            spawnPassiveItem(startPassiveItemPrefabs[i]);
         }
     }
 }

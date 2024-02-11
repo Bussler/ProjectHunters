@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using static UnityEditor.Progress;
 
 // Class to handle item drops, e.g. when an enemy dies
 public class DropItem : MonoBehaviour
@@ -17,39 +18,16 @@ public class DropItem : MonoBehaviour
         {
             GameObject itemPrefab = _passiveItemPrefabs[Random.Range(0, _passiveItemPrefabs.Count)];
 
-            GameObject player = GameObject.FindGameObjectWithTag("Player");
-            if (player != null)
-            {
-                GameObject itemBag = GameObject.Find("Item Bag");
-                if (itemBag == null)
-                {
-                    itemBag = new GameObject("Item Bag");
-                    itemBag.transform.SetParent(player.transform);
-                }
-
-                spawnPassiveItem(itemPrefab, itemBag.transform);
-            }
+            spawnPassiveItem(itemPrefab);
         }
     }
 
-    protected void spawnPassiveItem(GameObject itemPrefab, Transform itemBag)
+    protected void spawnPassiveItem(GameObject itemPrefab)
     {
-        GameObject item = Instantiate(itemPrefab, itemBag.position, Quaternion.identity);
-        item.transform.parent = itemBag;
-
-        PassiveItem passiveItem = item.GetComponent<PassiveItem>();
-        if (passiveItem != null)
+        bool addingSucceeded = InventoryManager.Instance.AddPassiveItem(itemPrefab);
+        if (!addingSucceeded)
         {
-            bool addingSucceeded = InventoryManager.Instance.AddPassiveItem(passiveItem);
-            if (!addingSucceeded)
-            {
-                Destroy(item);
-            }
-        }
-        else
-        {
-            Debug.Log("Item is not a PassiveItem!");
-            Destroy(item);
+            Debug.Log("Adding passive item to inventory failed!");
         }
     }
 }

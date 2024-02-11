@@ -12,6 +12,10 @@ PrefabInstance:
       propertyPath: _moveSpeed
       value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 3594009152928985120, guid: c54742facceb0b74a9346d4dbc21ec2a, type: 3}
+      propertyPath: _dropChance
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4733470079832116271, guid: c54742facceb0b74a9346d4dbc21ec2a, type: 3}
       propertyPath: m_Name
       value: chaser
@@ -116,7 +120,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   forceToApply: {x: 0, y: 0}
   forceDamping: 1.2
-  damage: 10
 --- !u!114 &9213838156453879164
 MonoBehaviour:
   m_ObjectHideFlags: 0
