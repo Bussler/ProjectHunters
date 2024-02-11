@@ -173,8 +173,8 @@ public class InventoryManager : MonoBehaviour
         PassiveItem passiveItem = item.GetComponent<PassiveItem>();
         if (passiveItem != null)
         {
-            // Search for passive item in inventory and level up
-            int index = passiveItems.FindIndex(item => item.gameObject.name == item.name);
+            // Search for passive item in inventory and level up; Workaround for unity naming: Add (Clone) to the name
+            int index = passiveItems.FindIndex(currentItem => currentItem.itemName == item.name+"(Clone)");
             if (index != -1)
             {
                 LevelUpPassiveItem(index);

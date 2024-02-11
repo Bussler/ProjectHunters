@@ -5,6 +5,7 @@ using UnityEngine;
 // Class to manage Passive Items, these affect Player stats: health, damage, movement ...
 public class PassiveItem : MonoBehaviour
 {
+    public string itemName;
     public PassiveItemScriptableObject passiveItemData;
     public int level = 1;
     protected StatManager appliedStatManager;
@@ -38,6 +39,11 @@ public class PassiveItem : MonoBehaviour
 
     void Start()
     {
+        if (itemName == "")
+        {
+            itemName = this.gameObject.name;
+        }
+
         appliedStatManager = GetComponentInParent<StatManager>();
         ApplyPassiveItem();
         isApplied = true;
