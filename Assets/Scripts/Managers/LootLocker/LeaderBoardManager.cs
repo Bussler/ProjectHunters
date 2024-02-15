@@ -22,8 +22,6 @@ public class LeaderBoardManager : MonoBehaviour
         {
             instance = this;
         }
-
-        StartCoroutine(LootLockerScoreDownload());
     }
 
     public void AddScore(int additionalScore)
@@ -31,6 +29,7 @@ public class LeaderBoardManager : MonoBehaviour
         this.score += additionalScore;
     }
     
+    // Upload the score to the leaderboard
     IEnumerator LootLockerScoreUpload(string playerID)
     {
         bool done = true;
@@ -50,15 +49,20 @@ public class LeaderBoardManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    IEnumerator LootLockerScoreDownload()
+    // Download the top scoreAmount scores from the leaderboard
+    public IEnumerator LootLockerScoreDownload(int scoreAmount, System.Action<LootLockerLeaderboardMember[]> callback)
     {
         bool done = false;
 
-        LootLockerSDKManager.GetScoreList(this.leaderboardID, 10, 0, (response) =>
+        LootLockerSDKManager.GetScoreList(this.leaderboardID, scoreAmount, 0, (response) =>
         {
             if (response.statusCode == 200)
             {
                 Debug.Log("Successful score download from LootLocker: " + response.text);
+
+                LootLockerLeaderboardMember[] scores = response.items;
+                callback(scores);
+
                 done = true;
             }
             else
@@ -71,7 +75,8 @@ public class LeaderBoardManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    IEnumerator LootLockerPlayerScoreDownload(string playerID)
+    // Download the score of a specific player
+    public IEnumerator LootLockerPlayerScoreDownload(string playerID, System.Action<int> callback)
     {
         bool done = false;
 
@@ -80,6 +85,7 @@ public class LeaderBoardManager : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("Successful score download from LootLocker: " + response.text);
+                callback(response.score);
                 done = true;
             }
             else
