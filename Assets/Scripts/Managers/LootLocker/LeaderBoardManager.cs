@@ -38,7 +38,7 @@ public class LeaderBoardManager : MonoBehaviour
         {
             if (response.statusCode == 200)
             {
-                Debug.Log("Successful score upload to LootLocker: ");
+                Debug.Log("Successful score upload to LootLocker: " + this.score);
             }
             else
             {
