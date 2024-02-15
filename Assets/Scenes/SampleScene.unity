@@ -743,6 +743,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1653618314744328942, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+      propertyPath: weaponItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653618314744328942, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+      propertyPath: weaponLevels.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3230326976342421571, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
       propertyPath: m_Name
       value: InventoryManager
@@ -800,6 +808,63 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+--- !u!1001 &1232663297638448765
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 989411142378139930, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_Name
+      value: LootLockerManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -0.14954425
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.015437659
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -0.10557872
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
 --- !u!1001 &3875160883500662617
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -993,3 +1058,4 @@ SceneRoots:
   - {fileID: 8106627707558379438}
   - {fileID: 855099087106848491}
   - {fileID: 5396556986546896319}
+  - {fileID: 1232663297638448765}
