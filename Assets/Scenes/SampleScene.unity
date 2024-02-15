@@ -743,6 +743,14 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1653618314744328942, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+      propertyPath: weaponItems.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 1653618314744328942, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
+      propertyPath: weaponLevels.Array.size
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 3230326976342421571, guid: a4d931ce57dc7ff4f86f67f7386d4669, type: 3}
       propertyPath: m_Name
       value: InventoryManager
