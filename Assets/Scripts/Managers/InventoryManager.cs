@@ -203,15 +203,9 @@ public class InventoryManager : MonoBehaviour
         int index = passiveItems.IndexOf(passiveItem);
         if (index != -1)
         {
-            // Despawn passive item
             DespawnPassiveItem(passiveItem.gameObject);
-
-            // Remove passive item from list
             passiveItems.RemoveAt(index);
-
-            // Reset level
             passiveItemsLevels.RemoveAt(index);
-
             return true;
         }
 

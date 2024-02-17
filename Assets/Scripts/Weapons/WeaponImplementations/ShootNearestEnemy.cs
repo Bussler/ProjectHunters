@@ -31,7 +31,6 @@ public class ShootNearestEnemy : BulletWeapon
             );
         });
 
-        // shoot at nearest enemies
         for (int i = 0; i < statManager.AmountBullets; i++)
         {
             if (i < enemies.Count)

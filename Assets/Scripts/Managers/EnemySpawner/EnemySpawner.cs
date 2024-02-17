@@ -44,8 +44,6 @@ public class EnemySpawner : MonoBehaviour
         }
     }
 
-    // TODO here is a bug with the waves: Some wave not spawning
-    // Update is called once per frame
     void FixedUpdate()
     {
         if(currentWave >= waves.Count)
@@ -111,9 +109,6 @@ public class EnemySpawner : MonoBehaviour
                 }
             }
         }
-        // TODO : Check if current wave is finished: All enemies have been killed
-        // M: For that we would have to keep some sort of map for each wave;
-        // lets keep a max amount enmies for now and spawn next wave when current wave is finished spawning
     }
 
     public void OnEnemyDied()

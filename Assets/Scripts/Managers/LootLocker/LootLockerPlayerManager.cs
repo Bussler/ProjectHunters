@@ -6,7 +6,6 @@ using LootLocker.Requests;
 // Start login process for LootLocker
 public class LootLockerPlayerManager : MonoBehaviour
 {
-    // Start is called before the first frame update
     void Awake()
     {
         StartCoroutine(LootLockerLogin());   

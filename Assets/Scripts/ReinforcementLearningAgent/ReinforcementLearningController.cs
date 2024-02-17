@@ -36,7 +36,6 @@ public class ReinforcementLearningController : MonoBehaviour
         }
     }
 
-    //Stop the simulation
     public void StopSimulation()
     {
         Debug.Log("Stop Simulation");
@@ -44,7 +43,6 @@ public class ReinforcementLearningController : MonoBehaviour
         stop_simulation = true;
     }
 
-    //Resume the simulation
     public void ResumeSimulation()
     {
         Debug.Log("Resume Simulation");
@@ -54,7 +52,6 @@ public class ReinforcementLearningController : MonoBehaviour
 
     private void HandleMessage(CommunicationMessage message)
     {
-        //Handle the received message according to its type
         if (message is ControlMessage)
         {
             ControlMessage controlMessage = (ControlMessage)message;
