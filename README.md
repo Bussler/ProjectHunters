@@ -11,7 +11,7 @@ Unity version: 2022.3.17f1 (lts).
     - If Visual Studio already installed: install Visual Studio extension `Unity Game Development`
 - Required Unity Packages:
     - Input System (1.7.0)
-    - [LootLocker (2.1.3)](https://github.com/lootlocker/unity-sdk)
+    - [LootLocker (2.1.3)](https://github.com/lootlocker/unity-sdk) (requires [git](https://git-scm.com/) on your system)
     - TextMeshPro (3.0.6)
  
 ### Python Reinforcement Learning
