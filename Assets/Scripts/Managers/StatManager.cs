@@ -102,7 +102,6 @@ public class StatManager : MonoBehaviour
             EnemySpawner.Instance.OnEnemyDied();
 
             LeaderBoardManager.instance.AddScore(100); // TODO: Make dynamic later
-            LeaderBoardManager.instance.UploadScore();
 
             DropItem dropItem = GetComponent<DropItem>();
             if (dropItem != null)
