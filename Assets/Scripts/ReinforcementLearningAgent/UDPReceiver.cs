@@ -44,6 +44,15 @@ public class UDPReceiver : MonoBehaviour
         }
     }
 
+    private void OnDisable()
+    {
+        thread.Abort();
+        if (udpClient != null)
+        {
+            udpClient.Close();
+        }
+    }
+
     // Close the UDP connection and stop the thread when the application is closed
     void OnApplicationQuit()
     {

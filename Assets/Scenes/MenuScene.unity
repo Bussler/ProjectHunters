@@ -135,10 +135,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: GameManager
       objectReference: {fileID: 0}
-    - target: {fileID: 989411142378139930, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
     - target: {fileID: 6158356666974284103, guid: c9d872b1657e94f479ad6f22b40c0d56, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.14954425
@@ -352,18 +348,6 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 3581165911089850985, guid: 76c56bcc00188a14381635217769c3f0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
-      value: 
-      objectReference: {fileID: 6123950515328776188}
-    - target: {fileID: 3581165911089850985, guid: 76c56bcc00188a14381635217769c3f0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: ShowPauseMenu
-      objectReference: {fileID: 0}
-    - target: {fileID: 3581165911089850985, guid: 76c56bcc00188a14381635217769c3f0, type: 3}
-      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_TargetAssemblyTypeName
-      value: MenuManger, Assembly-CSharp
-      objectReference: {fileID: 0}
     - target: {fileID: 4919849676697018014, guid: 76c56bcc00188a14381635217769c3f0, type: 3}
       propertyPath: m_Name
       value: Menu
@@ -453,17 +437,6 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 76c56bcc00188a14381635217769c3f0, type: 3}
---- !u!114 &6123950515328776188 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 7868250965873617285, guid: 76c56bcc00188a14381635217769c3f0, type: 3}
-  m_PrefabInstance: {fileID: 6123950515328776187}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 384b5f70087ace747ba3d19517949277, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

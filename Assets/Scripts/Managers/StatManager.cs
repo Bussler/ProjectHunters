@@ -94,12 +94,12 @@ public class StatManager : MonoBehaviour
         {
             Debug.Log("Player died");
             // TODO: Game over
-            LeaderBoardManager.Instance.UploadScore();
+            LootLockerManager.Instance.UploadScore();
         }
         else // Enemy
         {
             ObjectPoolManager.Instance.DespawnObject(this.gameObject); // Instead of destroy, deactivation in pool
-            LeaderBoardManager.Instance.AddScore(100); // TODO: Make dynamic later
+            LootLockerManager.Instance.AddScore(100); // TODO: Make dynamic later
 
             EnemySpawner.Instance.OnEnemyDied();
 

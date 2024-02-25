@@ -23,13 +23,14 @@ public class ShowScores : MonoBehaviour
     public IEnumerator UpdateScoreboard()
     {
         yield return new WaitForSeconds(0.1f);
-        StartCoroutine(LeaderBoardManager.Instance.LootLockerScoreDownload(10, (response) =>
+        StartCoroutine(LootLockerManager.Instance.LootLockerScoreDownload(10, (response) =>
         {
             if (response != null)
             {
                 for (int i = 0; i < response.Length; i++)
                 {
-                    texts[i].text = response[i].rank + ". " + response[i].member_id + " Score: " + response[i].score;
+                    string playername = string.IsNullOrEmpty(response[i].player.name)? response[i].member_id : response[i].player.name;
+                    texts[i].text = response[i].rank + ". " + playername + " Score: " + response[i].score;
                 }
             }
         }));

@@ -6,14 +6,21 @@ using UnityEngine;
 
 
 // Manage scores: get, set, update; implements singleton pattern
-public class LeaderBoardManager : MonoBehaviour
+public class LootLockerManager : MonoBehaviour
 {
-    public static LeaderBoardManager Instance;
+    public static LootLockerManager Instance;
 
     [SerializeField]
     private string leaderboardID = "20442";
 
+    [SerializeField]
     private int score;
+
+    void Awake()
+    {
+        if(!LootLockerSDKManager.CheckInitialized())
+            StartCoroutine(LootLockerGuestLogin());
+    }
 
     // Start is called before the first frame update
     void Start()
@@ -21,12 +28,32 @@ public class LeaderBoardManager : MonoBehaviour
         if (Instance == null)
         {
             Instance = this;
-            DontDestroyOnLoad(this.gameObject); // Keep the SceneManager alive between scenes
         }
         else
         {
             Destroy(this.gameObject);
         }
+    }
+
+    IEnumerator LootLockerGuestLogin()
+    {
+        bool done = false;
+
+        LootLockerSDKManager.StartGuestSession((response) =>
+        {
+            if (response.success)
+            {
+                Debug.Log("LootLockerLogin - success: " + response.text);
+                PlayerPrefs.SetString("player_identifier", response.player_identifier.ToString());
+                done = true;
+            }
+            else
+            {
+                Debug.Log("LootLockerLogin - error: " + response.text);
+                done = true;
+            }
+        });
+        yield return new WaitWhile(() => done == false);
     }
 
     public void AddScore(int additionalScore)
@@ -38,6 +65,7 @@ public class LeaderBoardManager : MonoBehaviour
     IEnumerator LootLockerScoreUpload(string playerID)
     {
         bool done = true;
+        yield return new WaitWhile(() => LootLockerSDKManager.CheckInitialized() == false);
 
         LootLockerSDKManager.SubmitScore(playerID, this.score, this.leaderboardID, (response) =>
         {
@@ -58,6 +86,7 @@ public class LeaderBoardManager : MonoBehaviour
     public IEnumerator LootLockerScoreDownload(int scoreAmount, System.Action<LootLockerLeaderboardMember[]> callback)
     {
         bool done = false;
+        yield return new WaitWhile(() => LootLockerSDKManager.CheckInitialized() == false);
 
         LootLockerSDKManager.GetScoreList(this.leaderboardID, scoreAmount, 0, (response) =>
         {
@@ -84,6 +113,7 @@ public class LeaderBoardManager : MonoBehaviour
     public IEnumerator LootLockerPlayerScoreDownload(string playerID, System.Action<int> callback)
     {
         bool done = false;
+        yield return new WaitWhile(() => LootLockerSDKManager.CheckInitialized() == false);
 
         LootLockerSDKManager.GetMemberRank(this.leaderboardID, playerID, (response) =>
         {

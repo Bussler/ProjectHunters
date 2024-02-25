@@ -73,7 +73,7 @@ public class MenuManger : MonoBehaviour
 
     public void ShowPauseMenu()
     {
-        if(SceneManager.GetActiveScene().name == MenuScene)
+        if (SceneManager.GetActiveScene().name == MenuScene)
             return;
 
         if (PauseMenu.activeInHierarchy)
@@ -108,8 +108,17 @@ public class MenuManger : MonoBehaviour
 
     }
 
+    public void Restart()
+    {
+        ShowPauseMenu();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+    }
+
     public void QuitGame()
     {
         Application.Quit();
+
+        if(Application.isEditor)
+            UnityEditor.EditorApplication.isPlaying = false;
     }
 }

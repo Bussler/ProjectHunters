@@ -158,7 +158,7 @@ public class EnemySpawner : MonoBehaviour
     private void WinGame()
     {
         Debug.Log("Game won!");
-        LeaderBoardManager.Instance.UploadScore();
+        LootLockerManager.Instance.UploadScore();
         MenuManger.Instance.LoadMenuScene();
     }
 
