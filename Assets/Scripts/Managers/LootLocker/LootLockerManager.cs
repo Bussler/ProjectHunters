@@ -55,13 +55,9 @@ public class LootLockerManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    IEnumerator LootLockerWhiteLabelSignUp()
+    IEnumerator LootLockerWhiteLabelSignUp(string email, string password)
     {
         bool done = false;
-
-        string email = "user@lootlocker.io";
-        string password = "password";
-        bool rememberMe = true;
 
         LootLockerSDKManager.WhiteLabelSignUp(email, password, response =>
         {
@@ -79,16 +75,11 @@ public class LootLockerManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    IEnumerator LootLockerWhiteLabelLogin()
+    IEnumerator LootLockerWhiteLabelLogin(string email, string password)
     {
         bool done = false;
 
-        string email = "user@lootlocker.io";
-        string password = "password";
-        bool rememberMe = true;
-
-
-        LootLockerSDKManager.WhiteLabelLoginAndStartSession(email, password, rememberMe, response =>
+        LootLockerSDKManager.WhiteLabelLoginAndStartSession(email, password, true, response =>
         {
             if (response.success)
             {
