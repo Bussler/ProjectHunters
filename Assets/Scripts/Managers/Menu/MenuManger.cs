@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -13,6 +14,9 @@ public class MenuManger : MonoBehaviour
 
     [SerializeField]
     private GameObject MainMenu;
+
+    [SerializeField]
+    private TextMeshProUGUI PlayerName;
 
     [SerializeField]
     private GameObject PauseMenu;
@@ -55,8 +59,7 @@ public class MenuManger : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == MenuScene)
         {
-            MainMenu.SetActive(true);
-            Scoreboard.SetActive(true);
+            LoadMenuScene();
         }
         else
         {
@@ -98,6 +101,13 @@ public class MenuManger : MonoBehaviour
         LoadScene(MenuScene);
         MainMenu.SetActive(true);
         Scoreboard.SetActive(true);
+
+        UpdateDisplayedPlayerName();
+    }
+
+    public void UpdateDisplayedPlayerName()
+    {
+        PlayerName.text = LootLockerManager.Instance.GetPlayerName();
     }
 
     public void LoadPlayScene()

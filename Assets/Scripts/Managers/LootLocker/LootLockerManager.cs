@@ -47,7 +47,7 @@ public class LootLockerManager : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("LootLockerLogin - success: " + response.text);
-                PlayerPrefs.SetString("player_identifier", response.player_identifier.ToString());
+                PlayerPrefs.SetString("player_identifier", response.player_id.ToString());
             }
             else
             {
@@ -114,6 +114,8 @@ public class LootLockerManager : MonoBehaviour
         });
 
         yield return new WaitWhile(() => done == false);
+
+        MenuManger.Instance.UpdateDisplayedPlayerName();
     }
 
     public IEnumerator LookUpPlayername(System.Action<string> playername)
@@ -134,6 +136,12 @@ public class LootLockerManager : MonoBehaviour
         });
 
         yield return new WaitWhile(() => done == false);
+    }
+
+    public string GetPlayerName()
+    {
+        return "Player: " + (string.IsNullOrEmpty(PlayerPrefs.GetString("player_name")) ?
+            PlayerPrefs.GetString("player_identifier") : PlayerPrefs.GetString("player_name"));
     }
 
     public void AddScore(int additionalScore)
