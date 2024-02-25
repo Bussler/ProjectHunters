@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.UIElements;
 using TMPro;
+using UnityEngine.SceneManagement;
 
 public class ShowScores : MonoBehaviour
 {
@@ -13,13 +14,16 @@ public class ShowScores : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        StartCoroutine(UpdateScoreboard());
+       if(SceneManager.GetActiveScene().name == "MenuScene")
+       {
+           StartCoroutine(UpdateScoreboard());
+       }
     }
 
-    IEnumerator UpdateScoreboard()
+    public IEnumerator UpdateScoreboard()
     {
         yield return new WaitForSeconds(0.1f);
-        StartCoroutine(LeaderBoardManager.instance.LootLockerScoreDownload(10, (response) =>
+        StartCoroutine(LeaderBoardManager.Instance.LootLockerScoreDownload(10, (response) =>
         {
             if (response != null)
             {

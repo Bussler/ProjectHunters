@@ -235,6 +235,45 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
+        },
+        {
+            ""name"": ""menu"",
+            ""id"": ""0b64a9af-4d09-482f-87ac-367ee05c567a"",
+            ""actions"": [
+                {
+                    ""name"": ""pause"",
+                    ""type"": ""Value"",
+                    ""id"": ""13f0f736-a0fd-4d0c-ac73-1f67bf83a9e6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": true
+                }
+            ],
+            ""bindings"": [
+                {
+                    ""name"": """",
+                    ""id"": ""10fc8bcb-5b61-4210-81fb-7f924f1ecd9e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""4c74d562-e6d4-4d30-9ee1-44b47e1a81b5"",
+                    ""path"": ""<Gamepad>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""pause"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                }
+            ]
         }
     ],
     ""controlSchemes"": []
@@ -243,6 +282,9 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
         m_gameplay = asset.FindActionMap("gameplay", throwIfNotFound: true);
         m_gameplay_movement = m_gameplay.FindAction("movement", throwIfNotFound: true);
         m_gameplay_dash = m_gameplay.FindAction("dash", throwIfNotFound: true);
+        // menu
+        m_menu = asset.FindActionMap("menu", throwIfNotFound: true);
+        m_menu_pause = m_menu.FindAction("pause", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -354,9 +396,59 @@ public partial class @MainControls: IInputActionCollection2, IDisposable
         }
     }
     public GameplayActions @gameplay => new GameplayActions(this);
+
+    // menu
+    private readonly InputActionMap m_menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_menu_pause;
+    public struct MenuActions
+    {
+        private @MainControls m_Wrapper;
+        public MenuActions(@MainControls wrapper) { m_Wrapper = wrapper; }
+        public InputAction @pause => m_Wrapper.m_menu_pause;
+        public InputActionMap Get() { return m_Wrapper.m_menu; }
+        public void Enable() { Get().Enable(); }
+        public void Disable() { Get().Disable(); }
+        public bool enabled => Get().enabled;
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
+        {
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
+            @pause.started += instance.OnPause;
+            @pause.performed += instance.OnPause;
+            @pause.canceled += instance.OnPause;
+        }
+
+        private void UnregisterCallbacks(IMenuActions instance)
+        {
+            @pause.started -= instance.OnPause;
+            @pause.performed -= instance.OnPause;
+            @pause.canceled -= instance.OnPause;
+        }
+
+        public void RemoveCallbacks(IMenuActions instance)
+        {
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
+                UnregisterCallbacks(instance);
+        }
+
+        public void SetCallbacks(IMenuActions instance)
+        {
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
+                UnregisterCallbacks(item);
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
+            AddCallbacks(instance);
+        }
+    }
+    public MenuActions @menu => new MenuActions(this);
     public interface IGameplayActions
     {
         void OnMovement(InputAction.CallbackContext context);
         void OnDash(InputAction.CallbackContext context);
+    }
+    public interface IMenuActions
+    {
+        void OnPause(InputAction.CallbackContext context);
     }
 }

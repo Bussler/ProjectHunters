@@ -8,7 +8,7 @@ using UnityEngine;
 // Manage scores: get, set, update; implements singleton pattern
 public class LeaderBoardManager : MonoBehaviour
 {
-    public static LeaderBoardManager instance;
+    public static LeaderBoardManager Instance;
 
     [SerializeField]
     private string leaderboardID = "20442";
@@ -18,9 +18,14 @@ public class LeaderBoardManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (instance == null)
+        if (Instance == null)
         {
-            instance = this;
+            Instance = this;
+            DontDestroyOnLoad(this.gameObject); // Keep the SceneManager alive between scenes
+        }
+        else
+        {
+            Destroy(this.gameObject);
         }
     }
 

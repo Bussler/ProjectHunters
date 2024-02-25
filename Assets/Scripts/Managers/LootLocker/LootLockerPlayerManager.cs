@@ -6,16 +6,14 @@ using LootLocker.Requests;
 // Start login process for LootLocker
 public class LootLockerPlayerManager : MonoBehaviour
 {
-    public static LeaderBoardManager instance;
+    public static LootLockerPlayerManager Instance;
 
     void Awake()
     {
-        if (instance == null)
+        if (Instance == null)
         {
+            Instance = this;
             StartCoroutine(LootLockerLogin());
-        }
-        else
-        {
         }
     }
 
