@@ -45,14 +45,63 @@ public class LootLockerManager : MonoBehaviour
             {
                 Debug.Log("LootLockerLogin - success: " + response.text);
                 PlayerPrefs.SetString("player_identifier", response.player_identifier.ToString());
-                done = true;
             }
             else
             {
                 Debug.Log("LootLockerLogin - error: " + response.text);
-                done = true;
             }
+            done = true;
         });
+        yield return new WaitWhile(() => done == false);
+    }
+
+    IEnumerator LootLockerWhiteLabelSignUp()
+    {
+        bool done = false;
+
+        string email = "user@lootlocker.io";
+        string password = "password";
+        bool rememberMe = true;
+
+        LootLockerSDKManager.WhiteLabelSignUp(email, password, response =>
+        {
+            if (!response.success)
+            {
+                Debug.Log("LootLockerLogin - error: " + response.text);
+            }
+            else
+            {
+                Debug.Log("LootLockerLogin - success: " + response.text);
+            }
+            done = true;
+        });
+
+        yield return new WaitWhile(() => done == false);
+    }
+
+    IEnumerator LootLockerWhiteLabelLogin()
+    {
+        bool done = false;
+
+        string email = "user@lootlocker.io";
+        string password = "password";
+        bool rememberMe = true;
+
+
+        LootLockerSDKManager.WhiteLabelLoginAndStartSession(email, password, rememberMe, response =>
+        {
+            if (response.success)
+            {
+                Debug.Log("LootLockerLogin - success: " + response.text);
+                PlayerPrefs.SetString("player_identifier", response.SessionResponse.player_id.ToString());
+            }
+            else
+            {
+                Debug.Log("LootLockerLogin - error: " + response.text);
+            }
+            done = true;
+        });
+
         yield return new WaitWhile(() => done == false);
     }
 
