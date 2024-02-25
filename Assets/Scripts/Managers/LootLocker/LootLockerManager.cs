@@ -1,8 +1,11 @@
 using LootLocker.Requests;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 
 // Manage scores: get, set, update; implements singleton pattern
@@ -18,7 +21,7 @@ public class LootLockerManager : MonoBehaviour
 
     void Awake()
     {
-        if(!LootLockerSDKManager.CheckInitialized())
+        if (!LootLockerSDKManager.CheckInitialized())
             StartCoroutine(LootLockerGuestLogin());
     }
 
@@ -75,7 +78,7 @@ public class LootLockerManager : MonoBehaviour
         yield return new WaitWhile(() => done == false);
     }
 
-    IEnumerator LootLockerWhiteLabelLogin(string email, string password)
+    IEnumerator LootLockerWhiteLabelLogin(string email, string password, string playername="")
     {
         bool done = false;
 
@@ -85,10 +88,47 @@ public class LootLockerManager : MonoBehaviour
             {
                 Debug.Log("LootLockerLogin - success: " + response.text);
                 PlayerPrefs.SetString("player_identifier", response.SessionResponse.player_id.ToString());
+                
+                StartCoroutine(LookUpPlayername((lootLockerPlayerName) =>
+                {
+                    if (string.IsNullOrEmpty(lootLockerPlayerName))
+                    {
+                        LootLockerSDKManager.SetPlayerName(playername, (response) =>
+                        {
+                            PlayerPrefs.SetString("player_name", playername);
+                            done = true;
+                        });
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetString("player_name", lootLockerPlayerName);
+                        done = true;
+                    }
+                }));
             }
             else
             {
                 Debug.Log("LootLockerLogin - error: " + response.text);
+                done = true;
+            }
+        });
+
+        yield return new WaitWhile(() => done == false);
+    }
+
+    public IEnumerator LookUpPlayername(System.Action<string> playername)
+    {
+        bool done = false;
+
+        LootLockerSDKManager.GetPlayerName((response) =>
+        {
+            if (response.success)
+            {
+                playername(response.name);
+            }
+            else
+            {
+                playername("");
             }
             done = true;
         });
