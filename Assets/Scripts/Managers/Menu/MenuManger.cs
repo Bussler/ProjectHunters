@@ -4,6 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class MenuManger : MonoBehaviour
 {
@@ -16,13 +17,16 @@ public class MenuManger : MonoBehaviour
     private GameObject MainMenu;
 
     [SerializeField]
-    private TextMeshProUGUI PlayerName;
+    private TMP_InputField PlayerName;
 
     [SerializeField]
     private GameObject PauseMenu;
 
     [SerializeField]
     private GameObject Scoreboard;
+
+    [SerializeField]
+    private TextMeshProUGUI[] Scoreboardtexts;
 
     private MainControls input = null; // Input system
 
@@ -59,7 +63,7 @@ public class MenuManger : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == MenuScene)
         {
-            LoadMenuScene();
+            OnLoadMenuScene();
         }
         else
         {
@@ -96,18 +100,47 @@ public class MenuManger : MonoBehaviour
         SceneManager.LoadScene(sceneName);
     }
 
-    public void LoadMenuScene()
+    public void OnLoadMenuScene()
     {
         LoadScene(MenuScene);
         MainMenu.SetActive(true);
         Scoreboard.SetActive(true);
 
         UpdateDisplayedPlayerName();
+        StartCoroutine(UpdateScoreboard());
     }
 
     public void UpdateDisplayedPlayerName()
     {
         PlayerName.text = LootLockerManager.Instance.GetPlayerName();
+    }
+
+    public void SetPlayerName(string newName)
+    {
+        LootLockerManager.Instance.SetPlayerName(PlayerName.text);
+        StartCoroutine(UpdateScoreboard());
+    }
+
+    public IEnumerator UpdateScoreboard()
+    {
+        yield return new WaitForSeconds(0.1f);
+        StartCoroutine(LootLockerManager.Instance.LootLockerScoreDownload(10, (response) =>
+        {
+            if (response != null)
+            {
+                for (int i = 0; i < Scoreboardtexts.Length; i++)
+                {
+                    if (i >= response.Length)
+                    {
+                        Scoreboardtexts[i].text = "";
+                        continue;
+                    }
+
+                    string playername = string.IsNullOrEmpty(response[i].player.name) ? response[i].member_id : response[i].player.name;
+                    Scoreboardtexts[i].text = response[i].rank + ". " + playername + " Score: " + response[i].score;
+                }
+            }
+        }));
     }
 
     public void LoadPlayScene()

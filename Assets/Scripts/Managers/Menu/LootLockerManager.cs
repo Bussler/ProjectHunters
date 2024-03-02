@@ -89,7 +89,7 @@ public class LootLockerManager : MonoBehaviour
                 Debug.Log("LootLockerLogin - success: " + response.text);
                 PlayerPrefs.SetString("player_identifier", response.SessionResponse.player_id.ToString());
                 
-                StartCoroutine(LookUpPlayername((lootLockerPlayerName) =>
+                LookUpPlayername((lootLockerPlayerName) =>
                 {
                     if (string.IsNullOrEmpty(lootLockerPlayerName))
                     {
@@ -104,7 +104,7 @@ public class LootLockerManager : MonoBehaviour
                         PlayerPrefs.SetString("player_name", lootLockerPlayerName);
                         done = true;
                     }
-                }));
+                });
             }
             else
             {
@@ -140,8 +140,19 @@ public class LootLockerManager : MonoBehaviour
 
     public string GetPlayerName()
     {
-        return "Player: " + (string.IsNullOrEmpty(PlayerPrefs.GetString("player_name")) ?
-            PlayerPrefs.GetString("player_identifier") : PlayerPrefs.GetString("player_name"));
+        return string.IsNullOrEmpty(PlayerPrefs.GetString("player_name")) ?
+            PlayerPrefs.GetString("player_identifier") : PlayerPrefs.GetString("player_name");
+    }
+
+    public void SetPlayerName(string name)
+    {
+        LootLockerSDKManager.SetPlayerName(name, (response) =>
+        {
+            if (response.success)
+            {
+                PlayerPrefs.SetString("player_name", name);
+            }
+        });
     }
 
     public void AddScore(int additionalScore)

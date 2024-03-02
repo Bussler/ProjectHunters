@@ -159,7 +159,7 @@ public class EnemySpawner : MonoBehaviour
     {
         Debug.Log("Game won!");
         LootLockerManager.Instance.UploadScore();
-        MenuManger.Instance.LoadMenuScene();
+        MenuManger.Instance.OnLoadMenuScene();
     }
 
     public void OnEnemyDied()
