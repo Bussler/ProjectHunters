@@ -1,8 +1,11 @@
 using LootLocker.Requests;
 using System.Collections;
 using System.Collections.Generic;
+using System.Threading;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
+using static UnityEngine.UIElements.UxmlAttributeDescription;
 
 
 // Manage scores: get, set, update; implements singleton pattern
@@ -18,7 +21,7 @@ public class LootLockerManager : MonoBehaviour
 
     void Awake()
     {
-        if(!LootLockerSDKManager.CheckInitialized())
+        if (!LootLockerSDKManager.CheckInitialized())
             StartCoroutine(LootLockerGuestLogin());
     }
 
@@ -44,8 +47,64 @@ public class LootLockerManager : MonoBehaviour
             if (response.success)
             {
                 Debug.Log("LootLockerLogin - success: " + response.text);
-                PlayerPrefs.SetString("player_identifier", response.player_identifier.ToString());
-                done = true;
+                PlayerPrefs.SetString("player_identifier", response.player_id.ToString());
+            }
+            else
+            {
+                Debug.Log("LootLockerLogin - error: " + response.text);
+            }
+            done = true;
+        });
+        yield return new WaitWhile(() => done == false);
+    }
+
+    IEnumerator LootLockerWhiteLabelSignUp(string email, string password)
+    {
+        bool done = false;
+
+        LootLockerSDKManager.WhiteLabelSignUp(email, password, response =>
+        {
+            if (!response.success)
+            {
+                Debug.Log("LootLockerLogin - error: " + response.text);
+            }
+            else
+            {
+                Debug.Log("LootLockerLogin - success: " + response.text);
+            }
+            done = true;
+        });
+
+        yield return new WaitWhile(() => done == false);
+    }
+
+    IEnumerator LootLockerWhiteLabelLogin(string email, string password, string playername="")
+    {
+        bool done = false;
+
+        LootLockerSDKManager.WhiteLabelLoginAndStartSession(email, password, true, response =>
+        {
+            if (response.success)
+            {
+                Debug.Log("LootLockerLogin - success: " + response.text);
+                PlayerPrefs.SetString("player_identifier", response.SessionResponse.player_id.ToString());
+                
+                LookUpPlayername((lootLockerPlayerName) =>
+                {
+                    if (string.IsNullOrEmpty(lootLockerPlayerName))
+                    {
+                        LootLockerSDKManager.SetPlayerName(playername, (response) =>
+                        {
+                            PlayerPrefs.SetString("player_name", playername);
+                            done = true;
+                        });
+                    }
+                    else
+                    {
+                        PlayerPrefs.SetString("player_name", lootLockerPlayerName);
+                        done = true;
+                    }
+                });
             }
             else
             {
@@ -53,7 +112,47 @@ public class LootLockerManager : MonoBehaviour
                 done = true;
             }
         });
+
         yield return new WaitWhile(() => done == false);
+
+        MenuManger.Instance.UpdateDisplayedPlayerName();
+    }
+
+    public IEnumerator LookUpPlayername(System.Action<string> playername)
+    {
+        bool done = false;
+
+        LootLockerSDKManager.GetPlayerName((response) =>
+        {
+            if (response.success)
+            {
+                playername(response.name);
+            }
+            else
+            {
+                playername("");
+            }
+            done = true;
+        });
+
+        yield return new WaitWhile(() => done == false);
+    }
+
+    public string GetPlayerName()
+    {
+        return string.IsNullOrEmpty(PlayerPrefs.GetString("player_name")) ?
+            PlayerPrefs.GetString("player_identifier") : PlayerPrefs.GetString("player_name");
+    }
+
+    public void SetPlayerName(string name)
+    {
+        LootLockerSDKManager.SetPlayerName(name, (response) =>
+        {
+            if (response.success)
+            {
+                PlayerPrefs.SetString("player_name", name);
+            }
+        });
     }
 
     public void AddScore(int additionalScore)
