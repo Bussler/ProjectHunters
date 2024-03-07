@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 // Class to convey the received messages to actions in the simulation
 public class ReinforcementLearningController : MonoBehaviour
@@ -10,6 +11,7 @@ public class ReinforcementLearningController : MonoBehaviour
 
     private bool stop_simulation = false;
     private bool start_simulation = false;
+    private bool restart_simulation = false;
 
     void Awake()
     {
@@ -34,6 +36,11 @@ public class ReinforcementLearningController : MonoBehaviour
             Time.timeScale = 1;
             start_simulation = false;
         }
+        else if (restart_simulation)
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
+            restart_simulation = false;
+        }
     }
 
     public void StopSimulation()
@@ -50,6 +57,12 @@ public class ReinforcementLearningController : MonoBehaviour
         start_simulation = true;
     }
 
+    public void Restart()
+    {
+        Debug.Log("Restart Simulation");
+        restart_simulation = true;
+    }
+
     private void HandleMessage(CommunicationMessage message)
     {
         if (message is ControlMessage)
@@ -59,9 +72,13 @@ public class ReinforcementLearningController : MonoBehaviour
             {
                 StopSimulation();
             }
-            else
+            else if (controlMessage.SendMessage == "RESUME")
             {
                 ResumeSimulation();
+            }
+            else if (controlMessage.SendMessage == "RESTART")
+            {
+                Restart();
             }
         }
         else if (message is InfoMessage)

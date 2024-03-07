@@ -3,9 +3,10 @@ import json
 from dataclasses import dataclass
 
 
-class StopType(enum.Enum):
+class ControlType(enum.Enum):
     STOP = "STOP"
     RESUME = "RESUME"
+    RESTART = "RESTART"
 
 
 @dataclass
@@ -36,9 +37,9 @@ class Message:
 
 @dataclass
 class ControlMessage(Message):
-    SendMessage: StopType
+    SendMessage: ControlType
 
-    def __init__(self, sendMessage: StopType):
+    def __init__(self, sendMessage: ControlType):
         super().__init__(ClassType="ControlMessage")
         self.SendMessage = sendMessage
 
@@ -47,7 +48,7 @@ class ControlMessage(Message):
         json_data = json.loads(data)
         if "ClassType" not in json_data or json_data["ClassType"] != "ControlMessage":
             return None
-        return cls(sendMessage=StopType(json_data["SendMessage"]))
+        return cls(sendMessage=ControlType(json_data["SendMessage"]))
 
 
 @dataclass

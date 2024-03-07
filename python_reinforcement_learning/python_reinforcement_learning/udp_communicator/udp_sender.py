@@ -3,7 +3,7 @@ import logging
 import random
 import socket
 
-from .messages import ControlMessage, InfoMessage, StopType
+from .messages import ControlMessage, InfoMessage, ControlType
 
 HOST = "localhost"
 PORT = 1337
@@ -34,12 +34,17 @@ async def write_test_messages(
 
 
 async def write_stop_message() -> None:
-    message = ControlMessage(StopType.STOP)
+    message = ControlMessage(ControlType.STOP)
     send_message(message.as_json())
 
 
 async def write_resume_message() -> None:
-    message = ControlMessage(StopType.RESUME)
+    message = ControlMessage(ControlType.RESUME)
+    send_message(message.as_json())
+    
+
+async def write_restart_message() -> None:
+    message = ControlMessage(ControlType.RESTART)
     send_message(message.as_json())
 
 
@@ -49,6 +54,10 @@ def stop() -> None:
 
 def resume() -> None:
     loop.run_until_complete(write_resume_message())
+    
+
+def restart() -> None:
+    loop.run_until_complete(write_restart_message())
 
 
 def main():
