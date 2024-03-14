@@ -9,7 +9,7 @@ class HunterEnvironment(gym.Env):
     observation_space = spaces.Dict(
         {
             "agent": spaces.Box(0, 255, shape=(3,), dtype=int),
-            "target": spaces.Box(0, 255, shape=(3,), dtype=int),
+            "enemies": spaces.Box(0, 255, shape=(3,), dtype=int),  # TODO extend to multiple targets
         }
     )
 
@@ -21,12 +21,12 @@ class HunterEnvironment(gym.Env):
         self.max_timestep = env_config["max_timestep"]
         self.udp_address = env_config["udp_address"]
         self.agent_location = np.array([0, 0, 0])
-        self.target_locations = []
+        self.target_locations = np.array([0, 0, 0])  # TODO extend to multiple targets
 
         observation_space = spaces.Dict(
             {
                 "agent": spaces.Box(0, self.size - 1, shape=(3,), dtype=int),
-                "target": spaces.Box(0, self.size - 1, shape=(3,), dtype=int),
+                "enemies": spaces.Box(0, self.size - 1, shape=(3,), dtype=int),
             }
         )
 
@@ -34,7 +34,7 @@ class HunterEnvironment(gym.Env):
 
     # translate environment state to observation
     def _get_obs(self) -> spaces.Dict:
-        return {"agent": self.agent_location, "target": self.target_locations}
+        return {"agent": self.agent_location, "enemies": self.target_locations}
 
     # auxiliary information returned by the environment
     def _get_info(self) -> dict:
@@ -46,7 +46,7 @@ class HunterEnvironment(gym.Env):
         self.current_timestep = 0
 
         self.agent_location = np.array([0, 0, 0])
-        self.target_locations = [np.array([0, 0, 0])]
+        self.target_locations = np.array([0, 0, 0])
 
         observation = self._get_obs()
         info = self._get_info()
@@ -54,7 +54,7 @@ class HunterEnvironment(gym.Env):
         return observation, info
 
     def step(self, action):
-        direction = self._handle_action[action]
+        direction = self._handle_action(action)
         self._communicate_action(direction)
 
         self.current_timestep += 1
