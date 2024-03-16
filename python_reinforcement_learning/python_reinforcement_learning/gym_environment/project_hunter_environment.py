@@ -14,7 +14,6 @@ class HunterEnvironment(gym.Env):
     )
 
     def __init__(self, env_config: EnvContext = {"size": 100, "max_timestep": 1000, "udp_address": "localhost:1337"}):
-        # TODO
         self.size = env_config["size"]
         self.step_size = 1
         self.current_timestep = 0
@@ -57,7 +56,7 @@ class HunterEnvironment(gym.Env):
         direction = self._handle_action(action)
         self._communicate_action(direction)
 
-        self.current_timestep += 1
+        self.current_timestep += self.step_size
 
         terminated = self._test_terminated()
         reward = 1 if terminated else 0  # Binary sparse rewards
