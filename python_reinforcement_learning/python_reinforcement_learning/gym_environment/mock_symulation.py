@@ -61,7 +61,7 @@ class MockSimulation:
 
     def __init__(self, number_enemies: int = 4, field_size: int = 50) -> None:
         self.field_size = field_size
-        self.player = Player()
+        self.player = Player(field_size)
         self.enemy = [Enemy(self.field_size) for _ in range(number_enemies)]
         self.reset()
 

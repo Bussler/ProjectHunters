@@ -4,13 +4,14 @@ from gymnasium import spaces
 from ray.rllib.env.env_context import EnvContext
 
 from python_reinforcement_learning.gym_environment.mock_symulation import MockSimulation
+from python_reinforcement_learning.gym_environment.render_utils import PyGameRenderer
 
 
 class HunterEnvironment(gym.Env):
     action_space = spaces.Discrete(9)
     observation_space = spaces.Dict(
         {
-            "agent": spaces.Box(0, 255, shape=(2,), dtype=int),
+            "player": spaces.Box(0, 255, shape=(2,), dtype=int),
             "enemies": spaces.Box(0, 255, shape=(2,), dtype=int),  # TODO extend to multiple targets
         }
     )
@@ -23,7 +24,8 @@ class HunterEnvironment(gym.Env):
             "size": 50,
             "max_timestep": 1000,
             "udp_address": "localhost:1337",
-            "mock_environment": None,
+            "mock_environment": MockSimulation(4, 50),
+            "render_mode": "human",
         },
     ):
         self.size = env_config["size"]
@@ -31,16 +33,23 @@ class HunterEnvironment(gym.Env):
         self.current_timestep = 0
         self.max_timestep = env_config["max_timestep"]
         self.udp_address = env_config["udp_address"]
-        self.agent_location = np.array([0, 0])
-        self.target_locations = np.array([0, 0])  # TODO extend to multiple targets
+        self.render_mode = env_config["render_mode"]
+
+        self.player_location: np.array = np.array([0, 0])
+        self.enemy_locations: list[np.array] = []
 
         # Mock environment for training, to not query the real unity environment all the time
         if env_config["mock_environment"] is not None:
             self.mock_environment = env_config["mock_environment"]
 
+        if self.render_mode == "human" or self.render_mode == "rgb_array":
+            self.renderer = PyGameRenderer(
+                window_size=512, render_fps=4, environment_size=self.size, render_mode=self.render_mode
+            )
+
         observation_space = spaces.Dict(
             {
-                "agent": spaces.Box(0, self.size - 1, shape=(2,), dtype=int),
+                "player": spaces.Box(0, self.size - 1, shape=(2,), dtype=int),
                 "enemies": spaces.Box(0, self.size - 1, shape=(2,), dtype=int),
             }
         )
@@ -49,7 +58,7 @@ class HunterEnvironment(gym.Env):
 
     # translate environment state to observation
     def _get_obs(self) -> spaces.Dict:
-        return {"agent": self.agent_location, "enemies": self.target_locations}
+        return {"player": self.player_location, "enemies": self.enemy_locations}
 
     # auxiliary information returned by the environment
     def _get_info(self) -> dict:
@@ -60,8 +69,8 @@ class HunterEnvironment(gym.Env):
 
         self.current_timestep = 0
 
-        self.agent_location = np.array([0, 0])
-        self.target_locations = np.array([0, 0])
+        self.player_location = np.array([0, 0])
+        self.enemy_locations = np.array([0, 0])
 
         if self.mock_environment is not None:
             self.mock_environment.reset()
@@ -82,7 +91,21 @@ class HunterEnvironment(gym.Env):
         observation = self._get_obs()
         info = self._get_info()
 
+        if self.render_mode == "human":
+            self.renderer.render_frame(self._get_obs())
+
         return observation, reward, terminated, False, info
+
+    def render(self):
+        if self.render_mode == "rgb_array" and self.renderer is not None:
+            return self.renderer.render_frame(self._get_obs())
+        else:
+            return None
+
+    def close(self):
+        if self.renderer is not None:
+            self.renderer.free_ressources()
+        # TODO close unity environment
 
     def _test_terminated(self):
         if self.current_timestep >= self.max_timestep:
@@ -115,6 +138,15 @@ class HunterEnvironment(gym.Env):
         if self.mock_environment is not None:
             observation, info, done = self.mock_environment.perform_action(direction)
             self.player_location = observation["player"]
-            self.target_locations = observation["enemies"]
+            self.enemy_locations = observation["enemies"]
         else:
             pass  # TODO send action to unity environment
+
+
+if __name__ == "__main__":
+    env = HunterEnvironment()
+    env.reset()
+    for i in range(4):
+        env.step(1)
+        env.render()
+    env.close()
