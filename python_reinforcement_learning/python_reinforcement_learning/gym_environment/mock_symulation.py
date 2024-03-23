@@ -14,7 +14,8 @@ class Player:
         self.reset()
 
     def move(self, direction: np.array) -> None:
-        new_position = self.postion + direction * self.speed * DELTA_TIME
+        direction_normed = direction / np.linalg.norm(direction, 1)
+        new_position = self.postion + direction_normed * self.speed * DELTA_TIME
         self.postion = np.clip(new_position, -self.field_size, self.field_size)
 
     def reset(self) -> None:
@@ -43,7 +44,8 @@ class Enemy:
 
     def move(self, player_position: np.array) -> None:
         direction = player_position - self.postion
-        self.postion += direction * self.speed * DELTA_TIME
+        direction_normed = direction / np.linalg.norm(direction, 1)
+        self.postion += direction_normed * self.speed * DELTA_TIME
 
     def reset(self) -> None:
         self.postion = np.random.uniform(low=-self.field_size, high=self.field_size, size=(2,))
@@ -74,7 +76,7 @@ class MockSimulation:
         self.player.move(move_direction)
         for enemy in self.enemy:
             enemy.move(self.player.postion)
-            if np.linalg.norm(self.player.postion - enemy.postion) < BOUNDING_BOX_SIZE:
+            if np.linalg.norm(self.player.postion - enemy.postion, 1) < BOUNDING_BOX_SIZE:
                 self.player.take_damage()
                 enemy.reset()
 
