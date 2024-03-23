@@ -30,8 +30,8 @@ class PyGameRenderer:
         pygame.draw.circle(
             self.canvas,
             (0, 0, 255),
-            (player_location + 0.5) * self.pix_square_size,
-            self.pix_square_size / 3,
+            (player_location + (self.environment_size // 2) + 0.5) * self.pix_square_size,
+            self.pix_square_size / 2,
         )
 
         # draw enemies
@@ -39,8 +39,8 @@ class PyGameRenderer:
             pygame.draw.circle(
                 self.canvas,
                 (255, 0, 0),
-                (enemy_location + 0.5) * self.pix_square_size,
-                self.pix_square_size / 3,
+                (enemy_location + (self.environment_size // 2) + 0.5) * self.pix_square_size,
+                self.pix_square_size / 2,
             )
 
         # Finally, add some gridlines
