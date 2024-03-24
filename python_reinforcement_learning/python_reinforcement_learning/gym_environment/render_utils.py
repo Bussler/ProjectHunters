@@ -30,7 +30,7 @@ class PyGameRenderer:
         pygame.draw.circle(
             self.canvas,
             (0, 0, 255),
-            (player_location + (self.environment_size // 2) + 0.5) * self.pix_square_size,
+            (player_location + (self.environment_size // 2)) * self.pix_square_size,
             self.pix_square_size / 2,
         )
 
@@ -39,7 +39,7 @@ class PyGameRenderer:
             pygame.draw.circle(
                 self.canvas,
                 (255, 0, 0),
-                (enemy_location + (self.environment_size // 2) + 0.5) * self.pix_square_size,
+                (enemy_location + (self.environment_size // 2)) * self.pix_square_size,
                 self.pix_square_size / 2,
             )
 

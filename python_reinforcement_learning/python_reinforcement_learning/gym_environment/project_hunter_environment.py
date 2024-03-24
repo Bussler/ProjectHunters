@@ -21,10 +21,10 @@ class HunterEnvironment(gym.Env):
     def __init__(
         self,
         env_config: EnvContext = {
-            "size": 50,
+            "size": 20,
             "max_timestep": 1000,
             "udp_address": "localhost:1337",
-            "mock_environment": MockSimulation(4, 50),
+            "mock_environment": MockSimulation(4, 20, 15),
             "render_mode": "human",
         },
     ):
@@ -87,7 +87,7 @@ class HunterEnvironment(gym.Env):
         self.current_timestep += self.step_size
 
         terminated = self._test_terminated()
-        reward = -1000 if terminated else 1
+        reward = self._calculate_reward()
         observation = self._get_obs()
         info = self._get_info()
 
@@ -111,8 +111,16 @@ class HunterEnvironment(gym.Env):
         if self.current_timestep >= self.max_timestep:
             return True
         if self.mock_environment is not None:
-            return not self.mock_environment.is_alive()
+            return not self.mock_environment.is_alive() or self.mock_environment.is_won()
         return False  # TODO
+
+    def _calculate_reward(self):
+        if self.mock_environment is not None:
+            if not self.mock_environment.is_alive():
+                return -1000
+            if self.mock_environment.is_won():
+                return 1
+        return 1
 
     def _handle_action(self, action) -> np.array:
         if action == 0:
@@ -147,6 +155,8 @@ if __name__ == "__main__":
     env = HunterEnvironment()
     env.reset()
     for i in range(4):
-        env.step(1)
+        observation, reward, terminated, truncated, info = env.step(1)
+        if terminated:
+            break
         env.render()
     env.close()
