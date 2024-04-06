@@ -2,20 +2,13 @@ import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
 from ray.rllib.env.env_context import EnvContext
+from ray.rllib.utils.spaces.repeated import Repeated
 
 from python_reinforcement_learning.gym_environment.mock_symulation import MockSimulation
 from python_reinforcement_learning.gym_environment.render_utils import PyGameRenderer
 
 
 class HunterEnvironment(gym.Env):
-    action_space = spaces.Discrete(9)
-    observation_space = spaces.Dict(
-        {
-            "player": spaces.Box(0, 255, shape=(2,), dtype=int),
-            "enemies": spaces.Box(0, 255, shape=(2,), dtype=int),  # TODO extend to multiple targets
-        }
-    )
-
     mock_environment: MockSimulation = None
 
     def __init__(
@@ -47,10 +40,11 @@ class HunterEnvironment(gym.Env):
                 window_size=512, render_fps=4, environment_size=self.size, render_mode=self.render_mode
             )
 
-        observation_space = spaces.Dict(
+        self.action_space = spaces.Discrete(9)
+        self.observation_space = spaces.Dict(
             {
-                "player": spaces.Box(0, self.size - 1, shape=(2,), dtype=int),
-                "enemies": spaces.Box(0, self.size - 1, shape=(2,), dtype=int),
+                "player": spaces.Box(-self.size - 1, self.size - 1, shape=(2,), dtype=int),
+                "enemies": Repeated(spaces.Box(-self.size - 1, self.size - 1, shape=(2,), dtype=int), max_len=100),
             }
         )
 
