@@ -9,7 +9,7 @@ BOUNDING_BOX_SIZE = 1  # size of collision bounding box for player and enemies
 class Player:
     postion: np.array = np.array([0.0, 0.0])
     speed: float = 20
-    lifes: int = 3
+    lifes: int = 1
 
     def __init__(self, field_size: int) -> None:
         self.field_size = field_size
@@ -22,7 +22,7 @@ class Player:
 
     def reset(self) -> None:
         self.postion = np.array([0.0, 0.0])
-        self.lifes = 3
+        self.lifes = 1
 
     def get_observation(self) -> np.array:
         return self.postion

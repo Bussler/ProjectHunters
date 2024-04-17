@@ -150,7 +150,7 @@ class HunterEnvironment(gym.Env):
 
 
 if __name__ == "__main__":
-    sim_config = MockSimulationConfig(number_enemies=4, field_size=20, enemy_live_for_steps=15)
+    sim_config = MockSimulationConfig(number_enemies=4, field_size=20, enemy_live_for_steps=20)
     render_config = RendererConfig(window_size=512, render_fps=4, render_mode=RendererMode.RGBArray, store_dir="images")
     env_config = HunterEnvironmentConfig(
         size=20, max_timestep=1000, udp_address=None, simulation_config=sim_config, render_config=render_config
@@ -159,7 +159,7 @@ if __name__ == "__main__":
     env.reset()
     for i in range(20):
         observation, reward, terminated, truncated, info = env.step(1)
+        env.render()
         if terminated:
             break
-        env.render()
     env.close()
