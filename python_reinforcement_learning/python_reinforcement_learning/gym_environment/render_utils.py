@@ -1,3 +1,5 @@
+import os
+
 import numpy as np
 import pygame
 from gymnasium import spaces
@@ -9,9 +11,14 @@ class PyGameRenderer:
         self.render_fps = render_fps
         self.environment_size = environment_size
         self.render_mode = render_mode
-
         self.pix_square_size = self.window_size / environment_size  # The size of a single grid square in pixels
 
+        self.image_cache: list[np.array] = []
+        self.store_dir = "images"
+
+        self._init_pygame()
+
+    def _init_pygame(self) -> None:
         pygame.init()
         pygame.display.init()
         self.window = pygame.display.set_mode((self.window_size, self.window_size))
@@ -71,8 +78,23 @@ class PyGameRenderer:
             # The following line will automatically add a delay to keep the framerate stable.
             self.clock.tick(self.render_fps)
         else:  # rgb_array
-            return np.transpose(np.array(pygame.surfarray.pixels3d(self.canvas)), axes=(1, 0, 2))
+            image = np.transpose(np.array(pygame.surfarray.pixels3d(self.canvas)), axes=(1, 0, 2))
+            self.image_cache.append(image)
+            return image
 
     def free_ressources(self) -> None:
+        self.store_images()
         pygame.display.quit()
         pygame.quit()
+
+    def store_images(self) -> None:
+        if len(self.image_cache) <= 0:
+            return
+
+        directory = os.path.join(self.store_dir)
+        if not os.path.exists(directory):
+            os.makedirs(directory)
+
+        for i, image in enumerate(self.image_cache):
+            pygame.image.save(pygame.surfarray.make_surface(image), os.path.join(directory, f"frame_{i}.png"))
+        self.image_cache = []

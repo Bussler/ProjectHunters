@@ -18,7 +18,7 @@ class HunterEnvironment(gym.Env):
             "max_timestep": 1000,
             "udp_address": "localhost:1337",
             "mock_environment": MockSimulation(4, 20, 15),
-            "render_mode": "human",
+            "render_mode": "rgb_array",
         },
     ):
         self.size = env_config["size"]
@@ -148,7 +148,7 @@ class HunterEnvironment(gym.Env):
 if __name__ == "__main__":
     env = HunterEnvironment()
     env.reset()
-    for i in range(4):
+    for i in range(15):
         observation, reward, terminated, truncated, info = env.step(1)
         if terminated:
             break
