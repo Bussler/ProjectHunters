@@ -1,5 +1,7 @@
 import numpy as np
 
+from python_reinforcement_learning.gym_environment.configs import MockSimulationConfig
+
 DELTA_TIME = 0.02  # simulation time step, similar to UNITY's Time.deltaTime
 BOUNDING_BOX_SIZE = 1  # size of collision bounding box for player and enemies
 
@@ -67,10 +69,10 @@ class MockSimulation:
     player: Player = None
     enemies: list[Enemy] = None
 
-    def __init__(self, number_enemies: int = 4, field_size: int = 50, enemy_live_for_steps: int = 15) -> None:
-        self.field_size = field_size
-        self.player = Player(field_size)
-        self.enemies = [Enemy(self.field_size, enemy_live_for_steps) for _ in range(number_enemies)]
+    def __init__(self, config: MockSimulationConfig) -> None:
+        self.field_size = config.field_size
+        self.player = Player(config.field_size)
+        self.enemies = [Enemy(self.field_size, config.enemy_live_for_steps) for _ in range(config.number_enemies)]
         self.reset()
 
     def reset(self) -> None:

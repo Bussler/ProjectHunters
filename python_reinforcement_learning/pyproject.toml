@@ -11,6 +11,7 @@ asyncio = "^3.4.3"
 ray = {extras = ["rllib"], version = "^2.9.3"}
 torch = "^2.2.1"
 pygame = "^2.5.2"
+pydantic = "^2.7.0"
 
 
 [tool.poetry.group.dev.dependencies]

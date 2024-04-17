@@ -1,9 +1,16 @@
+from typing import Union
+
 import gymnasium as gym
 import numpy as np
 from gymnasium import spaces
-from ray.rllib.env.env_context import EnvContext
 from ray.rllib.utils.spaces.repeated import Repeated
 
+from python_reinforcement_learning.gym_environment.configs import (
+    HunterEnvironmentConfig,
+    MockSimulationConfig,
+    RendererConfig,
+    RendererMode,
+)
 from python_reinforcement_learning.gym_environment.mock_symulation import MockSimulation
 from python_reinforcement_learning.gym_environment.render_utils import PyGameRenderer
 
@@ -13,32 +20,29 @@ class HunterEnvironment(gym.Env):
 
     def __init__(
         self,
-        env_config: EnvContext = {
-            "size": 20,
-            "max_timestep": 1000,
-            "udp_address": "localhost:1337",
-            "mock_environment": MockSimulation(4, 20, 15),
-            "render_mode": "rgb_array",
-        },
+        env_config: Union[HunterEnvironmentConfig, dict],
     ):
-        self.size = env_config["size"]
+        if isinstance(env_config, dict):
+            self.config = HunterEnvironmentConfig.from_dict(env_config)
+        else:
+            self.config = env_config
+
+        self.size = self.config.size
         self.step_size = 1
         self.current_timestep = 0
-        self.max_timestep = env_config["max_timestep"]
-        self.udp_address = env_config["udp_address"]
-        self.render_mode = env_config["render_mode"]
+        self.max_timestep = self.config.max_timestep
+
+        # Mock environment for training, to not query the real unity environment all the time
+        if self.config is not None:
+            self.mock_environment = MockSimulation(self.config.simulation_config)
+        if self.config.udp_address is not None:
+            self.udp_address = self.config.udp_address
+
+        self.renderer = PyGameRenderer(self.config.render_config, self.config.size)
+        self.render_mode = self.config.render_config.render_mode
 
         self.player_location: np.array = np.array([0, 0])
         self.enemy_locations: list[np.array] = []
-
-        # Mock environment for training, to not query the real unity environment all the time
-        if env_config["mock_environment"] is not None:
-            self.mock_environment = env_config["mock_environment"]
-
-        if self.render_mode == "human" or self.render_mode == "rgb_array":
-            self.renderer = PyGameRenderer(
-                window_size=512, render_fps=4, environment_size=self.size, render_mode=self.render_mode
-            )
 
         self.action_space = spaces.Discrete(9)
         self.observation_space = spaces.Dict(
@@ -85,13 +89,13 @@ class HunterEnvironment(gym.Env):
         observation = self._get_obs()
         info = self._get_info()
 
-        if self.render_mode == "human":
+        if self.render_mode == RendererMode.Human:
             self.renderer.render_frame(self._get_obs())
 
         return observation, reward, terminated, False, info
 
     def render(self):
-        if self.render_mode == "rgb_array" and self.renderer is not None:
+        if self.render_mode == RendererMode.RGBArray and self.renderer is not None:
             return self.renderer.render_frame(self._get_obs())
         else:
             return None
@@ -146,9 +150,14 @@ class HunterEnvironment(gym.Env):
 
 
 if __name__ == "__main__":
-    env = HunterEnvironment()
+    sim_config = MockSimulationConfig(number_enemies=4, field_size=20, enemy_live_for_steps=15)
+    render_config = RendererConfig(window_size=512, render_fps=4, render_mode=RendererMode.RGBArray, store_dir="images")
+    env_config = HunterEnvironmentConfig(
+        size=20, max_timestep=1000, udp_address=None, simulation_config=sim_config, render_config=render_config
+    )
+    env = HunterEnvironment(env_config)
     env.reset()
-    for i in range(15):
+    for i in range(20):
         observation, reward, terminated, truncated, info = env.step(1)
         if terminated:
             break

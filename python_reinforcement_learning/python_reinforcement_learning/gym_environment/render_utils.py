@@ -4,17 +4,28 @@ import numpy as np
 import pygame
 from gymnasium import spaces
 
+from python_reinforcement_learning.gym_environment.configs import (
+    MockSimulationConfig,
+    RendererConfig,
+    RendererMode,
+)
+
 
 class PyGameRenderer:
-    def __init__(self, window_size, render_fps, environment_size, render_mode) -> None:
-        self.window_size = window_size
-        self.render_fps = render_fps
-        self.environment_size = environment_size
-        self.render_mode = render_mode
-        self.pix_square_size = self.window_size / environment_size  # The size of a single grid square in pixels
+    def __init__(
+        self,
+        config: RendererConfig,
+        field_size: int,
+    ) -> None:
+        self.window_size = config.window_size
+        self.render_fps = config.render_fps
+        self.environment_size = field_size
+        self.render_mode: RendererMode = config.render_mode
+
+        self.pix_square_size = self.window_size / field_size  # The size of a single grid square in pixels
 
         self.image_cache: list[np.array] = []
-        self.store_dir = "images"
+        self.store_dir = config.store_dir
 
         self._init_pygame()
 
@@ -26,6 +37,9 @@ class PyGameRenderer:
         self.clock = pygame.time.Clock()
 
     def render_frame(self, observation: spaces.Dict) -> None:
+        if self.render_mode == RendererMode.Nothing:
+            return
+
         self.canvas.fill((255, 255, 255))
 
         player_location = observation["player"]
