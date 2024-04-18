@@ -1,5 +1,3 @@
-import os
-
 import ray
 from ray.rllib.algorithms.algorithm import Algorithm
 from ray.rllib.algorithms.ppo import PPOConfig
@@ -65,12 +63,12 @@ def train_rllib():
         )
     )
 
-    stop = {"training_iterations": 1, "timesteps_total": 1000, "episode_reward_mean": 10}
+    stop = {"training_iterations": 1, "timesteps_total": 1000, "episode_reward_mean": 10, "save_iterations": 1000}
 
-    print("Running manual train loop without Ray Tune.")
     # use fixed learning rate instead of grid search (needs tune)
     config.lr = 1e-3
     algo = config.build()
+
     # run manual training loop and print results after each iteration
     for i in range(stop["training_iterations"]):
         result = algo.train()
@@ -82,6 +80,13 @@ def train_rllib():
         ):
             print("Reached stopping criteria, stopping training.")
             break
+
+        if i % stop["save_iterations"] == 0:
+            checkpoint_dir = algo.save().checkpoint.path
+            print(f"Checkpoint saved in directory {checkpoint_dir}")
+
+    checkpoint_dir = algo.save().checkpoint.path
+    print(f"Checkpoint saved in directory {checkpoint_dir}")
 
     algo.stop()
     ray.shutdown()
