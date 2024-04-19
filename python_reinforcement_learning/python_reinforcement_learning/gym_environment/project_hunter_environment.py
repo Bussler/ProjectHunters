@@ -47,8 +47,8 @@ class HunterEnvironment(gym.Env):
         self.action_space = spaces.Discrete(9)
         self.observation_space = spaces.Dict(
             {
-                "player": spaces.Box(-self.size - 1, self.size - 1, shape=(2,), dtype=int),
-                "enemies": Repeated(spaces.Box(-self.size - 1, self.size - 1, shape=(2,), dtype=int), max_len=100),
+                "player": spaces.Box(-self.size - 1, self.size - 1, shape=(2,), dtype=float),
+                "enemies": Repeated(spaces.Box(-self.size - 1, self.size - 1, shape=(2,), dtype=float), max_len=100),
             }
         )
 
@@ -68,7 +68,7 @@ class HunterEnvironment(gym.Env):
         self.current_timestep = 0
 
         self.player_location = np.array([0, 0])
-        self.enemy_locations = np.array([0, 0])
+        self.enemy_locations.clear()
 
         if self.mock_environment is not None:
             self.mock_environment.reset()
@@ -153,12 +153,15 @@ if __name__ == "__main__":
     sim_config = MockSimulationConfig(number_enemies=4, field_size=20, enemy_live_for_steps=20)
     render_config = RendererConfig(window_size=512, render_fps=4, render_mode=RendererMode.RGBArray, store_dir="images")
     env_config = HunterEnvironmentConfig(
-        size=20, max_timestep=1000, udp_address=None, simulation_config=sim_config, render_config=render_config
+        size=20, max_timestep=20, udp_address=None, simulation_config=sim_config, render_config=render_config
     )
     env = HunterEnvironment(env_config)
-    env.reset()
+
+    obs_r, info_r = env.reset()
+
     for i in range(20):
-        observation, reward, terminated, truncated, info = env.step(1)
+        action = env.action_space.sample()
+        observation, reward, terminated, truncated, info = env.step(action)
         env.render()
         if terminated:
             break

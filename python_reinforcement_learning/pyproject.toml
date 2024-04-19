@@ -29,6 +29,7 @@ udp_send_test = "python_reinforcement_learning.udp_communicator.udp_sender:main"
 udp_stop = "python_reinforcement_learning.udp_communicator.udp_sender:stop"
 udp_resume = "python_reinforcement_learning.udp_communicator.udp_sender:resume"
 udp_restart = "python_reinforcement_learning.udp_communicator.udp_sender:restart"
+train_rllib = "python_reinforcement_learning.training.rllib_train:train_rllib"
 
 [tool.black]
 line-length = 110

@@ -39,9 +39,11 @@ def train_rllib():
     ray.init()
 
     sim_config = MockSimulationConfig(number_enemies=4, field_size=20, enemy_live_for_steps=20)
-    render_config = RendererConfig(window_size=512, render_fps=4, render_mode=RendererMode.RGBArray, store_dir="images")
+    render_config = RendererConfig(
+        window_size=512, render_fps=4, render_mode=RendererMode.RGBArray, store_dir="rllib_train_images"
+    )
     env_config = HunterEnvironmentConfig(
-        size=20, max_timestep=1000, udp_address=None, simulation_config=sim_config, render_config=render_config
+        size=20, max_timestep=20, udp_address=None, simulation_config=sim_config, render_config=render_config
     )
 
     config = (
@@ -54,9 +56,9 @@ def train_rllib():
         .framework("torch")
         .rollouts(num_rollout_workers=1)
         # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
-        .resources(num_gpus=1)
+        .resources(num_gpus=0)  # TODO enable torch to use GPU
         .evaluation(
-            custom_evaluation_function=render_evaluation,
+            # custom_evaluation_function=render_evaluation,
             evaluation_interval=1,
             evaluation_num_workers=1,
             evaluation_duration=3,
@@ -72,7 +74,7 @@ def train_rllib():
     # run manual training loop and print results after each iteration
     for i in range(stop["training_iterations"]):
         result = algo.train()
-        print(pretty_print(result))
+        # print(pretty_print(result))
         # stop training of the target train steps or reward are reached
         if (
             result["timesteps_total"] >= stop["timesteps_total"]

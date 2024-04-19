@@ -16,9 +16,11 @@ class Player:
         self.reset()
 
     def move(self, direction: np.array) -> None:
-        direction_normed = direction / np.linalg.norm(direction, 1)
-        new_position = self.postion + direction_normed * self.speed * DELTA_TIME
-        self.postion = np.clip(new_position, -self.field_size // 2, self.field_size // 2)
+        direction_norm = np.linalg.norm(direction, 1)
+        if direction_norm > 0:
+            direction_normed = direction / direction_norm
+            new_position = self.postion + direction_normed * self.speed * DELTA_TIME
+            self.postion = np.clip(new_position, -self.field_size // 2, self.field_size // 2)
 
     def reset(self) -> None:
         self.postion = np.array([0.0, 0.0])
@@ -48,8 +50,11 @@ class Enemy:
 
     def move(self, player_position: np.array) -> None:
         direction = player_position - self.postion
-        direction_normed = direction / np.linalg.norm(direction, 1)
-        self.postion += direction_normed * self.speed * DELTA_TIME
+
+        direction_norm = np.linalg.norm(direction, 1)
+        if direction_norm > 0:
+            direction_normed = direction / direction_norm
+            self.postion += direction_normed * self.speed * DELTA_TIME
 
     def reset(self) -> None:
         self.postion = np.random.uniform(low=-self.field_size // 2, high=self.field_size // 2, size=(2,))
