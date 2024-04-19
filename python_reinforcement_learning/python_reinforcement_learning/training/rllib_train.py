@@ -48,19 +48,17 @@ def train_rllib():
 
     config = (
         PPOConfig()
-        # or "corridor" if registered above
         .environment(
             HunterEnvironment,
             env_config=env_config.to_dict(),
         )
         .framework("torch")
         .rollouts(num_rollout_workers=1)
-        # Use GPUs iff `RLLIB_NUM_GPUS` env var set to > 0.
-        .resources(num_gpus=0)  # TODO enable torch to use GPU
+        .resources(num_gpus=1)
         .evaluation(
-            # custom_evaluation_function=render_evaluation,
+            custom_evaluation_function=render_evaluation,
             evaluation_interval=1,
-            evaluation_num_workers=1,
+            evaluation_num_workers=0,
             evaluation_duration=3,
         )
     )
@@ -75,7 +73,6 @@ def train_rllib():
     for i in range(stop["training_iterations"]):
         result = algo.train()
         # print(pretty_print(result))
-        # stop training of the target train steps or reward are reached
         if (
             result["timesteps_total"] >= stop["timesteps_total"]
             or result["episode_reward_mean"] >= stop["episode_reward_mean"]

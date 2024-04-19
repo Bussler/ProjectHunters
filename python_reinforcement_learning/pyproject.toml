@@ -6,17 +6,25 @@ authors = ["Bussler <maarten.bussler@gmail.com>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "^3.9"
+python = "^3.10"
 asyncio = "^3.4.3"
 ray = {extras = ["rllib"], version = "^2.9.3"}
-torch = "^2.2.1"
 pygame = "^2.5.2"
 pydantic = "^2.7.0"
+torch = {version = "^2.2.2+cu118", source = "pytorch-gpu-src"}
+torchvision = {version = "^0.17.2+cu118", source = "pytorch-gpu-src"}
+torchaudio = {version = "^2.2.2+cu118", source = "pytorch-gpu-src"}
 
 
 [tool.poetry.group.dev.dependencies]
 black = "^24.1.1"
 isort = "^5.13.2"
+
+
+[[tool.poetry.source]]
+name = "pytorch-gpu-src"
+url = "https://download.pytorch.org/whl/cu118"
+priority = "explicit"
 
 [build-system]
 requires = ["poetry-core"]
