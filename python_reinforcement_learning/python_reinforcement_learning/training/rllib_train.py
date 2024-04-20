@@ -38,12 +38,12 @@ def train_rllib():
     # Optionally: Use Ray Tune to search for the best hyperparameters
     ray.init()
 
-    sim_config = MockSimulationConfig(number_enemies=4, field_size=20, enemy_live_for_steps=20)
+    sim_config = MockSimulationConfig(number_enemies=4, field_size=20, enemy_live_for_steps=40)
     render_config = RendererConfig(
         window_size=512, render_fps=4, render_mode=RendererMode.RGBArray, store_dir="rllib_train_images"
     )
     env_config = HunterEnvironmentConfig(
-        size=20, max_timestep=20, udp_address=None, simulation_config=sim_config, render_config=render_config
+        size=20, max_timestep=1000, udp_address=None, simulation_config=sim_config, render_config=render_config
     )
 
     config = (

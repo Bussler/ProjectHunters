@@ -41,12 +41,14 @@ class Player:
 
 class Enemy:
     postion: np.array = np.array([0.0, 0.0])
-    speed: float = 17
-    steps_to_stay_alive: int = 15
+    speed: float = 16
+    steps_to_stay_alive: int = 20
+    lives = 1
 
     def __init__(self, field_size: int, live_for_steps: int) -> None:
         self.field_size = field_size
         self.live_for_steps = live_for_steps
+        self.reset()
 
     def move(self, player_position: np.array) -> None:
         direction = player_position - self.postion
@@ -57,15 +59,33 @@ class Enemy:
             self.postion += direction_normed * self.speed * DELTA_TIME
 
     def reset(self) -> None:
-        self.postion = np.random.uniform(low=-self.field_size // 2, high=self.field_size // 2, size=(2,))
+        self.reset_position()
         self.steps_to_stay_alive = self.live_for_steps
+        self.lives = 1
+
+    def reset_position(self) -> None:
+        self.postion = np.random.uniform(low=-self.field_size // 2, high=self.field_size // 2, size=(2,))
 
     def get_observation(self) -> np.array:
         return self.postion
 
-    def take_damage(self) -> None:
+    def take_step_damage(self) -> bool:
+        """Reduces time to live. If time to live is 0, the enemy is reset and takes damage.
+
+        Returns true if the enemy is still alive, false otherwise.
+
+        Returns:
+            bool: _description_
+        """
         self.steps_to_stay_alive -= 1
         if self.steps_to_stay_alive <= 0:
+            self.reset_position()
+            return self.take_damage()
+        return True
+
+    def take_damage(self) -> bool:
+        self.lives -= 1
+        if self.lives <= 0:
             return False
         return True
 
@@ -76,29 +96,45 @@ class MockSimulation:
 
     def __init__(self, config: MockSimulationConfig) -> None:
         self.field_size = config.field_size
+        self.number_enemies = config.number_enemies
+        self.enemy_live_for_steps = config.enemy_live_for_steps
         self.player = Player(config.field_size)
-        self.enemies = [Enemy(self.field_size, config.enemy_live_for_steps) for _ in range(config.number_enemies)]
         self.reset()
 
     def reset(self) -> None:
         self.player.reset()
+
+        self.enemies = [Enemy(self.field_size, self.enemy_live_for_steps) for _ in range(self.number_enemies)]
         for enemy in self.enemies:
             enemy.reset()
 
     def perform_action(self, move_direction: np.array) -> tuple[np.array, dict, bool]:
+        """Perform a step in the simulation.
+
+        The player moves in the given direction.
+        The enemies move towards the player.
+        If an enemy is close enough to the player, the player takes damage.
+        If an enemy has no more time to live, it is reset and takes damage.
+
+        Args:
+            move_direction (np.array): direction in which the player should move
+
+        Returns:
+            tuple[np.array, dict, bool]: observation, info, done
+        """
         self.player.move(move_direction)
 
         enemies_to_remove = []
         for enemy in self.enemies:
             enemy.move(self.player.postion)
 
-            if not enemy.take_damage():
+            if not enemy.take_step_damage():
                 enemies_to_remove.append(enemy)
                 continue
 
             if np.linalg.norm(self.player.postion - enemy.postion, 1) < BOUNDING_BOX_SIZE:
                 self.player.take_damage()
-                enemy.reset()
+                enemy.reset_position()
 
         for i in enemies_to_remove:
             self.enemies.remove(i)
