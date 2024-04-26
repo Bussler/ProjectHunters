@@ -19,7 +19,15 @@ from python_reinforcement_learning.gym_environment.project_hunter_environment im
 
 
 def render_evaluation(algorithm: Algorithm, eval_workers: WorkerSet) -> ResultDict:
-    eval_workers.foreach_env(lambda env: env.render())
+    # Play and render one episode on an evaluation worker environment
+    local_env = eval_workers.local_worker().env
+    if local_env is not None:
+        obs, info = local_env.reset()
+        terminated = truncated = False
+        while not terminated and not truncated:
+            action = algorithm.compute_single_action(obs)
+            obs, reward, terminated, truncated, info = local_env.step(action)
+            local_env.render()
 
     metrics = []
     for i in range(algorithm.evaluation_config.evaluation_duration):
@@ -53,17 +61,23 @@ def train_rllib():
             env_config=env_config.to_dict(),
         )
         .framework("torch")
-        .rollouts(num_rollout_workers=1)
+        .rollouts(num_rollout_workers=0)
         .resources(num_gpus=1)
         .evaluation(
             custom_evaluation_function=render_evaluation,
-            evaluation_interval=1,
+            evaluation_interval=1000,
             evaluation_num_workers=0,
-            evaluation_duration=3,
+            evaluation_duration=10,
         )
     )
 
-    stop = {"training_iterations": 1, "timesteps_total": 1000, "episode_reward_mean": 10, "save_iterations": 1000}
+    stop = {
+        "training_iterations": 10000,
+        "timesteps_total": 10000000,
+        "episode_reward_mean": 500,
+        "save_iterations": 1000,
+        "print_iterations": 1000,
+    }
 
     # use fixed learning rate instead of grid search (needs tune)
     config.lr = 1e-3
@@ -72,7 +86,6 @@ def train_rllib():
     # run manual training loop and print results after each iteration
     for i in range(stop["training_iterations"]):
         result = algo.train()
-        # print(pretty_print(result))
         if (
             result["timesteps_total"] >= stop["timesteps_total"]
             or result["episode_reward_mean"] >= stop["episode_reward_mean"]
@@ -81,11 +94,16 @@ def train_rllib():
             break
 
         if i % stop["save_iterations"] == 0:
-            checkpoint_dir = algo.save().checkpoint.path
-            print(f"Checkpoint saved in directory {checkpoint_dir}")
+            checkpoint_dir = algo.save("rllib_checkpoints").checkpoint.path
+            print(f"Checkpoint for episode {i} saved in directory {checkpoint_dir}")
 
-    checkpoint_dir = algo.save().checkpoint.path
+        if i % stop["print_iterations"] == 0:
+            print(pretty_print(result))
+
+    checkpoint_dir = algo.save("rllib_checkpoints").checkpoint.path
     print(f"Checkpoint saved in directory {checkpoint_dir}")
+
+    algo.evaluate()
 
     algo.stop()
     ray.shutdown()

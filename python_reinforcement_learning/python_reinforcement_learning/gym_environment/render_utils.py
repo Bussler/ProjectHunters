@@ -26,6 +26,7 @@ class PyGameRenderer:
 
         self.image_cache: list[np.array] = []
         self.store_dir = config.store_dir
+        self.episode_iter = 0
 
         self._init_pygame()
 
@@ -102,13 +103,15 @@ class PyGameRenderer:
         pygame.quit()
 
     def store_images(self) -> None:
-        if len(self.image_cache) <= 0:
+        if len(self.image_cache) <= 1:
+            self.image_cache = []
             return
 
-        directory = os.path.join(self.store_dir)
+        directory = os.path.join(self.store_dir, str(self.episode_iter))
         if not os.path.exists(directory):
             os.makedirs(directory)
 
         for i, image in enumerate(self.image_cache):
             pygame.image.save(pygame.surfarray.make_surface(image), os.path.join(directory, f"frame_{i}.png"))
         self.image_cache = []
+        self.episode_iter += 1

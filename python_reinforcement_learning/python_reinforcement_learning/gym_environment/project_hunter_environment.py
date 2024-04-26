@@ -72,6 +72,13 @@ class HunterEnvironment(gym.Env):
 
         if self.mock_environment is not None:
             self.mock_environment.reset()
+            observation = self.mock_environment.create_observation()
+            self.player_location = observation["player"]
+            self.enemy_locations = observation["enemies"]
+
+        if self.renderer is not None:
+            self.renderer.store_images()
+            self.render()
 
         observation = self._get_obs()
         info = self._get_info()
@@ -103,6 +110,7 @@ class HunterEnvironment(gym.Env):
     def close(self):
         if self.renderer is not None:
             self.renderer.free_ressources()
+            pass
         # TODO close unity environment
 
     def _test_terminated(self):
@@ -110,7 +118,7 @@ class HunterEnvironment(gym.Env):
             return True
         if self.mock_environment is not None:
             return not self.mock_environment.is_alive() or self.mock_environment.is_won()
-        return False  # TODO
+        return False
 
     def _calculate_reward(self):
         if self.mock_environment is not None:

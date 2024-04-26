@@ -139,14 +139,17 @@ class MockSimulation:
         for i in enemies_to_remove:
             self.enemies.remove(i)
 
-        observation = {
-            "player": self.player.get_observation(),
-            "enemies": [enemy.get_observation() for enemy in self.enemies],
-        }
+        observation = self.create_observation()
         info = self.player.get_info()
         done = not self.player.is_alive()
 
         return observation, info, done
+
+    def create_observation(self) -> np.array:
+        return {
+            "player": self.player.get_observation(),
+            "enemies": [enemy.get_observation() for enemy in self.enemies],
+        }
 
     def is_alive(self) -> bool:
         return self.player.is_alive()
