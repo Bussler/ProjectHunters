@@ -11,7 +11,7 @@ To speed up training I created a script-abstraction of the Unity Environment tha
 
 The PPO agent is able to learn basic evasive behaviours of incoming enemies relatively quickly after about 1000 distributed training iterations (1h of training).  
 The following gif shows the learning progress of the agent after 2000 training iterations: The agent is able to successfully evade enemies, until they die automatically.  
-![Results](images_inference\0\inference.gif)
+![Results](images_inference/0/inference.gif)
 
 ## Setup
 
