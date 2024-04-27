@@ -1,3 +1,5 @@
+import os
+
 import ray
 from ray.rllib.algorithms.algorithm import Algorithm
 
@@ -10,6 +12,7 @@ from python_reinforcement_learning.gym_environment.configs import (
 from python_reinforcement_learning.gym_environment.project_hunter_environment import (
     HunterEnvironment,
 )
+from python_reinforcement_learning.gym_environment.render_utils import PyGameRenderer
 
 
 def inference_rllib(env: HunterEnvironment, model_path: str, num_episodes=10):
@@ -30,6 +33,8 @@ def inference_rllib(env: HunterEnvironment, model_path: str, num_episodes=10):
         episode_reward += reward
 
     env.close()
+    store_dir = os.path.join(env.config.render_config.store_dir, "0")
+    PyGameRenderer.create_gif_from_images(store_dir, store_dir + "/inference.gif")
     algo.stop()
     ray.shutdown()
 

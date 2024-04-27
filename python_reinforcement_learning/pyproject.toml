@@ -14,6 +14,7 @@ pydantic = "^2.7.0"
 torch = {version = "^2.2.2+cu118", source = "pytorch-gpu-src"}
 torchvision = {version = "^0.17.2+cu118", source = "pytorch-gpu-src"}
 torchaudio = {version = "^2.2.2+cu118", source = "pytorch-gpu-src"}
+imageio = "^2.34.1"
 
 
 [tool.poetry.group.dev.dependencies]

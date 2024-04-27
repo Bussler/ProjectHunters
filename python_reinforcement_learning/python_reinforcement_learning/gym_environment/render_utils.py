@@ -1,5 +1,6 @@
 import os
 
+import imageio
 import numpy as np
 import pygame
 from gymnasium import spaces
@@ -115,3 +116,16 @@ class PyGameRenderer:
             pygame.image.save(pygame.surfarray.make_surface(image), os.path.join(directory, f"frame_{i}.png"))
         self.image_cache = []
         self.episode_iter += 1
+
+    @staticmethod
+    def create_gif_from_images(image_folder, gif_name):
+        # Get all image files from the image folder
+        images = [img for img in os.listdir(image_folder) if img.endswith(".png")]
+        images.sort(key=lambda img: int(img.split("_")[1].split(".")[0]))
+
+        images_data = []
+        for image in images:
+            images_data.append(imageio.imread(os.path.join(image_folder, image)))
+
+        # Write the images into a gif
+        imageio.mimsave(gif_name, images_data, fps=10)
