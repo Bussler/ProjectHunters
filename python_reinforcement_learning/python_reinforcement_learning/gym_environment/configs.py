@@ -27,7 +27,7 @@ class HunterEnvironmentConfig(BaseModel):
     size: int
     max_timestep: int
     udp_address: Optional[str]
-    simulation_config: Optional[MockSimulationConfig]
+    simulation_config: MockSimulationConfig
     render_config: RendererConfig
 
     def to_dict(self) -> dict:

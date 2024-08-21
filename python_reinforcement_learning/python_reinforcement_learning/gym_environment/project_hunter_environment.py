@@ -16,7 +16,6 @@ from python_reinforcement_learning.gym_environment.render_utils import PyGameRen
 
 
 class HunterEnvironment(gym.Env):
-    mock_environment: MockSimulation = None
 
     def __init__(
         self,
@@ -33,8 +32,10 @@ class HunterEnvironment(gym.Env):
         self.max_timestep = self.config.max_timestep
 
         # Mock environment for training, to not query the real unity environment all the time
+        self.mock_environment: MockSimulation | None = None
         if self.config is not None:
             self.mock_environment = MockSimulation(self.config.simulation_config)
+
         if self.config.udp_address is not None:
             self.udp_address = self.config.udp_address
 
@@ -147,6 +148,7 @@ class HunterEnvironment(gym.Env):
             return np.array([-1, 1])
         if action == 8:
             return np.array([-1, -1])
+        return np.array([0, 0])
 
     def _communicate_action(self, direction: np.array) -> None:
         if self.mock_environment is not None:
