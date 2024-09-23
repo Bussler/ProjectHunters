@@ -1,4 +1,7 @@
 # ProjectHunters
+
+[**Project**](https://bussler.github.io/#/project-hunters)
+
 This project combines my interests in deep reinforcement learning with game development.  
 The goal of this project is to train a deep reinforcement agent (PPO) on a custom top down VampireSurvivors Clone. Besides being an interesting problem, this could e.g. be used for the development of custom npc behaviours.
 
