@@ -2,13 +2,12 @@
 
 [**Project**](https://bussler.github.io/#/project-hunters)
 
-This project combines my interests in deep reinforcement learning with game development.  
-The goal of this project is to train a deep reinforcement agent (PPO) on a custom top down VampireSurvivors Clone. Besides being an interesting problem, this could e.g. be used for the development of custom npc behaviours.
+## Summary
 
-For this I developed an small game in Unity that works as an environment for the agent to play in.  
-I then created a custom gym environment that relays observations and agent action to and from the Unity environment via UDP Sockets.  
-Training is done with [rllib](https://docs.ray.io/en/latest/rllib/index.html), an open source library for reinforcement learning.  
-To speed up training I created a script-abstraction of the Unity Environment that mocks the real Unity environment. The real Unity environment is then used by the trained agent during inference.
+This project explores the intersection of deep reinforcement learning and game development through training a PPO (Proximal Policy Optimization) agent on a custom top-down VampireSurvivors clone.  
+The implementation features a Unity-based game environment that serves as a training ground for the reinforcement learning agent, with a custom OpenAI Gym environment facilitating communication between the Python-based RL training pipeline and Unity via UDP sockets.  
+To optimize training efficiency, the project includes a script-based abstraction layer that mocks the Unity environment during training, while reserving the full Unity environment for final agent inference and evaluation.  
+Training is conducted using [RLLIB](https://docs.ray.io/en/latest/rllib/index.html), leveraging open-source reinforcement learning capabilities to achieve robust agent performance in complex game scenarios.
 
 ## Results
 
