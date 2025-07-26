@@ -5,6 +5,7 @@
 ## Summary
 
 This project explores the intersection of deep reinforcement learning and game development through training a PPO (Proximal Policy Optimization) agent on a custom top-down VampireSurvivors clone.  
+
 The implementation features a Unity-based game environment that serves as a training ground for the reinforcement learning agent, with a custom OpenAI Gym environment facilitating communication between the Python-based RL training pipeline and Unity via UDP sockets.  
 To optimize training efficiency, the project includes a script-based abstraction layer that mocks the Unity environment during training, while reserving the full Unity environment for final agent inference and evaluation.  
 Training is conducted using [RLLIB](https://docs.ray.io/en/latest/rllib/index.html), leveraging open-source reinforcement learning capabilities to achieve robust agent performance in complex game scenarios.
